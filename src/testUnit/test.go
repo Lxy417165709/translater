@@ -17,8 +17,9 @@ func ShowTestResult(filePath string) {
 }
 func BuildGrammar(filePath string) {
 	grammarUnits := getGrammarUnits(filePath)
-	for _, unit := range grammarUnits {
-		lexicalTest.GlobalNFAManager.Add(unit.identity,lexicalTest.NewNFABuilder(unit.regexp))
+	for index, unit := range grammarUnits {
+		lexicalTest.GlobalNFAManager.Add(unit.identity,unit.regexp)
+		fmt.Printf("添加了第 %d 个特殊字符：%s   对应的正则表达式是：%s\n",index,string(unit.identity),unit.regexp)
 	}
 }
 

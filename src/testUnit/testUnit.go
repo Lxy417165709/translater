@@ -17,9 +17,10 @@ func NewTestUnit(regex string, pattern string, isMatch bool) *TestUnit {
 
 func (unit *TestUnit) test() bool {
 	nfaBuilder := lexicalTest.NewNFABuilder(unit.regex)
-	nfa := nfaBuilder.BuildNFA()
-
-	return nfa.IsMatch(unit.pattern) == unit.isMatch
+	//nfa := nfaBuilder.BuildNFA()
+	dfa := nfaBuilder.BuildDFA()
+	return dfa.IsMatch(unit.pattern) == unit.isMatch
+	//return nfa.IsMatch(unit.pattern) == unit.isMatch
 }
 
 

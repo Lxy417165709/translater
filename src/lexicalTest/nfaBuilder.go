@@ -14,7 +14,6 @@ type NFABuilder struct {
 	buildingNFA *NFA
 	endChar     byte
 }
-
 func NewNFABuilder(buildRegex string) *NFABuilder {
 	endChar := byte('#')
 	buildRegex += string(endChar)
@@ -27,22 +26,29 @@ func NewNFABuilder(buildRegex string) *NFABuilder {
 	}
 }
 
-func (nb *NFABuilder) BuildNFA() *NFA {
-	regexs := strings.Split(nb.buildRegex, RegexSplitString)
-	if len(regexs) == 1 {
-		nb.readingRegex = regexs[0]
+func (nb *NFABuilder) BuildNFA() *NFA{
+	regexps := strings.Split(nb.buildRegex, RegexSplitString)
+	if len(regexps) == 1 {
+		nb.readingRegex = regexps[0]
 		for !nb.readingIsOver(){
 			nb.parseChar()
 		}
 		return nb.buildingNFA
 	}
-	finalNFA := NewNFABuilder(regexs[0]).BuildNFA()
-	for i := 1; i < len(regexs); i++ {
-		regex := regexs[i]
-		finalNFA.AddParallelGraph(NewNFABuilder(regex).BuildNFA())
+	finalNFA := NewNFABuilder(regexps[0]).BuildNFA()
+	for i := 1; i < len(regexps); i++ {
+		regexp := regexps[i]
+		finalNFA.AddParallelNFA(NewNFABuilder(regexp).BuildNFA())
 	}
 	return finalNFA
 }
+
+
+func (nb *NFABuilder) BuildDFA() *NFA {
+	return nb.BuildNFA().ChangeToDFA()
+}
+
+
 
 func (nb *NFABuilder) parseChar() {
 	baseChar := nb.readingRegex[nb.readingPosition]

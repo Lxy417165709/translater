@@ -55,6 +55,9 @@ func parseGrammarUnitLine(line string) *GrammarUnit{
 
 	identity := parts[0][0]
 	regexp := parts[1]
+
+
+
 	return NewGrammarUnit(identity,regexp)
 }
 func parseTestUnitLine(line string) *TestUnit{
@@ -64,10 +67,18 @@ func parseTestUnitLine(line string) *TestUnit{
 	if len(parts) != 3 {
 		panic(fmt.Sprintf("分割测试单元：%v 失败，分割后的字段数不等于3", parts))
 	}
+	parts[0] = strings.TrimSpace(parts[0])
+	parts[1] = strings.TrimSpace(parts[1])
+	parts[2] = strings.TrimSpace(parts[2])
+
 
 	regex := parts[0]
 	pattern := parts[1]
+
 	matchFlag, err := strconv.Atoi(parts[2])
+
+
+
 	if err != nil {
 		panic(fmt.Sprintf("%v %v", err, parts))
 	}
