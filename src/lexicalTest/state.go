@@ -7,32 +7,30 @@ const eps = ' '
 // TODO: 重构！！！！！
 type State struct {
 	endFlag     bool
-	markFlag byte
+	markFlag    byte
 	toNextState map[byte][]*State
 }
 
 func NewState(endFlag bool) *State {
-	return &State{endFlag, eps,make(map[byte][]*State)}
+	return &State{endFlag, eps, make(map[byte][]*State)}
 }
 
-func (s *State) getFather(fatherSet map[*State]*State) *State{
+func (s *State) getFather(fatherSet map[*State]*State) *State {
 	return fatherSet[s]
 }
-func (s *State) Merge(hasVisited map[*State]bool){
-	if hasVisited[s]{
+func (s *State) Merge(hasVisited map[*State]bool) {
+	if hasVisited[s] {
 		return
 	}
-	hasVisited[s]=true
+	hasVisited[s] = true
 	// 消除空白态
-	for len(s.getNextBlankStates())!=0{
-		nextBlankStates := s.getNextBlankStates()
-		s.cleanNextBlankStates()
-		s.AddNextStates(s.getStatesToNext(nextBlankStates))
-		for _,nextBlankState:=range nextBlankStates{
-			if nextBlankState.endFlag==true{
-				s.endFlag = true
-			}
+	for s.haveBlankStates() {
+		mapOfReachableStateOfBlankStates := s.formMapOfReachableStateOfBlankStates()
+		if s.isNextBlankStatesHaveEndState() {
+			s.setEndFlag(true)
 		}
+		s.cleanBlankStates()
+		s.AddNextStates(mapOfReachableStateOfBlankStates)
 	}
 
 	//对非空白态的子节点进行处理
@@ -42,120 +40,149 @@ func (s *State) Merge(hasVisited map[*State]bool){
 	}
 	return
 }
-func (s *State) getNextBlankStates() []*State{
+func (s *State) setEndFlag(value bool) {
+	s.endFlag = value
+}
+func (s *State) formMapOfReachableStateOfBlankStates() map[byte][]*State {
+	blankStates := s.getNextBlankStates()
+	return getStatesToNext(blankStates)
+}
+func (s *State) isNextBlankStatesHaveEndState() bool {
+	nextBlankStates := s.getNextBlankStates()
+	return haveEndState(nextBlankStates)
+}
+func (s *State) haveBlankStates() bool {
+	return len(s.getNextBlankStates()) != 0
+}
+
+func (s *State) getNextBlankStates() []*State {
 	return s.getNextStates(eps)
 }
-func (s *State) getAllNextStates() []*State{
-	result := make([]*State,0)
-	for char := range s.toNextState{
-		result = append(result,s.getNextStates(char)...)
+func (s *State) getAllNextStates() []*State {
+	result := make([]*State, 0)
+	for char := range s.toNextState {
+		result = append(result, s.getNextStates(char)...)
 	}
 	return result
 }
 
-
 func (s *State) AddNextStates(addedMap map[byte][]*State) {
-	for char,states := range addedMap{
+	for char, states := range addedMap {
 		s.toNextState[char] = append(s.toNextState[char], states...)
 	}
 }
 
-
-func (s *State) cleanNextBlankStates() {
+func (s *State) cleanBlankStates() {
 	s.cleanNextStates(eps)
 }
 func (s *State) cleanNextStates(char byte) {
-	delete(s.toNextState,char)
+	delete(s.toNextState, char)
 }
 
-//var i=0
 // TODO： N -> X | Z 有问题..  这个的DFA不正确...
+// TODO: 有时候测试可以通过，有时候不可以...
+//var i=0
 func (s *State) DFA(hasVisited map[*State]bool) *State {
 	//i++
 	//if i==10{
-	//	panic("taiduo")
+	//	panic("toolllll")
 	//}
-	//fmt.Printf("%p %v\n",s,s)
 	if hasVisited[s] {
 		return s
 	}
 	hasVisited[s] = true
-
-	for firstLayChar, firstLayStates := range s.toNextState {
-		states := make([]*State,0)
-		for _,state := range firstLayStates{
-			states=append(states,state)
-		}
-
-		if len(states) == 0{
-			continue
-		}
-		if len(states) == 1 {
-			s.cleanNextStates(firstLayChar)
-			s.toNextState[firstLayChar] = append(s.toNextState[firstLayChar],states[0].DFA(hasVisited))
-		} else {
-			compoundState := NewState(s.hasEndFlag(states))
-			compoundState.toNextState = s.getStatesToNext(states)
-
-			// 重复的取第一个就可以了
-			if s.toNextIsSame(compoundState) && compoundState.toNextIsSame(s){
-				onlyState := s.toNextState[firstLayChar][0]
-				s.cleanNextStates(firstLayChar)
-				s.toNextState[firstLayChar] = append(s.toNextState[firstLayChar], onlyState.DFA(hasVisited))
-				return s
-			}
-			if s.hasSelf(states) {
-				compoundState.LinkByChar(firstLayChar, compoundState)
-			}
-			s.cleanNextStates(firstLayChar)
-			s.toNextState[firstLayChar] = append(s.toNextState[firstLayChar], compoundState.DFA(hasVisited))
-		}
+	for char := range s.toNextState {
+		dfaState := s.getDFAState(char)
+		s.cleanNextStates(char)
+		s.LinkByChar(char,dfaState.DFA(hasVisited))
 	}
 	return s
 }
-func (s *State)toNextIsSame(reference *State) bool{
 
-	for byte,nextStates := range reference.toNextState{
-		hasVisit := make(map[*State]bool)
-		for _,nextState := range nextStates{
-			hasVisit[nextState]=true
+
+
+// TODO: 这个函数还是有问题的     D+.D+|D+ 这种情况不能判断
+func (s *State) getDFAState(char byte) *State{
+	states := s.toNextState[char]
+	if len(states) == 1 {
+		return states[0]
+	}
+	dfaState := NewState(s.hasEndFlag(s.toNextState[char]))
+	dfaState.toNextState = s.formMapOfReachableStateOfAllNextStates()
+
+	if s.toNextIsSame(dfaState) {
+		dfaState = s.toNextState[char][0]
+		return dfaState
+	}
+	if s.hasSelf(char) {
+		dfaState.LinkByChar(char, dfaState)
+	}
+	return dfaState
+}
+
+func (s *State) formMapOfReachableStateOfAllNextStates() map[byte][]*State {
+	allNextStates := s.getAllNextStates()
+	return getStatesToNext(allNextStates)
+}
+
+
+
+func (s *State) toNextIsSame(reference *State) bool {
+	if len(s.toNextState)!=len(reference.toNextState){
+		return false
+	}
+
+	for char, nextStates := range reference.toNextState {
+		HasVisitOfS := make(map[*State]bool)
+		HasVisitOfRef := make(map[*State]bool)
+		for _, nextState1 := range nextStates {
+			HasVisitOfRef[nextState1] = true
 		}
-		for _,nextState := range s.toNextState[byte]{
-			if hasVisit[nextState]==false {
+		for _, nextState1 := range s.toNextState[char] {
+			HasVisitOfS[nextState1] = true
+		}
+		//if len(HasVisitOfS)!=len(HasVisitOfRef){
+		//	return false
+		//}
+		for state := range HasVisitOfS{
+			if HasVisitOfRef[state]==false{
 				return false
 			}
 		}
+		for state := range HasVisitOfRef{
+			if HasVisitOfS[state]==false{
+				return false
+			}
+		}
+
 	}
 	return true
 }
 
-
-func (s *State) stateIsLiving(char byte,x *State) bool{
-	for _,state := range s.toNextState[char]{
-		if state == x{
+func (s *State) stateIsLiving(char byte, x *State) bool {
+	for _, state := range s.toNextState[char] {
+		if state == x {
 			return true
 		}
 	}
 	return false
 }
 
-
-
-func (s *State) CanBeStartOfDFA(hasVisited map[*State]bool) bool{
-	if hasVisited[s]{
+func (s *State) CanBeStartOfDFA(hasVisited map[*State]bool) bool {
+	if hasVisited[s] {
 		return true
 	}
 	hasVisited[s] = true
 
 	charsOfLinkingToNextStates := s.getTheCharsOfLinkingToNextStates()
-	for _,char := range charsOfLinkingToNextStates{
+	for _, char := range charsOfLinkingToNextStates {
 		nextStates := s.getNextStates(char)
-		if len(nextStates)!=1{
+		if len(nextStates) != 1 {
 			return false
 		}
 		// 往后搜索
-		for _,state := range nextStates{
-			if state.CanBeStartOfDFA(hasVisited)==false{
+		for _, state := range nextStates {
+			if state.CanBeStartOfDFA(hasVisited) == false {
 				return false
 			}
 		}
@@ -186,7 +213,7 @@ func (s *State) IsMatch(pattern string) bool {
 	return false
 }
 
-func (s *State) MarkDown(specialChar byte,stateIsVisit map[*State]bool) {
+func (s *State) MarkDown(specialChar byte, stateIsVisit map[*State]bool) {
 	currentState := s
 	if stateIsVisit[currentState] {
 		return
@@ -195,7 +222,7 @@ func (s *State) MarkDown(specialChar byte,stateIsVisit map[*State]bool) {
 	s.markFlag = specialChar
 	for _, nextStates := range s.toNextState {
 		for _, nextState := range nextStates {
-			nextState.MarkDown(specialChar,stateIsVisit)
+			nextState.MarkDown(specialChar, stateIsVisit)
 		}
 	}
 }
@@ -231,33 +258,30 @@ func (s *State) Link(nextState *State) {
 	s.LinkByChar(eps, nextState)
 }
 
-
-func (s *State) getNextStates(char byte) []*State{
+func (s *State) getNextStates(char byte) []*State {
 	return s.toNextState[char]
 }
-func (s *State) getTheCharsOfLinkingToNextStates() []byte{
-	chars := make([]byte,0)
-	for char := range s.toNextState{
+func (s *State) getTheCharsOfLinkingToNextStates() []byte {
+	chars := make([]byte, 0)
+	for char := range s.toNextState {
 		chars = append(chars, char)
 	}
 	return chars
 }
 
-
-
-func (s *State) getStatesToNext(states []*State) map[byte][]*State {
+func getStatesToNext(states []*State) map[byte][]*State {
 	result := make(map[byte][]*State)
 	for _, state := range states {
 		for char, nextStates := range state.toNextState {
-			for _,nextState := range nextStates{
+			for _, nextState := range nextStates {
 				result[char] = append(result[char], nextState)
 			}
 		}
 	}
 	return result
 }
-func (s *State) hasSelf(states []*State) bool {
-	for _, state := range states {
+func (s *State) hasSelf(char byte) bool {
+	for _, state := range s.toNextState[char] {
 		if state == s {
 			return true
 		}
@@ -272,9 +296,6 @@ func (s *State) hasEndFlag(states []*State) bool {
 	}
 	return false
 }
-
-
-
 
 func (s *State) getEndMark() string {
 	if s.endFlag == true {

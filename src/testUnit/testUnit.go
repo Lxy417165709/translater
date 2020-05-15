@@ -1,6 +1,7 @@
 package testUnit
 
 import (
+	"fmt"
 	"lexicalTest"
 )
 
@@ -26,6 +27,9 @@ func (unit *TestUnit) nfaTest() bool {
 func (unit *TestUnit) dfaTest() bool {
 	nfaBuilder := lexicalTest.NewNFABuilder(unit.regex)
 	dfa := nfaBuilder.BuildDFA()
+	if !dfa.IsDFA(){
+		panic(fmt.Sprintf("DFA算法有误 %v",*unit))
+	}
 	return dfa.IsMatch(unit.pattern) == unit.isMatch
 }
 

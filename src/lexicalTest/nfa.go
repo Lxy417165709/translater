@@ -77,7 +77,6 @@ func NewNFA(char byte) *NFA {
 
 func (nfa *NFA) Merge(){
 	hasVisited := make(map[*State]bool)
-	//fatherSet := make(map[*State]*State)
 	nfa.getStartState().Merge(hasVisited)
 }
 
@@ -89,17 +88,16 @@ func (nfa *NFA)MarkDown(specialChar byte) {
 
 func (nfa *NFA) Show() {
 	ids := make(map[*State]int)
+	fmt.Println("-------------------------------------------------------------")
+	fmt.Println("是否DFA:",nfa.IsDFA())
 	nfa.getStartState().Show(0, ids, make(map[*State]bool))
 	fmt.Println(ids)
-	fmt.Println()
+	fmt.Println("-------------------------------------------------------------")
 }
 func (nfa *NFA) ChangeToDFA() {
 	// TODO: 这可能有些问题，可能nfa.endState会发生改变
 	hasVisited := make(map[*State]bool)
 	nfa.getStartState().DFA(hasVisited)
-	//if !nfa.IsDFA(){
-	//	panic("DFA算法有误")
-	//}
 }
 func (nfa *NFA) Get(pattern string) []string{
 
@@ -137,9 +135,9 @@ func (nfa *NFA) Get(pattern string) []string{
 	return result
 }
 func (nfa *NFA) IsMatch(pattern string) bool {
-	if nfa.IsDFA(){
-		fmt.Println("		「DFA匹配」		")
-	}
+	//if nfa.IsDFA(){
+	//	fmt.Println("		「DFA匹配」		")
+	//}
 	return nfa.startState.IsMatch(pattern)
 }
 func (nfa *NFA) IsDFA() bool {

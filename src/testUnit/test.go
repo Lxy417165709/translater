@@ -7,27 +7,31 @@ import (
 
 func ShowTestResult(filePath string) {
 	testUnits := getTestUnits(filePath)
-	fmt.Println("------------------------------------ NFA -------------------------------------")
+
+	//fmt.Println("------------------------------------ NFA -------------------------------------")
 	testType := "NFA"
 	for index, unit := range testUnits {
+		//fmt.Printf("[%s] 第 %d 个测试单元: %v \n", testType,index+1,*unit)
 		if !unit.nfaTest() {
-			fmt.Printf("[%s] 没通过第 %d 个测试单元: %v \n", testType,index+1, *unit)
-			panic("测试失败")
+			//fmt.Printf("[%s] 没通过第 %d 个测试单元: %v \n", testType,index+1, *unit)
+			panic(fmt.Sprintf("[%s] 没通过第 %d 个测试单元: %v \n", testType,index+1,*unit))
+
 		} else {
-			fmt.Printf("通过第 %d 个测试单元: %v \n", index+1, *unit)
+			//fmt.Printf("通过第 %d 个测试单元: %v \n", index+1, *unit)
 		}
 	}
-	fmt.Println("------------------------------------ DFA -------------------------------------")
+	//fmt.Println("------------------------------------ DFA -------------------------------------")
 	testType = "DFA"
 	for index, unit := range testUnits {
+		//fmt.Printf("[%s] 第 %d 个测试单元: %v \n", testType,index+1,*unit)
 		if !unit.dfaTest() {
-			fmt.Printf("[%s] 没通过第 %d 个测试单元: %v \n", testType,index+1, *unit)
-			panic("测试失败")
+			//fmt.Printf("[%s] 没通过第 %d 个测试单元: %v \n", testType,index+1, *unit)
+			panic(fmt.Sprintf("[%s] 没通过第 %d 个测试单元: %v \n", testType,index+1,*unit))
 		} else {
-			fmt.Printf("通过第 %d 个测试单元: %v \n", index+1, *unit)
+			//fmt.Printf("通过第 %d 个测试单元: %v \n", index+1, *unit)
 		}
 	}
-	fmt.Println("--------------------------------- 测试完成 -------------------------------------")
+	//fmt.Println("--------------------------------- 测试完成 -------------------------------------")
 }
 
 

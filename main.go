@@ -26,32 +26,12 @@ var programFilePath = `C:\Users\hasee\Desktop\Go_Practice\编译器\doc\source2.
 func main() {
 
 	testUnit.BuildGrammar(grammarFilePath)
-	allTest()
-	/*
-		D -> 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9
-		L -> a | b | c | d | e | f | g | h | i | j | k | l | m | n | o | p | q | r|s |t |u|v|w|x|y|z
-		T -> D | L
-		W -> if | while | for | int | else
-		O -> > | < | >= | <= | = | ==
-		Z -> D+
-		I -> LT*
-	*/
 
-	// TODO：加标记
-
-	//testUnit.BuildGrammar(grammarFilePath)
-	//g := lexicalTest.NewNFABuilder("G").BuildDFA()
-	//g.MarkDown('G')
-	//d := lexicalTest.NewNFABuilder("D").BuildDFA()
-	//d.MarkDown('D')
-	//g.AddParallelNFA(d)
-	////g.Merge()
-	//g.Show()
-	////g.ChangeToDFA()
-	////g.Show()
-	//if !g.IsDFA(){
-	//	fmt.Println("dfa不是dfa")
-	//}
+	allTest(20)
+	fmt.Println("测试通过！")
+	//dfa := lexicalTest.NewNFABuilder("N").BuildDFA()
+	//dfa.Show()
+	//fmt.Println(dfa.Get("0.00 0.00 0000 00000.004 00.5"))
 
 }
 
@@ -71,10 +51,37 @@ func getProgramData() []byte{
 	//}
 }
 
-func allTest() {
-	for index, testFilePath := range testFilePaths {
-		fmt.Printf("----------------------------- 第 %d 个测试文件-----------------------------\n", index+1)
-		testUnit.ShowTestResult(testFilePath)
-		fmt.Println()
+func allTest(testTimes int) {
+	for i:=0;i<testTimes;i++{
+		for _, testFilePath := range testFilePaths {
+			//fmt.Printf("----------------------------- 第 %d 个测试文件-----------------------------\n", index+1)
+			testUnit.ShowTestResult(testFilePath)
+			//fmt.Println()
+		}
 	}
+}
+
+func foo() {
+	//for i:=0;i<20;i++{
+	//	w := lexicalTest.NewNFABuilder("d$d$").BuildNFA()
+	//	fmt.Println("nfa:")
+	//	w.Show()
+	//	if w.IsMatch("")==false{
+	//		panic(fmt.Sprintf("[nfa] 第%d 次，发生错误！",i+1))
+	//	}
+	//	w.Merge()
+	//	fmt.Println("nfa merge:")
+	//	w.Show()
+	//	if w.IsMatch("")==false{
+	//		panic(fmt.Sprintf("[nfa merge]第%d 次，发生错误！",i+1))
+	//	}
+	//	w.ChangeToDFA()
+	//	fmt.Println("dfa:")
+	//	w.Show()
+	//	if w.IsMatch("")==false{
+	//		panic(fmt.Sprintf("[dfa] 第%d 次，发生错误！",i+1))
+	//	}
+	//	//fmt.Println(w.IsMatch("int"))
+	//}
+
 }

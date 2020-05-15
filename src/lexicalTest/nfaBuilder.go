@@ -50,6 +50,7 @@ func (nb *NFABuilder) BuildDFA() *NFA {
 	nfa := nb.BuildNFA()
 	nfa.Merge()
 	nfa.ChangeToDFA()
+
 	return nfa
 }
 
@@ -64,10 +65,10 @@ func (nb *NFABuilder) parseChar() {
 	baseChar := nb.getBaseChar()
 	nextChar := nb.getNextChar()
 	switch {
-	case nextChar == '@':
+	case nextChar == repeatPlusSymbol:
 		nb.finalNFA.RepeatPlus(baseChar)
 		nb.readingPositionMoveTwice()
-	case nextChar == '$':
+	case nextChar == repeatZeroSymbol:
 		nb.finalNFA.RepeatZero(baseChar)
 		nb.readingPositionMoveTwice()
 	default:

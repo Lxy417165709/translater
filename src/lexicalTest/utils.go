@@ -1,6 +1,19 @@
 package lexicalTest
 
+const (
+	repeatPlusSymbol = '@'
+	repeatZeroSymbol = '$'
+)
 
+
+func haveEndState(states []*State) bool{
+	for _,state:=range states{
+		if state.endFlag==true{
+			return true
+		}
+	}
+	return false
+}
 
 func charToNFA(char byte) *NFA {
 	if !GlobalRegexpsManager.CharIsSpecial(char) {
