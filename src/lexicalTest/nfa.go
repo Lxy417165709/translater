@@ -5,126 +5,188 @@ import "fmt"
 type NFA struct {
 	startState *State
 	endState   *State
-	isDFA      bool
 }
-func (nfa *NFA) IsDFA() bool{
-	return nfa.isDFA
-}
-// 重构
 
-// 空NFA能匹配空字符串
-func NewNFA() *NFA {
+func NewNFA(char byte) *NFA {
 	startState := NewState(false)
 	endState := NewState(true)
-	startState.Link(endState)
-	return &NFA{startState, endState, false}
+	startState.LinkByChar(char,endState)
+	return &NFA{startState, endState}
+}
+//func NewTestNFA() *NFA {
+//	s0 := NewState(false)
+//	s1 := NewState(false)
+//	s2 := NewState(false)
+//	s3 := NewState(false)
+//	s4 := NewState(false)
+//	//s0.LinkByChar('a',s1)
+//	s0.Link(s1)
+//	s1.Link(s2)
+//	s1.LinkByChar('a',s4)
+//	s2.LinkByChar('a',s3)
+//	s3.LinkByChar('b',s1)
+//	s4.endFlag=true
+//
+//
+//
+//
+//
+//	return &NFA{s0,nil}
+//}
+//func NewTestNFA2() *NFA {
+//	s0 := NewState(false)
+//	s1 := NewState(false)
+//	s2 := NewState(false)
+//	s3 := NewState(false)
+//	//s4 := NewState(false)
+//	//id:0     --a--> id:1
+//	//id:3     --a--> id:1
+//	//id:3     --a--> id:2
+//	//id:2     --b--> id:3
+//	//id:0     --a--> id:2
+//
+//	s0.LinkByChar('a',s1)
+//	s3.LinkByChar('a',s1)
+//	s3.LinkByChar('a',s2)
+//	s2.LinkByChar('b',s3)
+//	s0.LinkByChar('a',s2)
+//
+//
+//	return &NFA{s0,nil}
+//}
+//func NewTestNFA3() *NFA {
+//	s0 := NewState(false)
+//	s1 := NewState(false)
+//
+//	//s4 := NewState(false)
+//	//id:0     --a--> id:1
+//	//id:3     --a--> id:1
+//	//id:3     --a--> id:2
+//	//id:2     --b--> id:3
+//	//id:0     --a--> id:2
+//
+//	s0.LinkByChar('d',s1)
+//	s1.LinkByChar('d',s1)
+//	s0.LinkByChar('d',s0)
+//	// TODO: 要处理这种情况..
+//
+//	return &NFA{s0,nil}
+//}
+
+
+
+func (nfa *NFA) Merge(){
+	hasVisited := make(map[*State]bool)
+	//fatherSet := make(map[*State]*State)
+	nfa.getStartState().Merge(hasVisited)
 }
 
-// 创建字符对应的状态机
-func NewCharNFA(char byte) *NFA {
-	startState := NewState(false)
-	endState := NewState(true)
-	startState.LinkByChar(char, endState)
-	return &NFA{startState, endState, false}
+
+func (nfa *NFA)MarkDown(specialChar byte) {
+	nfa.startState.MarkDown(specialChar,make(map[*State]bool))
 }
 
-func NewTestNFA() *NFA {
-	nextState0 := NewState(false)
-	nextState1 := NewState(false)
-	nextState2 := NewState(false)
-	nextState3 := NewState(false)
-	nextState4 := NewState(false)
-	nextState5 := NewState(false)
-	nextState6 := NewState(false)
-	nextState7 := NewState(false)
-	nextState8 := NewState(false)
-	nextState10 := NewState(false)
 
-	//nextState3.LinkByChar('d', nextState4)
-	//
-	//nextState4.LinkByChar('f', startState)
-	//
-
-	nextState0.LinkByChar(eps, nextState1)
-	nextState1.LinkByChar(eps, nextState2)
-	nextState2.LinkByChar(eps, nextState3)
-	nextState3.LinkByChar(eps, nextState4)
-	nextState4.LinkByChar(eps, nextState5)
-	nextState5.LinkByChar(eps, nextState6)
-	nextState6.LinkByChar('a', nextState7)
-	nextState7.LinkByChar(eps, nextState8)
-	nextState8.LinkByChar(eps, nextState10)
-	nextState8.LinkByChar(eps, nextState3)
-	return &NFA{nextState0, nil, false}
+func (nfa *NFA) Show() {
+	ids := make(map[*State]int)
+	nfa.getStartState().Show(0, ids, make(map[*State]bool))
+	fmt.Println(ids)
+	fmt.Println()
 }
+func (nfa *NFA) ChangeToDFA() {
+	// TODO: 这可能有些问题，可能nfa.endState会发生改变
+	hasVisited := make(map[*State]bool)
+	nfa.getStartState().DFA(hasVisited)
+	//if !nfa.IsDFA(){
+	//	panic("DFA算法有误")
+	//}
+}
+func (nfa *NFA) Get(pattern string) []string{
 
+	result := make([]string,0)
+	begin := nfa.startState
+	buffer := ""
+	for position := 0;position<len(pattern);position++{
+		if pattern[position]=='#'{
+			break
+		}
+		//fmt.Printf("%d-%v-%v-\n",position,pattern[position],string(pattern[position]))
+		// 不匹配
+		if len(begin.toNextState[pattern[position]])==0{
+			if begin.endFlag{
+				result = append(result,buffer)
+				fmt.Print(buffer)
+			}
+			begin = nfa.startState
+			buffer = ""
+
+			if len(begin.toNextState[pattern[position]])!=0{
+				position--
+			}else{
+				fmt.Print(string(pattern[position]))
+			}
+			continue
+		}
+		// 成功匹配
+		buffer+=string(pattern[position])
+		begin = begin.toNextState[pattern[position]][0]
+	}
+	if buffer!=""{
+		result = append(result,buffer)
+	}
+	return result
+}
 func (nfa *NFA) IsMatch(pattern string) bool {
-	if nfa.isDFA {
-		return nfa.startState.IsMatchByDFA(pattern)
+	if nfa.IsDFA(){
+		fmt.Println("		「DFA匹配」		")
 	}
 	return nfa.startState.IsMatch(pattern)
 }
-func (nfa *NFA) Show() {
-	ids := make(map[*State]int)
-	nfa.startState.Show(0, ids, make(map[*State]bool))
-	fmt.Println(ids)
+func (nfa *NFA) IsDFA() bool {
+	hasVisited := make(map[*State]bool)
+	return nfa.getStartState().CanBeStartOfDFA(hasVisited)
 }
 
-// TODO: 可以统一
 func (nfa *NFA) RepeatPlus(char byte) {
-	var beAddedNFA *NFA
-	if !GlobalNFAManager.IdentityIsExist(char) {
-		beAddedNFA = NewCharNFA(char)
-	} else {
-		beAddedNFA = NewNFABuilder(GlobalNFAManager.Get(char)).BuildDFA()
-	}
-
-	beAddedNFA.getEndState().Link(beAddedNFA.getStartState())
-	nfa.AddSeriesNFA(beAddedNFA)
+	shouldAddNFA := charToNFA(char)
+	shouldAddNFA.linkEndStateToStartState()
+	nfa.AddSeriesNFA(shouldAddNFA)
 }
 func (nfa *NFA) RepeatZero(char byte) {
-	var beAddedNFA *NFA
-	if !GlobalNFAManager.IdentityIsExist(char) {
-		beAddedNFA = NewCharNFA(char)
-	} else {
-		beAddedNFA = NewNFABuilder(GlobalNFAManager.Get(char)).BuildDFA()
-	}
+	shouldAddNFA  := charToNFA(char)
+	shouldAddNFA .linkEndStateToStartState()
 
-	// 次序不能倒
-	beAddedNFA.getEndState().Link(beAddedNFA.getStartState())
+	endStateOfShouldAddNFA := NewState(true)
+	shouldAddNFA.linkStartStateTo(endStateOfShouldAddNFA)
+	shouldAddNFA.setEndState(endStateOfShouldAddNFA)
 
-	// 次序不能倒
-	beAddedNFAEndState := NewState(true)
-	beAddedNFA.startState.Link(beAddedNFAEndState)
-	beAddedNFA.setEndState(beAddedNFAEndState)
-
-	nfa.AddSeriesNFA(beAddedNFA)
+	nfa.AddSeriesNFA(shouldAddNFA)
 }
 func (nfa *NFA) Once(char byte) {
-	var beAddedNFA *NFA
-	if !GlobalNFAManager.IdentityIsExist(char) {
-		beAddedNFA = NewCharNFA(char)
-	} else {
-		beAddedNFA = NewNFABuilder(GlobalNFAManager.Get(char)).BuildDFA()
-		//fmt.Printf("%p\n",GlobalNFAManager.Get(char))
-	}
+	beAddedNFA := charToNFA(char)
 	nfa.AddSeriesNFA(beAddedNFA)
 }
 
 func (nfa *NFA) AddParallelNFA(beAddedNFA *NFA) {
-	nfa.startState.Link(beAddedNFA.startState)
 	beAddedNFA.breakDown()
-	beAddedNFA.endState.Link(nfa.endState)
+	nfa.getStartState().Link(beAddedNFA.getStartState())
+	beAddedNFA.getEndState().Link(nfa.getEndState())
 }
 func (nfa *NFA) AddSeriesNFA(beAddedNFA *NFA) {
 	nfa.breakDown()
-	nfa.endState.Link(beAddedNFA.startState)
-	nfa.endState = beAddedNFA.endState
+	nfa.getEndState().Link(beAddedNFA.getStartState())
+	nfa.setEndState(beAddedNFA.getEndState())
 }
 
-func (nfa *NFA) EndTo(state *State) {
-	nfa.endState.Link(state)
-	//nfa.endState = state
+func (nfa *NFA) linkEndStateToStartState() {
+	nfa.getEndState().Link(nfa.getStartState())
+}
+func (nfa *NFA) linkStartStateTo(state *State) {
+	nfa.getStartState().Link(state)
+}
+
+func (nfa *NFA) breakDown() {
+	nfa.getEndState().endFlag = false
 }
 func (nfa *NFA) getStartState() *State {
 	return nfa.startState
@@ -132,23 +194,9 @@ func (nfa *NFA) getStartState() *State {
 func (nfa *NFA) getEndState() *State {
 	return nfa.endState
 }
-
 func (nfa *NFA) setStartState(state *State) {
 	nfa.startState = state
 }
 func (nfa *NFA) setEndState(state *State) {
 	nfa.endState = state
-}
-
-func (nfa *NFA) breakDown() {
-	nfa.isDFA = false
-	nfa.endState.endFlag = false
-}
-func (nfa *NFA) open() {
-	nfa.endState.endFlag = true
-}
-
-func (nfa *NFA) ChangeToDFA() *NFA {
-	nfa.startState.DFA(make(map[*State]bool))
-	return nfa
 }

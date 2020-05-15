@@ -1,26 +1,21 @@
 package lexicalTest
 
-var GlobalNFAManager = NewNFAManager()
-
-
-type NFAManager struct {
-	identityToNFABuilder map[byte]string
+var GlobalRegexpsManager = NewRegexpsManager()
+type RegexpsManager struct {
+	charToRegexp map[byte]string
+}
+func NewRegexpsManager() *RegexpsManager {
+	return &RegexpsManager{make(map[byte]string)}
 }
 
-
-
-func NewNFAManager() *NFAManager {
-	return &NFAManager{make(map[byte]string)}
+func (nm *RegexpsManager)AddSpecialChar(specialChar byte, regexp string) {
+	nm.charToRegexp[specialChar] = regexp
 }
-
-func (nm *NFAManager) Add(identity byte, regexp string) {
-	nm.identityToNFABuilder[identity] = regexp
+func (nm *RegexpsManager)GetRegexp(specialChar byte) string{
+	return nm.charToRegexp[specialChar]
 }
-func (nm *NFAManager)Get(identity byte) string{
-	return nm.identityToNFABuilder[identity]
-}
-func (nm *NFAManager)IdentityIsExist(identity byte) bool{
-	return nm.identityToNFABuilder[identity]!=""
+func (nm *RegexpsManager)CharIsSpecial(char byte) bool{
+	return nm.charToRegexp[char]!=""
 }
 
 

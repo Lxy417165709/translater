@@ -8,66 +8,92 @@ const RegexSplitString = "|"
 
 // TODO: 重构
 type NFABuilder struct {
-	buildRegex  string
-	readingRegex string
+	buildRegexp     string // 存在 RegexSplitString 的正则表达式，可以分割为多个NFA
+	readingRegex    string // 不存在 RegexSplitString 的正则表达式，只能形成一个NFA
 	readingPosition int
-	buildingNFA *NFA
-	endChar     byte
+	endChar         byte
+	finalNFA        *NFA
 }
-func NewNFABuilder(buildRegex string) *NFABuilder {
+
+func NewNFABuilder(buildRegexp string) *NFABuilder {
 	endChar := byte('#')
-	buildRegex += string(endChar)
 	return &NFABuilder{
-		buildRegex,
-		buildRegex,
+		buildRegexp + string(endChar), // 为了方便越界判断
+		buildRegexp,
 		0,
-		NewNFA(),
 		endChar,
+		NewNFA(eps),
 	}
 }
 
-func (nb *NFABuilder) BuildNFA() *NFA{
-	regexps := strings.Split(nb.buildRegex, RegexSplitString)
-	if len(regexps) == 1 {
-		nb.readingRegex = regexps[0]
-		for !nb.readingIsOver(){
+func (nb *NFABuilder) BuildNFA() *NFA {
+	regexps := strings.Split(nb.buildRegexp, RegexSplitString)
+	if len(regexps) == 0 {
+		return nil
+	}
+	if nb.buildRegexpIsRespondToSingleNFA() {
+		nb.setReadingRegexp(regexps[0])
+		for !nb.readingIsOver() {
 			nb.parseChar()
 		}
-		return nb.buildingNFA
+	} else {
+		nb.finalNFA = NewNFABuilder(regexps[0]).BuildNFA()
+		for i := 1; i < len(regexps); i++ {
+			nb.finalNFA.AddParallelNFA(NewNFABuilder(regexps[i]).BuildNFA())
+		}
 	}
-	finalNFA := NewNFABuilder(regexps[0]).BuildNFA()
-	for i := 1; i < len(regexps); i++ {
-		regexp := regexps[i]
-		finalNFA.AddParallelNFA(NewNFABuilder(regexp).BuildNFA())
-	}
-	return finalNFA
+	return nb.finalNFA
 }
 
 
 func (nb *NFABuilder) BuildDFA() *NFA {
-	return nb.BuildNFA().ChangeToDFA()
+	nfa := nb.BuildNFA()
+	nfa.Merge()
+	nfa.ChangeToDFA()
+	return nfa
 }
+
+
+
+
+
 
 
 
 func (nb *NFABuilder) parseChar() {
-	baseChar := nb.readingRegex[nb.readingPosition]
-	nextChar := nb.readingRegex[nb.readingPosition+1]
+	baseChar := nb.getBaseChar()
+	nextChar := nb.getNextChar()
 	switch {
-	case nextChar == '+':
-		nb.buildingNFA.RepeatPlus(baseChar)
-		nb.readingPosition+=2
-	case nextChar == '*':
-		nb.buildingNFA.RepeatZero(baseChar)
-		nb.readingPosition+=2
+	case nextChar == '@':
+		nb.finalNFA.RepeatPlus(baseChar)
+		nb.readingPositionMoveTwice()
+	case nextChar == '$':
+		nb.finalNFA.RepeatZero(baseChar)
+		nb.readingPositionMoveTwice()
 	default:
-		nb.buildingNFA.Once(baseChar)
-		nb.readingPosition++
+		nb.finalNFA.Once(baseChar)
+		nb.readingPositionMoveOnce()
 	}
 }
-
-
-func (nb *NFABuilder) readingIsOver() bool{
+func (nb *NFABuilder) getBaseChar() byte{
+	return nb.readingRegex[nb.readingPosition]
+}
+func (nb *NFABuilder) getNextChar() byte{
+	return nb.readingRegex[nb.readingPosition+1]
+}
+func (nb *NFABuilder) buildRegexpIsRespondToSingleNFA() bool{
+	regexps := strings.Split(nb.buildRegexp, RegexSplitString)
+	return len(regexps)==1
+}
+func (nb *NFABuilder) readingPositionMoveOnce() {
+	nb.readingPosition++
+}
+func (nb *NFABuilder) readingPositionMoveTwice() {
+	nb.readingPosition += 2
+}
+func (nb *NFABuilder) readingIsOver() bool {
 	return nb.readingRegex[nb.readingPosition] == nb.endChar
 }
-
+func (nb *NFABuilder) setReadingRegexp(regexp string) {
+	nb.readingRegex = regexp
+}
