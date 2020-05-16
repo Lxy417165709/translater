@@ -19,10 +19,9 @@ func (s *State) Link(nextState *State) {
 	s.LinkByChar(eps, nextState)
 }
 func (s *State) LinkByChar(ch byte, nextState *State) {
-	// MD
-	//if s.stateIsLiving(ch,nextState){
-	//	return
-	//}
+	if s.stateIsLiving(ch,nextState){
+		return
+	}
 	s.toNextState[ch] = append(s.toNextState[ch], nextState)
 }
 func (s *State) stateIsLiving(char byte,beJudgeState *State) bool{
@@ -33,24 +32,7 @@ func (s *State) stateIsLiving(char byte,beJudgeState *State) bool{
 	}
 	return false
 }
-
-
-// TODO: 用于标记该状态属于哪个自动机
-//func (s *State) MarkDown(specialChar byte, stateIsVisit map[*State]bool) {
-//	currentState := s
-//	if stateIsVisit[currentState] {
-//		return
-//	}
-//	stateIsVisit[currentState] = true
-//	s.markFlag = specialChar
-//	for _, nextStates := range s.toNextState {
-//		for _, nextState := range nextStates {
-//			nextState.MarkDown(specialChar, stateIsVisit)
-//		}
-//	}
-//}
-
-func (s *State) Merge(hasVisited map[*State]bool) {
+func (s *State) EliminateNextBlankStatesFromHere(hasVisited map[*State]bool) {
 	if hasVisited[s] {
 		return
 	}
@@ -68,11 +50,11 @@ func (s *State) Merge(hasVisited map[*State]bool) {
 	//对非空白态的子节点进行处理
 	allNextStates := s.getAllNextStates()
 	for _, nextState := range allNextStates {
-		nextState.Merge(hasVisited)
+		nextState.EliminateNextBlankStatesFromHere(hasVisited)
 	}
 	return
 }
-func (s *State) DFA(hasVisited map[*State]bool) *State {
+func (s *State) MultiWayMergeFromHere(hasVisited map[*State]bool) *State {
 	if hasVisited[s] {
 		return s
 	}
@@ -80,7 +62,7 @@ func (s *State) DFA(hasVisited map[*State]bool) *State {
 	for char := range s.toNextState {
 		dfaState := s.getDFAState(char)
 		s.cleanNextStates(char)
-		s.LinkByChar(char, dfaState.DFA(hasVisited))
+		s.LinkByChar(char, dfaState.MultiWayMergeFromHere(hasVisited))
 	}
 	return s
 }
@@ -193,7 +175,7 @@ func (s *State) IsMatch(pattern string) bool {
 }
 
 
-func (s *State) Show(startId int, stateToId map[*State]int, stateIsVisit map[*State]bool,line *int) {
+func (s *State) ShowFromHere(startId int, stateToId map[*State]int, stateIsVisit map[*State]bool,line *int) {
 	currentState := s
 	if stateIsVisit[currentState] {
 		return
@@ -203,7 +185,7 @@ func (s *State) Show(startId int, stateToId map[*State]int, stateIsVisit map[*St
 	for bytes, nextStates := range s.toNextState {
 		for _, nextState := range nextStates {
 			*line++
-			nextState.Show(len(stateToId), stateToId, stateIsVisit,line)
+			nextState.ShowFromHere(len(stateToId), stateToId, stateIsVisit,line)
 			option := string(bytes)
 			fmt.Printf("id:%d%s|%s --%s--> id:%d%s|%s\n",
 				stateToId[currentState],
@@ -264,9 +246,13 @@ func (s *State) formMapOfReachableStateOfAllNextStates() map[byte][]*State {
 	return getStatesToNext(allNextStates)
 }
 
+
+
+
 func (s *State) haveBlankStates() bool {
 	return len(s.getNextBlankStates()) != 0
 }
+
 
 func (s *State) getAllNextStates() []*State {
 	result := make([]*State, 0)
@@ -294,4 +280,25 @@ func (s *State) getEndMark() string {
 }
 func (s *State) setEndFlag(value bool) {
 	s.endFlag = value
+}
+
+
+func getStatesToNext(states []*State) map[byte][]*State {
+	result := make(map[byte][]*State)
+	hasExist := make(map[byte]map[*State]bool)
+	for _, state := range states {
+		for char, nextStates := range state.toNextState {
+			for _,nextState := range nextStates{
+				if hasExist[char]==nil{
+					hasExist[char]=make(map[*State]bool)
+				}
+				if hasExist[char][nextState]{
+					continue
+				}
+				hasExist[char][nextState]=true
+				result[char] = append(result[char], nextState)
+			}
+		}
+	}
+	return result
 }

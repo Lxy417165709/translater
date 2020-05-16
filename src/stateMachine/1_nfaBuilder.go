@@ -2,9 +2,16 @@ package stateMachine
 
 import (
 	"fmt"
+	"regexpsManager"
 	"strings"
 )
 
+const (
+	repeatPlusSymbol = '@'
+	repeatZeroSymbol = '$'
+	RegexSplitString = "|"
+	eps = 0
+)
 
 
 // TODO: 重构
@@ -12,18 +19,18 @@ type NFABuilder struct {
 	buildRegexp     string // 存在 RegexSplitString 的正则表达式，可以分割为多个NFA
 	readingRegex    string // 不存在 RegexSplitString 的正则表达式，只能形成一个NFA
 	readingPosition int
-	endChar         byte
 	finalNFA        *NFA
+	regexpsManager *regexpsManager.RegexpsManager
 }
 
-func NewNFABuilder(buildRegexp string) *NFABuilder {
-	endChar := byte('#')
+func NewNFABuilder(buildRegexp string,regexpsManager *regexpsManager.RegexpsManager) *NFABuilder {
+	//endChar := byte('#')
 	return &NFABuilder{
-		buildRegexp + string(endChar), // 为了方便越界判断
+		buildRegexp, // 为了方便越界判断
 		buildRegexp,
 		0,
-		endChar,
-		NewEmptyNFA(),
+		NewEmptyNFA(regexpsManager),
+		regexpsManager,
 	}
 }
 
@@ -33,7 +40,7 @@ func (nb *NFABuilder) BuildNFA() *NFA {
 		return nil
 	}
 	if nb.buildRegexpIsRespondToSingleNFA() {
-		nb.finalNFA.startState.LinkByChar(eps,nb.finalNFA.endState)
+		nb.finalNFA.startState.LinkByChar(eps, nb.finalNFA.endState)
 		nb.setReadingRegexp(regexps[0])
 		for !nb.readingIsOver() {
 			nb.parseChar()
@@ -42,29 +49,20 @@ func (nb *NFABuilder) BuildNFA() *NFA {
 	}
 	// 这要去除空格（这职责应该不是由它担任）
 	for i := 0; i < len(regexps); i++ {
-		addedNfa := NewNFABuilder(strings.TrimSpace(regexps[i])).BuildNFA()
+		addedNfa := NewNFABuilder(strings.TrimSpace(regexps[i]),nb.regexpsManager).BuildNFA()
 		nb.finalNFA.AddParallelNFA(addedNfa)
 	}
 	return nb.finalNFA
 }
-
-
 func (nb *NFABuilder) BuildDFA() *NFA {
 	nfa := nb.BuildNFA()
-	nfa.Merge()
-	nfa.ChangeToDFA()
-	if !nfa.IsDFA(){
+	nfa.EliminateBlankStates()
+	nfa.ToBeDFA()
+	if !nfa.IsDFA() {
 		panic(fmt.Sprintf("DFA算法有误"))
 	}
 	return nfa
 }
-
-
-
-
-
-
-
 
 func (nb *NFABuilder) parseChar() {
 	baseChar := nb.getBaseChar()
@@ -81,15 +79,18 @@ func (nb *NFABuilder) parseChar() {
 		nb.readingPositionMoveOnce()
 	}
 }
-func (nb *NFABuilder) getBaseChar() byte{
+func (nb *NFABuilder) getBaseChar() byte {
 	return nb.readingRegex[nb.readingPosition]
 }
-func (nb *NFABuilder) getNextChar() byte{
+func (nb *NFABuilder) getNextChar() byte {
+	if len(nb.readingRegex) <= nb.readingPosition+1 {
+		return eps
+	}
 	return nb.readingRegex[nb.readingPosition+1]
 }
-func (nb *NFABuilder) buildRegexpIsRespondToSingleNFA() bool{
+func (nb *NFABuilder) buildRegexpIsRespondToSingleNFA() bool {
 	regexps := strings.Split(nb.buildRegexp, RegexSplitString)
-	return len(regexps)==1
+	return len(regexps) == 1
 }
 func (nb *NFABuilder) readingPositionMoveOnce() {
 	nb.readingPosition++
@@ -98,8 +99,9 @@ func (nb *NFABuilder) readingPositionMoveTwice() {
 	nb.readingPosition += 2
 }
 func (nb *NFABuilder) readingIsOver() bool {
-	return nb.readingRegex[nb.readingPosition] == nb.endChar
+	return nb.readingPosition == len(nb.readingRegex)
 }
 func (nb *NFABuilder) setReadingRegexp(regexp string) {
 	nb.readingRegex = regexp
 }
+

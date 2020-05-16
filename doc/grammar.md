@@ -9,6 +9,6 @@ J -> ; | ( | )
 Z -> D@
 X -> D@.D@
 N -> X|Z
-I -> LT$
+I -> LT$ | L
 K -> (  |  ) 
 Q -> KXK

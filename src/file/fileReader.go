@@ -3,40 +3,38 @@ package file
 import (
 	"bufio"
 	"io"
+	"io/ioutil"
 	"os"
 )
 
 const (
 	lineDelimiter = '\n'
-//	testUnitDelimiter = "||"
-//	grammarUnitDelimiter = "->"
 )
 
-
-type fileReader struct{
+type FileReader struct {
 	filePath string
 }
-func NewFileReader(filePath string) *fileReader{
-	return &fileReader{filePath}
+
+func NewFileReader(filePath string) *FileReader {
+	return &FileReader{filePath}
 }
 
+func (fr *FileReader) GetFileBytes() []byte {
+	file, err := os.Open(fr.filePath)
+	if err != nil {
+		panic(err)
+	}
+	bytes, err := ioutil.ReadAll(file)
+	if err != nil {
+		panic(err)
+	}
+	return bytes
+}
 
-
-//func (fr *fileReader)GetUnits(object Parsable) []interface{} {
-//	units := make([]interface{}, 0)
-//	lines := fr.getFileLines()
-//	for _, line := range lines {
-//		object.Parse(line)
-//		units = append(units, object)
-//	}
-//	return units
-//}
-
-
-func (fr *fileReader)GetFileLines() []string {
+func (fr *FileReader) GetFileLines() []string {
 	lines := make([]string, 0)
-	file,err := os.Open(fr.filePath)
-	if err!=nil{
+	file, err := os.Open(fr.filePath)
+	if err != nil {
 		panic(err)
 	}
 	buf := bufio.NewReader(file)
@@ -52,4 +50,3 @@ func (fr *fileReader)GetFileLines() []string {
 	}
 	return lines
 }
-

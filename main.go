@@ -1,14 +1,14 @@
 package main
 
 import (
+	"file"
 	"fmt"
-	"grammar"
-	"io/ioutil"
-	"os"
-	"testUnit"
+	"regexpsManager"
+	"stateMachine"
+	"testLay"
 )
 
-var testFilePaths = []string{
+var testFilePaths = [...]string{
 	`C:\Users\hasee\Desktop\Go_Practice\编译器\doc\nfaTestFile\nfaGraphTest.md`,
 	`C:\Users\hasee\Desktop\Go_Practice\编译器\doc\nfaTestFile\nfaGraphTest1.md`,
 	`C:\Users\hasee\Desktop\Go_Practice\编译器\doc\nfaTestFile\nfaGraphTest2.md`,
@@ -24,39 +24,43 @@ var testFilePaths = []string{
 }
 
 var programFilePath = `C:\Users\hasee\Desktop\Go_Practice\编译器\doc\source2.md`
+
+const (
+	wordDelimiter        = "|"
+	grammarUnitDelimiter = "->"
+	grammarFilePath      = `C:\Users\hasee\Desktop\Go_Practice\编译器\doc\grammar.md`
+)
+
 func main() {
-
-	grammar.BuildGrammar()
-	//stateMachine.NewNFABuilder("a|b").BuildDFA().Show()
-
-	allTest(100)
-	fmt.Println("测试通过！")
-	//fmt.Println(lexical.GlobalLexicalAnalyzer.Parse(getProgramData()))
+	regexpsManager := regexpsManager.NewRegexpsManager(
+		grammarFilePath,
+		grammarUnitDelimiter,
+		wordDelimiter,
+	)
+	regexpsManager.Init()
+	dfa := stateMachine.NewNFABuilder("X",regexpsManager).BuildDFA()
+	dfa.Show()
+	fmt.Println(dfa.Get(string(file.NewFileReader(programFilePath).GetFileBytes())))
 }
 
-func getProgramData() []byte{
-	file,err := os.Open(programFilePath)
-	if err!=nil{
-		panic(err)
-	}
-	bytes,err := ioutil.ReadAll(file)
-	if err!=nil{
-		panic(err)
-	}
-	return bytes
-	//result := g.Get(string( getProgramData()))
-	//for i:=0;i<len(result);i++{
-	//	fmt.Println(i,result[i])
-	//}
-}
-
-func allTest(testTimes int) {
-	for i:=0;i<testTimes;i++{
-		for _, testFilePath := range testFilePaths {
-			//fmt.Printf("----------------------------- 第 %d 个测试文件-----------------------------\n", index+1)
-			testUnit.ShowTestResult(testFilePath)
-			//fmt.Println()
+func allTest() {
+	regexpsManager := regexpsManager.NewRegexpsManager(
+		grammarFilePath,
+		grammarUnitDelimiter,
+		wordDelimiter,
+	)
+	regexpsManager.Init()
+	testManager := testLay.TestManager{}
+	for i := 0; i < len(testFilePaths); i++ {
+		fmt.Printf("----------------------------------- 第 %d 个测试文件 -----------------------------------\n", i+1)
+		testManager.CloseTheOutputOfTestInformation()
+		testManager.SetFileReader(file.NewFileReader(testFilePaths[i]))
+		testManager.SetTestObject(testLay.NewNFATestUnit(regexpsManager))
+		if testManager.RepeatTest(100) == true{
+			fmt.Println("--------------------------------------  测试通过  ----------------------------------------")
+		}else{
+			fmt.Println("--------------------------------------  出现错误  ----------------------------------------")
 		}
 	}
-}
 
+}
