@@ -50,23 +50,12 @@ func (nm *RegexpsManager)CharIsSpecial(char byte) bool{
 	return nm.charToRegexp[char]!=""
 }
 
-// LT$ 这种我们不做处理
-// LL 这种我们不做处理
-// units[i] == 特殊字符   的时候才进行解析
-func (nm *RegexpsManager) GetResponseHandledWords(regexp string) []string {
-	units := strings.Split(regexp, nm.wordDelimiter)
+//  从 W -> begin|end       获得   [begin end]
+func (nm *RegexpsManager) GetResponseHandledWords(specialChar byte) []string {
+	units := strings.Split(nm.GetRegexp(specialChar), nm.wordDelimiter)
 	result := make([]string, 0)
 	for i := 0; i < len(units); i++ {
-		units[i] = strings.TrimSpace(units[i])	// 处理..
-		if len(units[i]) == 0 {
-			continue
-		}
-		char := units[i][0]
-		if len(units[i]) == 1 && nm.CharIsSpecial(char) {
-			result = append(result, nm.GetResponseHandledWords(nm.GetRegexp(char))...)
-		} else {
-			result = append(result, units[i])
-		}
+		result = append(result, strings.TrimSpace(units[i]))
 	}
 	return result
 }

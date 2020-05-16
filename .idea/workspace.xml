@@ -2,26 +2,16 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="e007b749-02cc-46c6-a4eb-854657eb5e17" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/interface/testObject.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/interface/testable.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/regexpsManager/1_regexpsManager.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/stateMachine/unUsedCode.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/testLay/1_testManager.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/testLay/3_lexicalAnalyzerTestUnit.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/doc/grammar.md" beforeDir="false" afterPath="$PROJECT_DIR$/doc/grammar.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/doc/source.md" beforeDir="false" afterPath="$PROJECT_DIR$/doc/source.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/doc/source2.md" beforeDir="false" afterPath="$PROJECT_DIR$/doc/source2.md" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main.go" beforeDir="false" afterPath="$PROJECT_DIR$/main.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/file/fileReader.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/file/fileReader.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/grammar/a_outer.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/grammar/grammarUnit.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/regexpsManager/2_grammarUnit.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/lexical/LexicalAnalyzer.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/lexical/LexicalAnalyzer.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/stateMachine/nfa.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/stateMachine/2_nfa.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/stateMachine/nfaBuilder.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/stateMachine/1_nfaBuilder.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/stateMachine/nfaBuilderManager.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/stateMachine/state.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/stateMachine/3_state.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/stateMachine/utils.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/stateMachine/utils.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/testUnit/a_outer.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/testUnit/testUnit.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/testLay/2_NFATestUnit.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/testUnit/utils.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/lexical/pair.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/lexical/pair.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/regexpsManager/1_regexpsManager.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/regexpsManager/1_regexpsManager.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/stateMachine/2_nfa.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/stateMachine/2_nfa.go" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -48,10 +38,11 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/stateMachine/1_nfaBuilder.go">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="294">
-              <caret line="30" column="10" lean-forward="true" selection-start-line="30" selection-start-column="10" selection-end-line="30" selection-end-column="10" />
+            <state relative-caret-position="216">
+              <caret line="52" column="30" selection-start-line="52" selection-start-column="30" selection-end-line="52" selection-end-column="30" />
               <folding>
-                <element signature="n#!!block;n#BuildDFA#0" />
+                <element signature="e#191#421#0" />
+                <element signature="n#!!block;n#NewNFABuilder#0" />
                 <element signature="n#!!block;n#parseChar#0" />
                 <element signature="n#!!block;n#getBaseChar#0" />
                 <element signature="n#!!block;n#getNextChar#0" />
@@ -68,22 +59,21 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/main.go">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="298">
-              <caret line="40" column="46" selection-start-line="40" selection-start-column="46" selection-end-line="40" selection-end-column="46" />
+            <state relative-caret-position="542">
+              <caret line="46" column="13" selection-start-line="46" selection-start-column="13" selection-end-line="46" selection-end-column="13" />
               <folding>
-                <element signature="e#14#64#0" expanded="true" />
-                <element signature="e#96#1012#0" />
+                <element signature="n#!!block;n#allTest#0" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/doc/nfaTestFile/nfagraphTest11.md">
+        <entry file="file://$PROJECT_DIR$/doc/source.md">
           <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
             <state split_layout="SPLIT">
-              <first_editor relative-caret-position="429">
-                <caret line="13" column="10" selection-start-line="13" selection-start-column="10" selection-end-line="13" selection-end-column="10" />
+              <first_editor relative-caret-position="-119">
+                <caret line="5" column="15" lean-forward="true" selection-start-line="5" selection-start-column="15" selection-end-line="5" selection-end-column="15" />
               </first_editor>
               <second_editor />
             </state>
@@ -91,11 +81,11 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/doc/nfaTestFile/nfagraphTest10.md">
+        <entry file="file://$PROJECT_DIR$/doc/source2.md">
           <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
             <state split_layout="SPLIT">
-              <first_editor>
-                <caret selection-end-column="13" />
+              <first_editor relative-caret-position="33">
+                <caret line="1" column="13" selection-start-line="1" selection-start-column="13" selection-end-line="1" selection-end-column="13" />
               </first_editor>
               <second_editor />
             </state>
@@ -103,11 +93,11 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/doc/nfaTestFile/nfagraphTest8.md">
+        <entry file="file://$PROJECT_DIR$/doc/nfaTestFile/nfagraphTest2.md">
           <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
             <state split_layout="SPLIT">
-              <first_editor relative-caret-position="198">
-                <caret line="6" column="2" selection-start-line="6" selection-start-column="2" selection-end-line="6" selection-end-column="2" />
+              <first_editor relative-caret-position="46">
+                <caret line="5" column="7" selection-start-line="5" selection-start-column="7" selection-end-line="5" selection-end-column="7" />
               </first_editor>
               <second_editor />
             </state>
@@ -115,35 +105,11 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/doc/nfaTestFile/nfagraphTest7.md">
+        <entry file="file://$PROJECT_DIR$/doc/nfaTestFile/nfagraphTest3.md">
           <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
             <state split_layout="SPLIT">
-              <first_editor relative-caret-position="99">
-                <caret line="3" column="2" selection-start-line="3" selection-start-column="2" selection-end-line="3" selection-end-column="2" />
-              </first_editor>
-              <second_editor />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/doc/nfaTestFile/nfagraphTest5.md">
-          <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
-            <state split_layout="SPLIT">
-              <first_editor relative-caret-position="198">
-                <caret line="6" column="14" selection-start-line="6" selection-start-column="14" selection-end-line="6" selection-end-column="14" />
-              </first_editor>
-              <second_editor />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/doc/nfaTestFile/nfagraphTest9.md">
-          <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
-            <state split_layout="SPLIT">
-              <first_editor relative-caret-position="297">
-                <caret line="9" column="7" selection-start-line="9" selection-start-column="7" selection-end-line="9" selection-end-column="7" />
+              <first_editor relative-caret-position="713">
+                <caret line="30" column="6" selection-start-line="30" selection-start-column="6" selection-end-line="30" selection-end-column="6" />
               </first_editor>
               <second_editor />
             </state>
@@ -151,27 +117,69 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/doc/grammar.md">
-          <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
-            <state split_layout="SPLIT">
-              <first_editor relative-caret-position="159">
-                <caret line="13" column="8" lean-forward="true" selection-start-line="13" selection-start-column="8" selection-end-line="13" selection-end-column="8" />
-              </first_editor>
-              <second_editor />
+        <entry file="file://$PROJECT_DIR$/src/stateMachine/2_nfa.go">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="297">
+              <caret line="9" column="21" lean-forward="true" selection-end-line="146" />
+              <folding>
+                <element signature="e#22#57#0" expanded="true" />
+                <element signature="n#!!block;n#NewEmptyNFA#0" />
+                <element signature="n#!!block;n#NewNFA#0" />
+                <element signature="n#!!block;n#EliminateBlankStates#0" />
+                <element signature="n#!!block;n#Show#0" />
+                <element signature="n#!!block;n#ToBeDFA#0" />
+                <element signature="n#!!block;n#Get#0" />
+                <element signature="n#!!block;n#IsMatch#0" />
+                <element signature="n#!!block;n#IsDFA#0" />
+                <element signature="n#!!block;n#RepeatPlus#0" />
+                <element signature="n#!!block;n#RepeatZero#0" />
+                <element signature="n#!!block;n#Once#0" />
+                <element signature="n#!!block;n#AddSeriesNFA#0" />
+                <element signature="n#!!block;n#linkEndStateToStartState#0" />
+                <element signature="n#!!block;n#linkStartStateTo#0" />
+                <element signature="n#!!block;n#breakDown#0" />
+                <element signature="n#!!block;n#getStartState#0" />
+                <element signature="n#!!block;n#getEndState#0" />
+                <element signature="n#!!block;n#setStartState#0" />
+                <element signature="n#!!block;n#setEndState#0" />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/testLay/1_testManager.go">
+        <entry file="file://$PROJECT_DIR$/src/testLay/2_NFATestUnit.go">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="45">
-              <caret line="44" column="5" lean-forward="true" selection-start-line="44" selection-start-column="5" selection-end-line="44" selection-end-column="5" />
+            <state relative-caret-position="195">
+              <caret line="31" column="1" selection-start-line="31" selection-start-column="1" selection-end-line="31" selection-end-column="1" />
               <folding>
-                <element signature="e#18#43#0" expanded="true" />
-                <element signature="n#!!block;n#SetTestObject#0" />
-                <element signature="n#!!block;n#SetTestObject#0" />
+                <element signature="n#!!block;n#Test#0" />
+                <element signature="n#!!block;n#nfaTest#0" />
+                <element signature="n#!!block;n#dfaTest#0" />
+                <element signature="n#!!block;n#Parse#0" />
+                <element signature="n#!!block;n#intToBool#0" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/testLay/3_lexicalAnalyzerTestUnit.go">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="330">
+              <caret line="10" lean-forward="true" selection-start-line="10" selection-end-line="10" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/doc/grammar.md">
+          <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
+            <state split_layout="SPLIT">
+              <first_editor relative-caret-position="66">
+                <caret line="2" column="10" lean-forward="true" selection-start-line="2" selection-start-column="10" selection-end-line="2" selection-end-column="10" />
+              </first_editor>
+              <second_editor />
             </state>
           </provider>
         </entry>
@@ -231,11 +239,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/doc/nfaTestFile/nfagraphTest4.md" />
-        <option value="$PROJECT_DIR$/doc/nfaTestFile/nfagraphTest7.md" />
-        <option value="$PROJECT_DIR$/doc/nfaTestFile/nfagraphTest8.md" />
-        <option value="$PROJECT_DIR$/doc/nfaTestFile/nfagraphTest3.md" />
-        <option value="$PROJECT_DIR$/src/lexicalTest/nfaBuilder.go" />
         <option value="$PROJECT_DIR$/src/lexicalTest/utils.go" />
         <option value="$PROJECT_DIR$/src/lexicalTest/state.go" />
         <option value="$PROJECT_DIR$/src/lexicalTest/nfa.go" />
@@ -248,12 +251,10 @@
         <option value="$PROJECT_DIR$/src/grammar/outer.go" />
         <option value="$PROJECT_DIR$/src/testUnit/testUnit.go" />
         <option value="$PROJECT_DIR$/src/stateMachine/nfaBuilderManager.go" />
-        <option value="$PROJECT_DIR$/doc/grammar.md" />
         <option value="$PROJECT_DIR$/src/stateMachine/nfaBuilder.go" />
         <option value="$PROJECT_DIR$/src/stateMachine/regexpsManager.go" />
         <option value="$PROJECT_DIR$/src/grammar/grammarUnit.go" />
         <option value="$PROJECT_DIR$/src/grammar/a_outer.go" />
-        <option value="$PROJECT_DIR$/src/lexical/LexicalAnalyzer.go" />
         <option value="$PROJECT_DIR$/src/stateMachine/state.go" />
         <option value="$PROJECT_DIR$/src/unit/regexpUnit/a_outer.go" />
         <option value="$PROJECT_DIR$/src/unit/grammar/a_outer.go" />
@@ -272,20 +273,27 @@
         <option value="$PROJECT_DIR$/src/interface/testObject.go" />
         <option value="$PROJECT_DIR$/src/testManager/1_testManager.go" />
         <option value="$PROJECT_DIR$/src/testManager/2_NFATestUnit.go" />
-        <option value="$PROJECT_DIR$/src/stateMachine/2_nfa.go" />
         <option value="$PROJECT_DIR$/src/stateMachine/unUsedCode.go" />
         <option value="$PROJECT_DIR$/src/stateMachine/3_state.go" />
-        <option value="$PROJECT_DIR$/src/stateMachine/1_nfaBuilder.go" />
         <option value="$PROJECT_DIR$/src/testLay/2_NFATestUnit.go" />
-        <option value="$PROJECT_DIR$/src/regexpsManager/1_regexpsManager.go" />
         <option value="$PROJECT_DIR$/doc/nfaTestFile/nfagraphTest1.md" />
         <option value="$PROJECT_DIR$/doc/nfaTestFile/nfagraphTest.md" />
         <option value="$PROJECT_DIR$/src/testLay/1_testManager.go" />
+        <option value="$PROJECT_DIR$/src/stateMachine/1_nfaBuilder.go" />
+        <option value="$PROJECT_DIR$/src/regexpsManager/1_regexpsManager.go" />
+        <option value="$PROJECT_DIR$/src/lexical/pair.go" />
+        <option value="$PROJECT_DIR$/src/lexical/LexicalAnalyzer.go" />
+        <option value="$PROJECT_DIR$/doc/grammar.md" />
+        <option value="$PROJECT_DIR$/doc/source.md" />
+        <option value="$PROJECT_DIR$/src/testLay/3_lexicalAnalyzerTestUnit.go" />
+        <option value="$PROJECT_DIR$/doc/sourceData/source1.md" />
+        <option value="$PROJECT_DIR$/doc/source2.md" />
+        <option value="$PROJECT_DIR$/src/stateMachine/2_nfa.go" />
         <option value="$PROJECT_DIR$/main.go" />
       </list>
     </option>
   </component>
-  <component name="ProjectFrameBounds" extendedState="6">
+  <component name="ProjectFrameBounds" extendedState="7">
     <option name="x" value="440" />
     <option name="y" value="40" />
     <option name="width" value="1415" />
@@ -297,6 +305,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -308,12 +317,6 @@
               <item name="编译器" type="b2602c69:ProjectViewProjectNode" />
               <item name="编译器" type="462c0819:PsiDirectoryNode" />
               <item name="doc" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="编译器" type="b2602c69:ProjectViewProjectNode" />
-              <item name="编译器" type="462c0819:PsiDirectoryNode" />
-              <item name="doc" type="462c0819:PsiDirectoryNode" />
-              <item name="nfaTestFile" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="编译器" type="b2602c69:ProjectViewProjectNode" />
@@ -346,7 +349,6 @@
           <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -363,19 +365,19 @@
     <property name="settings.editor.selected.configurable" value="com.goide.configuration.GoLibrariesConfigurableProvider" />
   </component>
   <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\hasee\Desktop\Go_Practice\编译器\src\testLay" />
+      <recent name="C:\Users\hasee\Desktop\Go_Practice\编译器\src\interface" />
+      <recent name="C:\Users\hasee\Desktop\Go_Practice\编译器\doc" />
+      <recent name="C:\Users\hasee\Desktop\Go_Practice\编译器\doc\nfaTestFile" />
+      <recent name="C:\Users\hasee\Desktop\Go_Practice\编译器\src\lexicalTest" />
+    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Users\hasee\Desktop\Go_Practice\编译器\src\testManager" />
       <recent name="C:\Users\hasee\Desktop\Go_Practice\编译器\src\regexpsManager" />
       <recent name="C:\Users\hasee\Desktop\Go_Practice\编译器\src\unit" />
       <recent name="C:\Users\hasee\Desktop\Go_Practice\编译器\src\grammar" />
       <recent name="C:\Users\hasee\Desktop\Go_Practice\编译器\src\testUnit" />
-    </key>
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="C:\Users\hasee\Desktop\Go_Practice\编译器\src\interface" />
-      <recent name="C:\Users\hasee\Desktop\Go_Practice\编译器\doc" />
-      <recent name="C:\Users\hasee\Desktop\Go_Practice\编译器\doc\nfaTestFile" />
-      <recent name="C:\Users\hasee\Desktop\Go_Practice\编译器\src\lexicalTest" />
-      <recent name="C:\Users\hasee\Desktop\Go_Practice\编译器" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -415,9 +417,10 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
+    <frame x="-8" y="-8" width="1936" height="1056" extended-state="7" />
+    <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.45878524" visible="true" weight="0.15884861" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.45878524" visible="true" weight="0.21588486" />
       <window_info id="Structure" order="1" sideWeight="0.54121476" side_tool="true" weight="0.24626866" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
@@ -430,8 +433,8 @@
       <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
       <window_info anchor="bottom" id="Database Changes" order="8" />
       <window_info anchor="bottom" id="Version Control" order="9" sideWeight="0.49946696" weight="0.329718" />
-      <window_info active="true" anchor="bottom" id="Terminal" order="10" sideWeight="0.68070364" visible="true" weight="0.5520607" />
-      <window_info anchor="bottom" id="Event Log" order="11" sideWeight="0.3192964" side_tool="true" weight="0.63232106" />
+      <window_info anchor="bottom" id="Terminal" order="10" sideWeight="0.6801706" weight="0.38177875" />
+      <window_info anchor="bottom" id="Event Log" order="11" sideWeight="0.31982943" side_tool="true" weight="0.6670282" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
@@ -463,8 +466,6 @@
     <option name="version" value="1" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/charset.go" />
-    <entry file="file://$PROJECT_DIR$/src/lexicalTest/pair.go" />
     <entry file="file://$PROJECT_DIR$/lexicalAnalysisGrammar.md" />
     <entry file="file://$PROJECT_DIR$/source2.md" />
     <entry file="file://$PROJECT_DIR$/doc/nfaGraphTest.md" />
@@ -472,95 +473,17 @@
     <entry file="file://$PROJECT_DIR$/doc/nfaGraphTest1.md" />
     <entry file="file://$PROJECT_DIR$/doc/nfagraphTest2.md" />
     <entry file="file://$PROJECT_DIR$/src/lexicalTest/specialCharSet.go" />
-    <entry file="file://$PROJECT_DIR$/doc/source2.md">
-      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
-        <state split_layout="SPLIT">
-          <first_editor relative-caret-position="417">
-            <caret line="26" column="13" lean-forward="true" selection-start-line="26" selection-start-column="13" selection-end-line="26" selection-end-column="13" />
-          </first_editor>
-          <second_editor />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/doc/nfaTestFile/nfagraphTest3.md">
-      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
-        <state split_layout="SPLIT">
-          <first_editor relative-caret-position="166">
-            <caret line="30" column="6" selection-start-line="30" selection-start-column="6" selection-end-line="30" selection-end-column="6" />
-          </first_editor>
-          <second_editor />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/doc/nfaTestFile/nfagraphTest4.md">
-      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
-        <state split_layout="SPLIT">
-          <first_editor relative-caret-position="99">
-            <caret line="3" column="8" selection-start-line="3" selection-start-column="8" selection-end-line="3" selection-end-column="8" />
-          </first_editor>
-          <second_editor />
-        </state>
-      </provider>
-      <provider editor-type-id="text-editor">
-        <state relative-caret-position="806">
-          <caret line="78" column="15" selection-start-line="78" selection-start-column="15" selection-end-line="78" selection-end-column="15" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/doc/nfaTestFile/nfagraphTest2.md">
-      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
-        <state split_layout="SPLIT">
-          <first_editor relative-caret-position="-325">
-            <caret line="5" column="7" lean-forward="true" selection-start-line="5" selection-start-column="7" selection-end-line="5" selection-end-column="7" />
-          </first_editor>
-          <second_editor />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/doc/nfaTestFile/nfagraphTest6.md">
-      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
-        <state split_layout="SPLIT">
-          <first_editor relative-caret-position="165">
-            <caret line="5" column="6" selection-start-line="5" selection-start-column="6" selection-end-line="5" selection-end-column="6" />
-          </first_editor>
-          <second_editor />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/doc/source.md">
-      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
-        <state split_layout="SPLIT">
-          <first_editor relative-caret-position="368">
-            <caret line="24" column="15" lean-forward="true" selection-start-line="24" selection-start-column="15" selection-end-line="24" selection-end-column="15" />
-          </first_editor>
-          <second_editor />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/lexical/trie.go" />
     <entry file="file://$PROJECT_DIR$/src/lexical/utils.go" />
     <entry file="file://$PROJECT_DIR$/src/lexical/stateMachine.go" />
     <entry file="file://$PROJECT_DIR$/src/lexical/segmentManager.go" />
     <entry file="file://$PROJECT_DIR$/src/Grammar.go" />
     <entry file="file://$PROJECT_DIR$/src/grammar/utils.go" />
-    <entry file="file://$PROJECT_DIR$/src/unit/grammar/a_outer.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="66">
-          <caret line="2" selection-start-line="2" selection-end-line="2" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/src/unit/grammar/a_outer.go" />
     <entry file="file://$PROJECT_DIR$/src/stateMachine/utils.go">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="66">
           <caret line="2" selection-start-line="2" selection-end-line="2" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/lexical/pair.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="396">
-          <caret line="12" selection-start-line="12" selection-end-line="12" />
         </state>
       </provider>
     </entry>
@@ -575,25 +498,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/regexpsManager/2_grammarUnit.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="231">
-          <caret line="16" selection-start-line="16" selection-end-line="16" />
-          <folding>
-            <element signature="e#177#221#0" />
-            <element signature="n#!!block;n#NewGrammarUnit#0" />
-            <element signature="n#!!block;n#Parse#0" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/lexical/LexicalAnalyzer.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="693">
-          <caret line="21" selection-start-line="21" selection-end-line="26" selection-end-column="3" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/file/utils.go">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="132">
@@ -604,16 +508,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/unit/testUnit/utils.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="99">
-          <caret line="3" selection-start-line="3" selection-end-line="7" />
-          <folding>
-            <element signature="n#!!block;n#intToBool#0" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/src/unit/testUnit/utils.go" />
     <entry file="file://$PROJECT_DIR$/src/interface/parsable.go">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="132">
@@ -649,34 +544,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/stateMachine/2_nfa.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="485">
-          <caret line="105" column="1" selection-start-line="105" selection-start-column="1" selection-end-line="105" selection-end-column="1" />
-          <folding>
-            <element signature="e#22#57#0" expanded="true" />
-            <element signature="n#!!block;n#NewEmptyNFA#0" />
-            <element signature="n#!!block;n#NewNFA#0" />
-            <element signature="n#!!block;n#EliminateBlankStates#0" />
-            <element signature="n#!!block;n#Show#0" />
-            <element signature="n#!!block;n#ToBeDFA#0" />
-            <element signature="n#!!block;n#Get#0" />
-            <element signature="n#!!block;n#IsMatch#0" />
-            <element signature="n#!!block;n#IsDFA#0" />
-            <element signature="n#!!block;n#RepeatPlus#0" />
-            <element signature="n#!!block;n#RepeatZero#0" />
-            <element signature="n#!!block;n#Once#0" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/stateMachine/unUsedCode.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="99">
-          <caret line="3" selection-start-line="3" selection-end-line="16" selection-end-column="3" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/stateMachine/3_state.go">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="69">
@@ -705,54 +572,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/testLay/2_NFATestUnit.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="195">
-          <caret line="31" column="1" lean-forward="true" selection-start-line="31" selection-start-column="1" selection-end-line="31" selection-end-column="1" />
-          <folding>
-            <element signature="n#!!block;n#NewTestUnit#0" />
-            <element signature="n#!!block;n#Test#0" />
-            <element signature="n#!!block;n#nfaTest#0" />
-            <element signature="n#!!block;n#dfaTest#0" />
-            <element signature="n#!!block;n#Parse#0" />
-            <element signature="n#!!block;n#intToBool#0" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/regexpsManager/1_regexpsManager.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="329">
-          <caret line="31" lean-forward="true" selection-start-line="31" selection-end-line="31" />
-          <folding>
-            <element signature="n#!!block;n#NewRegexpsManager#0" />
-            <element signature="n#!!block;n#GetRegexp#0" />
-            <element signature="n#!!block;n#CharIsSpecial#0" />
-            <element signature="n#!!block;n#GetResponseHandledWords#0" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/doc/nfaTestFile/nfagraphTest1.md">
-      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
-        <state split_layout="SPLIT">
-          <first_editor relative-caret-position="99">
-            <caret line="3" column="25" lean-forward="true" selection-start-line="3" selection-start-column="25" selection-end-line="3" selection-end-column="25" />
-          </first_editor>
-          <second_editor />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/doc/nfaTestFile/nfagraphTest.md">
-      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
-        <state split_layout="SPLIT">
-          <first_editor relative-caret-position="330">
-            <caret line="13" column="12" selection-start-line="13" selection-start-column="12" selection-end-line="13" selection-end-column="12" />
-          </first_editor>
-          <second_editor />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/testLay/1_testManager.go">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="45">
@@ -765,40 +584,56 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/stateMachine/1_nfaBuilder.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="294">
-          <caret line="30" column="10" lean-forward="true" selection-start-line="30" selection-start-column="10" selection-end-line="30" selection-end-column="10" />
-          <folding>
-            <element signature="n#!!block;n#BuildDFA#0" />
-            <element signature="n#!!block;n#parseChar#0" />
-            <element signature="n#!!block;n#getBaseChar#0" />
-            <element signature="n#!!block;n#getNextChar#0" />
-            <element signature="n#!!block;n#buildRegexpIsRespondToSingleNFA#0" />
-            <element signature="n#!!block;n#readingPositionMoveOnce#0" />
-            <element signature="n#!!block;n#readingPositionMoveTwice#0" />
-            <element signature="n#!!block;n#readingIsOver#0" />
-            <element signature="n#!!block;n#setReadingRegexp#0" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/main.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="298">
-          <caret line="40" column="46" selection-start-line="40" selection-start-column="46" selection-end-line="40" selection-end-column="46" />
-          <folding>
-            <element signature="e#14#64#0" expanded="true" />
-            <element signature="e#96#1012#0" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/doc/nfaTestFile/nfagraphTest11.md">
+    <entry file="file://$PROJECT_DIR$/doc/nfaTestFile/nfagraphTest8.md">
       <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
         <state split_layout="SPLIT">
-          <first_editor relative-caret-position="429">
-            <caret line="13" column="10" selection-start-line="13" selection-start-column="10" selection-end-line="13" selection-end-column="10" />
+          <first_editor relative-caret-position="198">
+            <caret line="6" column="2" selection-start-line="6" selection-start-column="2" selection-end-line="6" selection-end-column="2" />
+          </first_editor>
+          <second_editor />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/doc/nfaTestFile/nfagraphTest4.md">
+      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
+        <state split_layout="SPLIT">
+          <first_editor relative-caret-position="99">
+            <caret line="3" column="8" selection-start-line="3" selection-start-column="8" selection-end-line="3" selection-end-column="8" />
+          </first_editor>
+          <second_editor />
+        </state>
+      </provider>
+      <provider editor-type-id="text-editor">
+        <state relative-caret-position="806">
+          <caret line="78" column="15" selection-start-line="78" selection-start-column="15" selection-end-line="78" selection-end-column="15" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/doc/nfaTestFile/nfagraphTest5.md">
+      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
+        <state split_layout="SPLIT">
+          <first_editor relative-caret-position="198">
+            <caret line="6" column="14" selection-start-line="6" selection-start-column="14" selection-end-line="6" selection-end-column="14" />
+          </first_editor>
+          <second_editor />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/doc/nfaTestFile/nfagraphTest6.md">
+      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
+        <state split_layout="SPLIT">
+          <first_editor relative-caret-position="165">
+            <caret line="5" column="6" selection-start-line="5" selection-start-column="6" selection-end-line="5" selection-end-column="6" />
+          </first_editor>
+          <second_editor />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/doc/nfaTestFile/nfagraphTest7.md">
+      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
+        <state split_layout="SPLIT">
+          <first_editor relative-caret-position="99">
+            <caret line="3" column="2" selection-start-line="3" selection-start-column="2" selection-end-line="3" selection-end-column="2" />
           </first_editor>
           <second_editor />
         </state>
@@ -824,31 +659,112 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/doc/nfaTestFile/nfagraphTest8.md">
+    <entry file="file://$PROJECT_DIR$/doc/nfaTestFile/nfagraphTest11.md">
       <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
         <state split_layout="SPLIT">
-          <first_editor relative-caret-position="198">
-            <caret line="6" column="2" selection-start-line="6" selection-start-column="2" selection-end-line="6" selection-end-column="2" />
+          <first_editor relative-caret-position="429">
+            <caret line="13" column="10" selection-start-line="13" selection-start-column="10" selection-end-line="13" selection-end-column="10" />
           </first_editor>
           <second_editor />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/doc/nfaTestFile/nfagraphTest7.md">
+    <entry file="file://$PROJECT_DIR$/src/regexpsManager/2_grammarUnit.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="363">
+          <caret line="16" selection-start-line="16" selection-end-line="16" />
+          <folding>
+            <element signature="n#!!block;n#NewGrammarUnit#0" />
+            <element signature="n#!!block;n#Parse#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/lexical/pair.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="165">
+          <caret line="5" column="16" selection-start-line="5" selection-start-column="16" selection-end-line="5" selection-end-column="16" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/lexical/LexicalAnalyzer.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="839">
+          <caret line="109" column="13" lean-forward="true" selection-start-line="109" selection-start-column="13" selection-end-line="109" selection-end-column="13" />
+          <folding>
+            <element signature="e#17#61#0" expanded="true" />
+            <element signature="n#!!block;n#Init#0" />
+            <element signature="n#!!block;n#FormWordToCode#0" />
+            <element signature="n#!!block;n#FormWordToCode#1" />
+            <element signature="n#!!block;n#GetKeyWord#0" />
+            <element signature="n#!!block;n#GetKeyWord#1" />
+            <element signature="n#!!block;n#GetDelimiters#0" />
+            <element signature="n#!!block;n#GetCode#0" />
+            <element signature="n#!!block;n#GetCode#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/stateMachine/unUsedCode.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="99">
+          <caret line="3" selection-start-line="3" selection-end-line="16" selection-end-column="3" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/regexpsManager/1_regexpsManager.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="876">
+          <caret line="52" column="7" lean-forward="true" selection-start-line="52" selection-start-column="7" selection-end-line="52" selection-end-column="7" />
+          <folding>
+            <element signature="n#!!block;n#NewRegexpsManager#0" />
+            <element signature="n#!!block;n#GetRegexp#0" />
+            <element signature="n#!!block;n#CharIsSpecial#0" />
+            <element signature="n#!!block;n#GetResponseHandledWords#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/doc/nfaTestFile/nfagraphTest.md">
+      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
+        <state split_layout="SPLIT">
+          <first_editor relative-caret-position="429">
+            <caret line="13" column="12" selection-start-line="13" selection-start-column="12" selection-end-line="13" selection-end-column="12" />
+          </first_editor>
+          <second_editor />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/doc/nfaTestFile/nfagraphTest1.md">
       <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
         <state split_layout="SPLIT">
           <first_editor relative-caret-position="99">
-            <caret line="3" column="2" selection-start-line="3" selection-start-column="2" selection-end-line="3" selection-end-column="2" />
+            <caret line="3" column="25" selection-start-line="3" selection-start-column="25" selection-end-line="3" selection-end-column="25" />
           </first_editor>
           <second_editor />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/doc/nfaTestFile/nfagraphTest5.md">
+    <entry file="file://$PROJECT_DIR$/src/testLay/3_lexicalAnalyzerTestUnit.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="330">
+          <caret line="10" lean-forward="true" selection-start-line="10" selection-end-line="10" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/doc/lexicalTestFile/test1.md">
       <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
         <state split_layout="SPLIT">
-          <first_editor relative-caret-position="198">
-            <caret line="6" column="14" selection-start-line="6" selection-start-column="14" selection-end-line="6" selection-end-column="14" />
+          <first_editor />
+          <second_editor />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/doc/sourceData/source1.md">
+      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
+        <state split_layout="SPLIT">
+          <first_editor>
+            <caret column="5" lean-forward="true" selection-start-column="5" selection-end-column="5" />
           </first_editor>
           <second_editor />
         </state>
@@ -857,10 +773,122 @@
     <entry file="file://$PROJECT_DIR$/doc/grammar.md">
       <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
         <state split_layout="SPLIT">
-          <first_editor relative-caret-position="159">
-            <caret line="13" column="8" lean-forward="true" selection-start-line="13" selection-start-column="8" selection-end-line="13" selection-end-column="8" />
+          <first_editor relative-caret-position="66">
+            <caret line="2" column="10" lean-forward="true" selection-start-line="2" selection-start-column="10" selection-end-line="2" selection-end-column="10" />
           </first_editor>
           <second_editor />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/testLay/2_NFATestUnit.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="195">
+          <caret line="31" column="1" selection-start-line="31" selection-start-column="1" selection-end-line="31" selection-end-column="1" />
+          <folding>
+            <element signature="n#!!block;n#Test#0" />
+            <element signature="n#!!block;n#nfaTest#0" />
+            <element signature="n#!!block;n#dfaTest#0" />
+            <element signature="n#!!block;n#Parse#0" />
+            <element signature="n#!!block;n#intToBool#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/doc/nfaTestFile/nfagraphTest3.md">
+      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
+        <state split_layout="SPLIT">
+          <first_editor relative-caret-position="713">
+            <caret line="30" column="6" selection-start-line="30" selection-start-column="6" selection-end-line="30" selection-end-column="6" />
+          </first_editor>
+          <second_editor />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/doc/nfaTestFile/nfagraphTest2.md">
+      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
+        <state split_layout="SPLIT">
+          <first_editor relative-caret-position="46">
+            <caret line="5" column="7" selection-start-line="5" selection-start-column="7" selection-end-line="5" selection-end-column="7" />
+          </first_editor>
+          <second_editor />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/doc/source2.md">
+      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
+        <state split_layout="SPLIT">
+          <first_editor relative-caret-position="33">
+            <caret line="1" column="13" selection-start-line="1" selection-start-column="13" selection-end-line="1" selection-end-column="13" />
+          </first_editor>
+          <second_editor />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/doc/source.md">
+      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
+        <state split_layout="SPLIT">
+          <first_editor relative-caret-position="-119">
+            <caret line="5" column="15" lean-forward="true" selection-start-line="5" selection-start-column="15" selection-end-line="5" selection-end-column="15" />
+          </first_editor>
+          <second_editor />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/main.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="542">
+          <caret line="46" column="13" selection-start-line="46" selection-start-column="13" selection-end-line="46" selection-end-column="13" />
+          <folding>
+            <element signature="n#!!block;n#allTest#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/stateMachine/1_nfaBuilder.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="216">
+          <caret line="52" column="30" selection-start-line="52" selection-start-column="30" selection-end-line="52" selection-end-column="30" />
+          <folding>
+            <element signature="e#191#421#0" />
+            <element signature="n#!!block;n#NewNFABuilder#0" />
+            <element signature="n#!!block;n#parseChar#0" />
+            <element signature="n#!!block;n#getBaseChar#0" />
+            <element signature="n#!!block;n#getNextChar#0" />
+            <element signature="n#!!block;n#buildRegexpIsRespondToSingleNFA#0" />
+            <element signature="n#!!block;n#readingPositionMoveOnce#0" />
+            <element signature="n#!!block;n#readingPositionMoveTwice#0" />
+            <element signature="n#!!block;n#readingIsOver#0" />
+            <element signature="n#!!block;n#setReadingRegexp#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/stateMachine/2_nfa.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="297">
+          <caret line="9" column="21" lean-forward="true" selection-end-line="146" />
+          <folding>
+            <element signature="e#22#57#0" expanded="true" />
+            <element signature="n#!!block;n#NewEmptyNFA#0" />
+            <element signature="n#!!block;n#NewNFA#0" />
+            <element signature="n#!!block;n#EliminateBlankStates#0" />
+            <element signature="n#!!block;n#Show#0" />
+            <element signature="n#!!block;n#ToBeDFA#0" />
+            <element signature="n#!!block;n#Get#0" />
+            <element signature="n#!!block;n#IsMatch#0" />
+            <element signature="n#!!block;n#IsDFA#0" />
+            <element signature="n#!!block;n#RepeatPlus#0" />
+            <element signature="n#!!block;n#RepeatZero#0" />
+            <element signature="n#!!block;n#Once#0" />
+            <element signature="n#!!block;n#AddSeriesNFA#0" />
+            <element signature="n#!!block;n#linkEndStateToStartState#0" />
+            <element signature="n#!!block;n#linkStartStateTo#0" />
+            <element signature="n#!!block;n#breakDown#0" />
+            <element signature="n#!!block;n#getStartState#0" />
+            <element signature="n#!!block;n#getEndState#0" />
+            <element signature="n#!!block;n#setStartState#0" />
+            <element signature="n#!!block;n#setEndState#0" />
+          </folding>
         </state>
       </provider>
     </entry>

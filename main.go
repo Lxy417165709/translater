@@ -4,7 +4,6 @@ import (
 	"file"
 	"fmt"
 	"regexpsManager"
-	"stateMachine"
 	"testLay"
 )
 
@@ -32,15 +31,20 @@ const (
 )
 
 func main() {
-	regexpsManager := regexpsManager.NewRegexpsManager(
-		grammarFilePath,
-		grammarUnitDelimiter,
-		wordDelimiter,
-	)
-	regexpsManager.Init()
-	dfa := stateMachine.NewNFABuilder("X",regexpsManager).BuildDFA()
-	dfa.Show()
-	fmt.Println(dfa.Get(string(file.NewFileReader(programFilePath).GetFileBytes())))
+	//regexpsManager := regexpsManager.NewRegexpsManager(
+	//	grammarFilePath,
+	//	grammarUnitDelimiter,
+	//	wordDelimiter,
+	//)
+	//regexpsManager.Init()
+	//lexicalAnalyzer := lexical.NewLexicalAnalyzer(regexpsManager)
+	//lexicalAnalyzer.Init()
+	//pairs := lexicalAnalyzer.Parse(file.NewFileReader(programFilePath).GetFileBytes())
+	//for index,pair := range pairs{
+	//	fmt.Printf("[第 %d 个] (%s, %d, %v)\n",index+1,pair.GetKind(),pair.GetKindCode(),pair.GetValue())
+	//}
+
+	allTest()
 }
 
 func allTest() {

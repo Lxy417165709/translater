@@ -52,26 +52,27 @@ func (nfa *NFA) Get(pattern string) []string {
 	begin := nfa.startState
 	buffer := ""
 	for position := 0; position < len(pattern); position++ {
-		if pattern[position] == '#' {
+		char := pattern[position]
+		if char == '#' {
 			break
 		}
+
 		// 不匹配
-		if len(begin.toNextState[pattern[position]]) == 0 {
+		if len(begin.toNextState[char]) == 0 {
 			if begin.endFlag {
 				result = append(result, buffer)
 			}
 			begin = nfa.startState
 			buffer = ""
-
-			if len(begin.toNextState[pattern[position]]) != 0 {
+			if len(begin.toNextState[char]) != 0 {
 				position--
 			}
 
 			continue
 		}
 		// 成功匹配
-		buffer += string(pattern[position])
-		begin = begin.toNextState[pattern[position]][0]
+		buffer += string(char)
+		begin = begin.toNextState[char][0]
 	}
 	if buffer != "" {
 		result = append(result, buffer)
@@ -137,4 +138,9 @@ func (nfa *NFA) setStartState(state *State) {
 }
 func (nfa *NFA) setEndState(state *State) {
 	nfa.endState = state
+}
+
+
+func charIsSpace(char byte) bool{
+	return char=='\n' || char=='\r' || char=='\t' || char==' '
 }
