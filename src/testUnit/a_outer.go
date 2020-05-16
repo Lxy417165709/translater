@@ -1,16 +1,18 @@
 package testUnit
 
 import (
+	"file"
 	"fmt"
-	"lexicalTest"
 )
 
 func ShowTestResult(filePath string) {
-	testUnits := getTestUnits(filePath)
-
+	lines := file.NewFileReader(filePath).GetFileLines()
 	//fmt.Println("------------------------------------ NFA -------------------------------------")
 	testType := "NFA"
-	for index, unit := range testUnits {
+	for index, line := range lines {
+		unit := NewTestUnit("","",false)
+		unit.Parse(line)
+		//fmt.Println(line,unit)
 		//fmt.Printf("[%s] 第 %d 个测试单元: %v \n", testType,index+1,*unit)
 		if !unit.nfaTest() {
 			//fmt.Printf("[%s] 没通过第 %d 个测试单元: %v \n", testType,index+1, *unit)
@@ -22,7 +24,9 @@ func ShowTestResult(filePath string) {
 	}
 	//fmt.Println("------------------------------------ DFA -------------------------------------")
 	testType = "DFA"
-	for index, unit := range testUnits {
+	for index, line := range lines {
+		unit := NewTestUnit("","",false)
+		unit.Parse(line)
 		//fmt.Printf("[%s] 第 %d 个测试单元: %v \n", testType,index+1,*unit)
 		if !unit.dfaTest() {
 			//fmt.Printf("[%s] 没通过第 %d 个测试单元: %v \n", testType,index+1, *unit)
@@ -37,11 +41,5 @@ func ShowTestResult(filePath string) {
 
 
 
-func BuildGrammar(filePath string) {
-	grammarUnits := getGrammarUnits(filePath)
-	for index, unit := range grammarUnits {
-		lexicalTest.GlobalRegexpsManager.AddSpecialChar(unit.specialChar, unit.regexp)
-		fmt.Printf("添加了第 %d 个特殊字符：%s   对应的正则表达式是：%s\n",index,string(unit.specialChar),unit.regexp)
-	}
-}
+
 

@@ -1,4 +1,4 @@
-package lexicalTest
+package stateMachine
 
 var GlobalRegexpsManager = NewRegexpsManager()
 type RegexpsManager struct {

@@ -1,4 +1,4 @@
-package lexicalTest
+package stateMachine
 
 import "fmt"
 
@@ -7,12 +7,7 @@ type NFA struct {
 	endState   *State
 }
 
-func NewNFA(char byte) *NFA {
-	startState := NewState(false)
-	endState := NewState(true)
-	startState.LinkByChar(char,endState)
-	return &NFA{startState, endState}
-}
+
 //func NewTestNFA() *NFA {
 //	s0 := NewState(false)
 //	s1 := NewState(false)
@@ -26,9 +21,6 @@ func NewNFA(char byte) *NFA {
 //	s2.LinkByChar('a',s3)
 //	s3.LinkByChar('b',s1)
 //	s4.endFlag=true
-//
-//
-//
 //
 //
 //	return &NFA{s0,nil}
@@ -72,7 +64,9 @@ func NewNFA(char byte) *NFA {
 //
 //	return &NFA{s0,nil}
 //}
-
+//func (nfa *NFA)MarkDown(specialChar byte) {
+//	nfa.startState.MarkDown(specialChar,make(map[*State]bool))
+//}
 
 
 func (nfa *NFA) Merge(){
@@ -81,16 +75,16 @@ func (nfa *NFA) Merge(){
 }
 
 
-func (nfa *NFA)MarkDown(specialChar byte) {
-	nfa.startState.MarkDown(specialChar,make(map[*State]bool))
-}
+
 
 
 func (nfa *NFA) Show() {
 	ids := make(map[*State]int)
+	lines := new(int)
 	fmt.Println("-------------------------------------------------------------")
 	fmt.Println("是否DFA:",nfa.IsDFA())
-	nfa.getStartState().Show(0, ids, make(map[*State]bool))
+	nfa.getStartState().Show(0, ids, make(map[*State]bool),lines)
+	fmt.Println("总边数:",*lines)
 	fmt.Println(ids)
 	fmt.Println("-------------------------------------------------------------")
 }
@@ -108,21 +102,18 @@ func (nfa *NFA) Get(pattern string) []string{
 		if pattern[position]=='#'{
 			break
 		}
-		//fmt.Printf("%d-%v-%v-\n",position,pattern[position],string(pattern[position]))
 		// 不匹配
 		if len(begin.toNextState[pattern[position]])==0{
 			if begin.endFlag{
 				result = append(result,buffer)
-				fmt.Print(buffer)
 			}
 			begin = nfa.startState
 			buffer = ""
 
 			if len(begin.toNextState[pattern[position]])!=0{
 				position--
-			}else{
-				fmt.Print(string(pattern[position]))
 			}
+
 			continue
 		}
 		// 成功匹配
@@ -135,9 +126,6 @@ func (nfa *NFA) Get(pattern string) []string{
 	return result
 }
 func (nfa *NFA) IsMatch(pattern string) bool {
-	//if nfa.IsDFA(){
-	//	fmt.Println("		「DFA匹配」		")
-	//}
 	return nfa.startState.IsMatch(pattern)
 }
 func (nfa *NFA) IsDFA() bool {

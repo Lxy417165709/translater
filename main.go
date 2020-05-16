@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"grammar"
 	"io/ioutil"
 	"os"
 	"testUnit"
@@ -21,18 +22,16 @@ var testFilePaths = []string{
 	`C:\Users\hasee\Desktop\Go_Practice\编译器\doc\nfaTestFile\nfaGraphTest10.md`,
 	`C:\Users\hasee\Desktop\Go_Practice\编译器\doc\nfaTestFile\nfaGraphTest11.md`,
 }
-var grammarFilePath = `C:\Users\hasee\Desktop\Go_Practice\编译器\doc\grammar.md`
+
 var programFilePath = `C:\Users\hasee\Desktop\Go_Practice\编译器\doc\source2.md`
 func main() {
 
-	testUnit.BuildGrammar(grammarFilePath)
+	grammar.BuildGrammar()
+	//stateMachine.NewNFABuilder("a|b").BuildDFA().Show()
 
-	allTest(20)
+	allTest(100)
 	fmt.Println("测试通过！")
-	//dfa := lexicalTest.NewNFABuilder("N").BuildDFA()
-	//dfa.Show()
-	//fmt.Println(dfa.Get("0.00 0.00 0000 00000.004 00.5"))
-
+	//fmt.Println(lexical.GlobalLexicalAnalyzer.Parse(getProgramData()))
 }
 
 func getProgramData() []byte{
@@ -61,27 +60,3 @@ func allTest(testTimes int) {
 	}
 }
 
-func foo() {
-	//for i:=0;i<20;i++{
-	//	w := lexicalTest.NewNFABuilder("d$d$").BuildNFA()
-	//	fmt.Println("nfa:")
-	//	w.Show()
-	//	if w.IsMatch("")==false{
-	//		panic(fmt.Sprintf("[nfa] 第%d 次，发生错误！",i+1))
-	//	}
-	//	w.Merge()
-	//	fmt.Println("nfa merge:")
-	//	w.Show()
-	//	if w.IsMatch("")==false{
-	//		panic(fmt.Sprintf("[nfa merge]第%d 次，发生错误！",i+1))
-	//	}
-	//	w.ChangeToDFA()
-	//	fmt.Println("dfa:")
-	//	w.Show()
-	//	if w.IsMatch("")==false{
-	//		panic(fmt.Sprintf("[dfa] 第%d 次，发生错误！",i+1))
-	//	}
-	//	//fmt.Println(w.IsMatch("int"))
-	//}
-
-}

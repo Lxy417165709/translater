@@ -1,10 +1,11 @@
-package lexicalTest
+package stateMachine
 
 import (
+	"fmt"
 	"strings"
 )
 
-const RegexSplitString = "|"
+
 
 // TODO: 重构
 type NFABuilder struct {
@@ -22,7 +23,7 @@ func NewNFABuilder(buildRegexp string) *NFABuilder {
 		buildRegexp,
 		0,
 		endChar,
-		NewNFA(eps),
+		NewEmptyNFA(),
 	}
 }
 
@@ -32,15 +33,17 @@ func (nb *NFABuilder) BuildNFA() *NFA {
 		return nil
 	}
 	if nb.buildRegexpIsRespondToSingleNFA() {
+		nb.finalNFA.startState.LinkByChar(eps,nb.finalNFA.endState)
 		nb.setReadingRegexp(regexps[0])
 		for !nb.readingIsOver() {
 			nb.parseChar()
 		}
-	} else {
-		nb.finalNFA = NewNFABuilder(regexps[0]).BuildNFA()
-		for i := 1; i < len(regexps); i++ {
-			nb.finalNFA.AddParallelNFA(NewNFABuilder(regexps[i]).BuildNFA())
-		}
+		return nb.finalNFA
+	}
+	// 这要去除空格（这职责应该不是由它担任）
+	for i := 0; i < len(regexps); i++ {
+		addedNfa := NewNFABuilder(strings.TrimSpace(regexps[i])).BuildNFA()
+		nb.finalNFA.AddParallelNFA(addedNfa)
 	}
 	return nb.finalNFA
 }
@@ -50,7 +53,9 @@ func (nb *NFABuilder) BuildDFA() *NFA {
 	nfa := nb.BuildNFA()
 	nfa.Merge()
 	nfa.ChangeToDFA()
-
+	if !nfa.IsDFA(){
+		panic(fmt.Sprintf("DFA算法有误"))
+	}
 	return nfa
 }
 
