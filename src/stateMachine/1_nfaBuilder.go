@@ -40,7 +40,7 @@ func (nb *NFABuilder) BuildNFA() *NFA {
 		return nil
 	}
 	if nb.buildRegexpIsRespondToSingleNFA() {
-		nb.finalNFA.startState.LinkByChar(eps, nb.finalNFA.endState)
+		nb.finalNFA.startState.LinkByChar(eps, nb.finalNFA.getEndState())
 		nb.setReadingRegexp(regexps[0])
 		for !nb.readingIsOver() {
 			nb.parseChar()

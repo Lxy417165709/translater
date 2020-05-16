@@ -6,13 +6,6 @@ import (
 	"strings"
 )
 
-//const (
-//	wordDelimiter = "|"
-//	grammarUnitDelimiter = "->"
-//	grammarFilePath = `C:\Users\hasee\Desktop\Go_Practice\编译器\doc\grammar.md`
-//)
-
-//var regexpsManager = NewRegexpsManager(grammarFilePath)
 
 type RegexpsManager struct {
 	grammarFilePath string

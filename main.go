@@ -3,6 +3,7 @@ package main
 import (
 	"file"
 	"fmt"
+	"lexical"
 	"regexpsManager"
 	"testLay"
 )
@@ -22,7 +23,7 @@ var testFilePaths = [...]string{
 	`C:\Users\hasee\Desktop\Go_Practice\编译器\doc\nfaTestFile\nfaGraphTest11.md`,
 }
 
-var programFilePath = `C:\Users\hasee\Desktop\Go_Practice\编译器\doc\source2.md`
+var programFilePath = `C:\Users\hasee\Desktop\Go_Practice\编译器\doc\source.md`
 
 const (
 	wordDelimiter        = "|"
@@ -31,20 +32,28 @@ const (
 )
 
 func main() {
-	//regexpsManager := regexpsManager.NewRegexpsManager(
-	//	grammarFilePath,
-	//	grammarUnitDelimiter,
-	//	wordDelimiter,
-	//)
-	//regexpsManager.Init()
-	//lexicalAnalyzer := lexical.NewLexicalAnalyzer(regexpsManager)
-	//lexicalAnalyzer.Init()
-	//pairs := lexicalAnalyzer.Parse(file.NewFileReader(programFilePath).GetFileBytes())
-	//for index,pair := range pairs{
-	//	fmt.Printf("[第 %d 个] (%s, %d, %v)\n",index+1,pair.GetKind(),pair.GetKindCode(),pair.GetValue())
-	//}
+	regexpsManager := regexpsManager.NewRegexpsManager(
+		grammarFilePath,
+		grammarUnitDelimiter,
+		wordDelimiter,
+	)
+	regexpsManager.Init()
+	//nfa := stateMachine.NewNFABuilder("U",regexpsManager).BuildNFA()
+	//nfa.EliminateBlankStates()
+	//nfa.Show()
+	//nfa.ToBeDFA()
+	//nfa.Show()
+	//fmt.Println(nfa.Get("if it intx int"))
 
-	allTest()
+
+	lexicalAnalyzer := lexical.NewLexicalAnalyzer(regexpsManager)
+	lexicalAnalyzer.Init()
+	pairs := lexicalAnalyzer.Parse(file.NewFileReader(programFilePath).GetFileBytes())
+	for index,pair := range pairs{
+		fmt.Printf("[第 %d 个 token] (%s, %d, %v)\n",index+1,pair.GetKind(),pair.GetKindCode(),pair.GetValue())
+	}
+
+	//allTest()
 }
 
 func allTest() {

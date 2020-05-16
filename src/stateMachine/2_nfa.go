@@ -47,7 +47,6 @@ func (nfa *NFA) ToBeDFA() {
 	nfa.getStartState().MultiWayMergeFromHere(hasVisited)
 }
 func (nfa *NFA) Get(pattern string) []string {
-
 	result := make([]string, 0)
 	begin := nfa.startState
 	buffer := ""
@@ -56,7 +55,6 @@ func (nfa *NFA) Get(pattern string) []string {
 		if char == '#' {
 			break
 		}
-
 		// 不匹配
 		if len(begin.toNextState[char]) == 0 {
 			if begin.endFlag {
@@ -67,14 +65,13 @@ func (nfa *NFA) Get(pattern string) []string {
 			if len(begin.toNextState[char]) != 0 {
 				position--
 			}
-
 			continue
 		}
 		// 成功匹配
 		buffer += string(char)
 		begin = begin.toNextState[char][0]
 	}
-	if buffer != "" {
+	if buffer != "" && begin.endFlag {
 		result = append(result, buffer)
 	}
 	return result
@@ -140,7 +137,3 @@ func (nfa *NFA) setEndState(state *State) {
 	nfa.endState = state
 }
 
-
-func charIsSpace(char byte) bool{
-	return char=='\n' || char=='\r' || char=='\t' || char==' '
-}

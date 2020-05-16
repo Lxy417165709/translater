@@ -69,7 +69,6 @@ func (la *LexicalAnalyzer) FormWordToCode() {
 	words = append(words, la.GetKeyWords()...)
 	words = append(words, la.GetOperators()...)
 	words = append(words, la.GetDelimiters()...)
-
 	for index, word := range words {
 		la.wordToCode[word] = index + 1
 	}
@@ -101,6 +100,7 @@ func (la *LexicalAnalyzer) Parse(bytes []byte) []*pair {
 	pairs := make([]*pair, 0)
 	for _, dfa := range la.dfas {
 		for _, word := range dfa.Get(string(bytes)) {
+			// TODO: 有问题，关键字被识别为标识符
 			pairs = append(pairs,
 				NewPair(
 					la.GetKind(dfa,word),

@@ -11,7 +11,6 @@ type State struct {
 	toNextState map[byte][]*State
 }
 
-
 func NewState(endFlag bool) *State {
 	return &State{endFlag, eps, make(map[byte][]*State)}
 }
@@ -69,20 +68,7 @@ func (s *State) MultiWayMergeFromHere(hasVisited map[*State]bool) *State {
 }
 
 
-//func (s *State) SearchEndStateFromHere(hasVisited map[*State]bool) []*State{
-//	if hasVisited[s] {
-//		return []*State{}
-//	}
-//	hasVisited[s] = true
-//	result := make([]*State,0)
-//
-//	//对非空白态的子节点进行处理
-//	allNextStates := s.getAllNextStates()
-//	for _, nextState := range allNextStates {
-//		nextState.EliminateNextBlankStatesFromHere(hasVisited)
-//	}
-//	return
-//}
+
 
 
 func (s *State) AddNextStates(addedMap map[byte][]*State) {
