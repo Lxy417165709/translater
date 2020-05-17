@@ -7,31 +7,61 @@ import (
 )
 
 type NFA struct {
-	startState *State
-	endState   *State
-	regexpsManager *regexpsManager.RegexpsManager
+	startState            *State
+	endState              *State
+	regexpsManager        *regexpsManager.RegexpsManager
 	respondingSpecialChar byte
 }
 
 func NewEmptyNFA(regexpsManager *regexpsManager.RegexpsManager) *NFA {
-	return &NFA{NewState(false), NewState(true),regexpsManager,eps}
+	return &NFA{NewState(false), NewState(true), regexpsManager, eps}
 }
-func NewNFA(char byte,regexpsManager *regexpsManager.RegexpsManager) *NFA {
+func NewNFA(char byte, regexpsManager *regexpsManager.RegexpsManager) *NFA {
 	if !regexpsManager.CharIsSpecial(char) {
-		nfa :=  NewEmptyNFA(regexpsManager)
-		nfa.getStartState().LinkByChar(char,nfa.getEndState())
+		nfa := NewEmptyNFA(regexpsManager)
+		nfa.getStartState().LinkByChar(char, nfa.getEndState())
 		return nfa
 	}
 	regexp := regexpsManager.GetRegexp(char)
-	nfa := NewNFABuilder(regexp,regexpsManager).BuildNFA()
+	nfa := NewNFABuilder(regexp, regexpsManager).BuildNFA()
 	return nfa
 }
 
 func (nfa *NFA) SetRespondingSpecialChar(char byte) {
 	nfa.respondingSpecialChar = char
 }
-func (nfa *NFA) GetRespondingSpecialChar() byte{
+func (nfa *NFA) GetRespondingSpecialChar() byte {
 	return nfa.respondingSpecialChar
+}
+
+func (nfa *NFA) FormMermaid(file *os.File) {
+	ids := make(map[*State]int)
+	lines := new(int)
+	result := make([]string, 0)
+	nfa.getStartState().GetShowDataFromHere(0, ids, make(map[*State]bool), lines, &result)
+	_, err := file.WriteString("```mermaid\ngraph LR\n")
+	for i := 0; i < len(result); i++ {
+		_, err = file.WriteString(result[i])
+		if err != nil {
+			panic(err)
+		}
+	}
+	_, err = file.WriteString("```\n")
+	if err != nil {
+		panic(err)
+	}
+}
+func (nfa *NFA) OutputNFA(filePath string) {
+	file, err := os.Create(filePath)
+	defer file.Close()
+	if err != nil {
+		panic(err)
+	}
+	nfa.FormMermaid(file)
+	nfa.EliminateBlankStates()
+	nfa.FormMermaid(file)
+	//nfa.ToBeDFA()
+	//nfa.FormMermaid(file)
 }
 
 func (nfa *NFA) EliminateBlankStates() {
@@ -49,40 +79,59 @@ func (nfa *NFA) Show() {
 	fmt.Println(ids)
 	fmt.Println("-------------------------------------------------------------")
 }
-func (nfa *NFA) FormMermaid(file *os.File) {
-	ids := make(map[*State]int)
-	lines := new(int)
-	result := make([]string,0)
-	nfa.getStartState().GetShowDataFromHere(0, ids, make(map[*State]bool), lines,&result)
-	_,err := file.WriteString("```mermaid\ngraph LR\n")
-	for i:=0;i<len(result);i++{
-		_ ,err = file.WriteString(result[i])
-		if err!=nil{
-			panic(err)
+
+func (nfa *NFA) GetByNFA(pattern string) []string {
+	pattern += "#"
+	buffer := ""
+	result := make([]string, 0)
+	queue := make([]*State, 0)
+	queue = append(queue, nfa.startState)
+	readingPosition := 0
+	for pattern[readingPosition] != '#' {
+		lastEndState := getFirstEndState(queue)
+		queue = getNextStates(queue, pattern[readingPosition])
+		if len(queue) != 0 {
+			buffer += string(pattern[readingPosition])
+			readingPosition++
+			continue
+		}
+		if lastEndState==nil && !isBlank(pattern[readingPosition]) {
+			panic("源文件存在非法字符：" + string(pattern[readingPosition]))
+		}
+		switch {
+		case lastEndState != nil:
+			result = append(result, buffer)
+		case isBlank(pattern[readingPosition]):
+			readingPosition++
+		}
+		buffer = ""
+		queue = nil
+		queue = append(queue, nfa.startState)
+	}
+
+	return result
+}
+
+func isBlank(char byte) bool {
+	return char == ' ' || char == '\n' || char == '\t' || char == '\r'
+}
+func getNextStates(states []*State, readingChar byte) []*State {
+	tmpQueue := make([]*State, 0)
+	for i := 0; i < len(states); i++ {
+		if states[i].toNextState[readingChar] != nil {
+			tmpQueue = append(tmpQueue, states[i].toNextState[readingChar]...)
 		}
 	}
-	_,err = file.WriteString("```\n")
-	if err!=nil{
-		panic(err)
-	}
+	return tmpQueue
 }
-func (nfa *NFA) OutputNFA() {
-	filePath := `C:\Users\hasee\Desktop\Go_Practice\编译器\doc\nfa_Visualization_data\`+"nfa.md"
-	file,err := os.Create(filePath)
-	defer file.Close()
-	if err!=nil{
-		panic(err)
+func getFirstEndState(states []*State) *State {
+	for _, state := range states {
+		if state.endFlag {
+			return state
+		}
 	}
-	nfa.FormMermaid(file)
-	nfa.EliminateBlankStates()
-	nfa.FormMermaid(file)
-	//nfa.ToBeDFA()
-	//nfa.FormMermaid(file)
+	return nil
 }
-
-
-
-
 
 func (nfa *NFA) ToBeDFA() {
 	// TODO: 这可能有些问题，可能nfa.endState会发生改变
@@ -127,12 +176,12 @@ func (nfa *NFA) IsDFA() bool {
 	return nfa.getStartState().CanBeStartOfDFA(hasVisited)
 }
 func (nfa *NFA) RepeatPlus(char byte) {
-	shouldAddNFA := NewNFA(char,nfa.regexpsManager)
+	shouldAddNFA := NewNFA(char, nfa.regexpsManager)
 	shouldAddNFA.linkEndStateToStartState()
 	nfa.AddSeriesNFA(shouldAddNFA)
 }
 func (nfa *NFA) RepeatZero(char byte) {
-	shouldAddNFA := NewNFA(char,nfa.regexpsManager)
+	shouldAddNFA := NewNFA(char, nfa.regexpsManager)
 	shouldAddNFA.linkEndStateToStartState()
 
 	endStateOfShouldAddNFA := NewState(true)
@@ -142,7 +191,7 @@ func (nfa *NFA) RepeatZero(char byte) {
 	nfa.AddSeriesNFA(shouldAddNFA)
 }
 func (nfa *NFA) Once(char byte) {
-	beAddedNFA := NewNFA(char,nfa.regexpsManager)
+	beAddedNFA := NewNFA(char, nfa.regexpsManager)
 	nfa.AddSeriesNFA(beAddedNFA)
 }
 
@@ -179,4 +228,3 @@ func (nfa *NFA) setStartState(state *State) {
 func (nfa *NFA) setEndState(state *State) {
 	nfa.endState = state
 }
-

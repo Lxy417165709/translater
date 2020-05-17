@@ -4,6 +4,7 @@ import (
 	"file"
 	"fmt"
 	"regexpsManager"
+	"stateMachine"
 	"testLay"
 )
 
@@ -23,7 +24,7 @@ var testFilePaths = [...]string{
 }
 
 var programFilePath = `C:\Users\hasee\Desktop\Go_Practice\编译器\doc\source.md`
-
+var nfaFilePath =  `C:\Users\hasee\Desktop\Go_Practice\编译器\doc\nfa_Visualization_data\nfa.md`
 const (
 	wordDelimiter        = "|"
 	grammarUnitDelimiter = "->"
@@ -37,15 +38,12 @@ func main() {
 		wordDelimiter,
 	)
 	regexpsManager.Init()
-	allTest()
-	//nfa := stateMachine.NewNFABuilder("Z|O|J|W",regexpsManager).BuildNFA()
-	//nfa := stateMachine.NewNFABuilder("X|Z",regexpsManager).BuildNFA()
-	//nfa.EliminateBlankStates()
-	//nfa.OutputNFA()
-	//lexicalAnalyzer := lexical.NewLexicalAnalyzer(regexpsManager)
-	//lexicalAnalyzer.Init()
-	//lexicalAnalyzer.ShowParsedTokens(file.NewFileReader(programFilePath).GetFileBytes())
-	//lexicalAnalyzer.ShowKindCode()
+	//allTest()
+	nfa := stateMachine.NewNFABuilder("Z|O|J|W|I|X",regexpsManager).BuildNFA()
+	nfa.OutputNFA(nfaFilePath)
+	nfa.EliminateBlankStates()
+	results := nfa.GetByNFA(string(file.NewFileReader(programFilePath).GetFileBytes()))
+	fmt.Println(len(results),results)
 }
 
 func allTest() {
