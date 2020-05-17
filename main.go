@@ -46,8 +46,6 @@ func main() {
 	//stateMachine.NewNFABuilder("U",regexpsManager).BuildNotBlankStateNFA().OutputNFA(nfaFilePath)
 	//stateMachine.NewNFABuilder("O",regexpsManager).BuildNotBlankStateNFA().OutputNFA(nfaFilePath )
 	//stateMachine.NewNFABuilder("J",regexpsManager).BuildNotBlankStateNFA().OutputNFA(nfaFilePath )
-
-
 }
 
 func allTest() {
