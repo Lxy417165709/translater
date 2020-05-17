@@ -343,8 +343,20 @@ func (s *State) GetShowDataFromHere(startId int, stateToId map[*State]int, state
 	}
 }
 func (s *State) getEndMark(value int) string {
+	//if s.endFlag == true {
+	//	return fmt.Sprintf("{%d_%s-%d}",value,string(s.markFlag),s.code)
+	//}
+	//return fmt.Sprintf("((%d))",value)
 	if s.endFlag == true {
-		return fmt.Sprintf("{%d_%s-%d}",value,string(s.markFlag),s.code)
+		partOne,partTwo := "",""
+		if s.markFlag!=0{
+			partOne = "_" + string(s.markFlag)
+		}
+		if s.code!=0{
+			partTwo = fmt.Sprintf("-%d",s.code)
+		}
+
+		return fmt.Sprintf("{%d%s%s}",value,partOne,partTwo)
 	}
 	return fmt.Sprintf("((%d))",value)
 }

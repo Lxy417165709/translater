@@ -42,6 +42,12 @@ func main() {
 	lex := lexical.NewLexicalAnalyzer(regexpsManager)
 	lex.Init()
 	lex.ShowParsedTokens(file.NewFileReader(programFilePath).GetFileBytes())
+
+	//stateMachine.NewNFABuilder("U",regexpsManager).BuildNotBlankStateNFA().OutputNFA(nfaFilePath)
+	//stateMachine.NewNFABuilder("O",regexpsManager).BuildNotBlankStateNFA().OutputNFA(nfaFilePath )
+	//stateMachine.NewNFABuilder("J",regexpsManager).BuildNotBlankStateNFA().OutputNFA(nfaFilePath )
+
+
 }
 
 func allTest() {

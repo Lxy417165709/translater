@@ -27,17 +27,12 @@ func NewNFA(char byte, regexpsManager *regexpsManager.RegexpsManager) *NFA {
 	return nfa
 }
 
-
-
-
 func (nfa *NFA) SetRespondingSpecialChar(char byte) {
 	nfa.respondingSpecialChar = char
 }
 func (nfa *NFA) GetRespondingSpecialChar() byte {
 	return nfa.respondingSpecialChar
 }
-
-
 
 func (nfa *NFA) EliminateBlankStates() {
 	hasVisited := make(map[*State]bool)
@@ -55,15 +50,15 @@ func (nfa *NFA) Show() {
 	fmt.Println("-------------------------------------------------------------")
 }
 
-const endSymbal = '#'
+const endSymbol = '#'
+
 func (nfa *NFA) GetTokenByNFA(pattern string) []*Token {
-	pattern += string(endSymbal)
+	pattern += string(endSymbol)
 	buffer := ""
-	tokens := make([]*Token,0)
-	queue := make([]*State, 0)
+	tokens, queue := make([]*Token, 0), make([]*State, 0)
 	queue = append(queue, nfa.startState)
 	readingPosition := 0
-	for pattern[readingPosition] != endSymbal {
+	for pattern[readingPosition] != endSymbol {
 		lastEndState := getFirstEndState(queue)
 		queue = getNextStates(queue, pattern[readingPosition])
 		if len(queue) != 0 {
@@ -71,8 +66,8 @@ func (nfa *NFA) GetTokenByNFA(pattern string) []*Token {
 			readingPosition++
 			continue
 		}
-		if lastEndState==nil && !isBlank(pattern[readingPosition]) {
-			panic(fmt.Sprintf("源文件存在非法字符：%s 索引:%d",string(pattern[readingPosition]),readingPosition))
+		if lastEndState == nil && !isBlank(pattern[readingPosition]) {
+			panic(fmt.Sprintf("源文件存在非法字符：%s 索引:%d", string(pattern[readingPosition]), readingPosition))
 		}
 		switch {
 		case lastEndState != nil:
@@ -88,7 +83,6 @@ func (nfa *NFA) GetTokenByNFA(pattern string) []*Token {
 		queue = nil
 		queue = append(queue, nfa.startState)
 	}
-
 	return tokens
 }
 
@@ -209,8 +203,8 @@ func (nfa *NFA) setEndState(state *State) {
 	nfa.endState = state
 }
 
-func (nfa *NFA) MarkDown() *NFA{
-	nfa.startState.MarkDown(nfa.respondingSpecialChar,make(map[*State]bool))
+func (nfa *NFA) MarkDown() *NFA {
+	nfa.startState.MarkDown(nfa.respondingSpecialChar, make(map[*State]bool))
 	return nfa
 }
 func (nfa *NFA) FormMermaid(file *os.File) {
@@ -243,16 +237,15 @@ func (nfa *NFA) OutputNFA(filePath string) {
 	nfa.FormMermaid(file)
 }
 
-func (nfa *NFA) GetWordEndPair() []*WordEndPair{
-	return nfa.startState.GetWordEndPair("",make(map[*State]bool))
+func (nfa *NFA) GetWordEndPair() []*WordEndPair {
+	return nfa.startState.GetWordEndPair("", make(map[*State]bool))
 }
 
-func (nfa *NFA)GetStartState() *State{
+func (nfa *NFA) GetStartState() *State {
 	return nfa.startState
 }
-type WordEndPair struct{
+
+type WordEndPair struct {
 	EndStates *State
-	Word string
+	Word      string
 }
-
-

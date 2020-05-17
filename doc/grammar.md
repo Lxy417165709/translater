@@ -3,7 +3,7 @@ L-> a|b|c|d|e|f|g|h|i|j|k|l|m|n|o|p|q|r|s|t|u|v|w|x|y|z
 T -> D | L
 I -> LT$
 W->if|while|for|int|else|end|begin
-U -> end|else|int
+U->if|int|end
 O -> > | < | >= | <= | = | ==  | <<= | << | >> | --| - | := | + | * | / | += | -= |/= | *= | >>= | != | && | & | ++
 J -> ; | ( | )
 Z -> D@
