@@ -9,10 +9,11 @@ type NFA struct {
 	startState *State
 	endState   *State
 	regexpsManager *regexpsManager.RegexpsManager
+	respondingSpecialChar byte
 }
 
 func NewEmptyNFA(regexpsManager *regexpsManager.RegexpsManager) *NFA {
-	return &NFA{NewState(false), NewState(true),regexpsManager}
+	return &NFA{NewState(false), NewState(true),regexpsManager,eps}
 }
 func NewNFA(char byte,regexpsManager *regexpsManager.RegexpsManager) *NFA {
 	if !regexpsManager.CharIsSpecial(char) {
@@ -23,6 +24,13 @@ func NewNFA(char byte,regexpsManager *regexpsManager.RegexpsManager) *NFA {
 	regexp := regexpsManager.GetRegexp(char)
 	nfa := NewNFABuilder(regexp,regexpsManager).BuildNFA()
 	return nfa
+}
+
+func (nfa *NFA) SetRespondingSpecialChar(char byte) {
+	nfa.respondingSpecialChar = char
+}
+func (nfa *NFA) GetRespondingSpecialChar() byte{
+	return nfa.respondingSpecialChar
 }
 
 func (nfa *NFA) EliminateBlankStates() {

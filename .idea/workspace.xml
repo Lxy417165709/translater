@@ -2,15 +2,14 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="e007b749-02cc-46c6-a4eb-854657eb5e17" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/lexical/contentParser.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/doc/grammar.md" beforeDir="false" afterPath="$PROJECT_DIR$/doc/grammar.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/doc/source.md" beforeDir="false" afterPath="$PROJECT_DIR$/doc/source.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/doc/词法分析器.doc" beforeDir="false" afterPath="$PROJECT_DIR$/doc/词法分析器.doc" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main.go" beforeDir="false" afterPath="$PROJECT_DIR$/main.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/lexical/LexicalAnalyzer.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/lexical/LexicalAnalyzer.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/regexpsManager/1_regexpsManager.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/regexpsManager/1_regexpsManager.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/lexical/pair.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/lexical/token.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/stateMachine/1_nfaBuilder.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/stateMachine/1_nfaBuilder.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/stateMachine/2_nfa.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/stateMachine/2_nfa.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/stateMachine/3_state.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/stateMachine/3_state.go" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -37,11 +36,9 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/stateMachine/1_nfaBuilder.go">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="606">
-              <caret line="45" column="26" selection-start-line="45" selection-start-column="26" selection-end-line="45" selection-end-column="26" />
+            <state relative-caret-position="115">
+              <caret line="34" column="21" selection-start-line="34" selection-start-column="21" selection-end-line="34" selection-end-column="21" />
               <folding>
-                <element signature="e#191#421#0" />
-                <element signature="n#!!block;n#NewNFABuilder#0" />
                 <element signature="n#!!block;n#parseChar#0" />
                 <element signature="n#!!block;n#getBaseChar#0" />
                 <element signature="n#!!block;n#getNextChar#0" />
@@ -58,25 +55,10 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/main.go">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="254">
-              <caret line="25" column="72" selection-start-line="25" selection-start-column="72" selection-end-line="25" selection-end-column="72" />
+            <state relative-caret-position="393">
+              <caret line="45" column="34" selection-start-line="45" selection-start-column="34" selection-end-line="45" selection-end-column="34" />
               <folding>
                 <element signature="n#!!block;n#allTest#0" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/regexpsManager/1_regexpsManager.go">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="679">
-              <caret line="46" column="26" selection-start-line="46" selection-start-column="26" selection-end-line="46" selection-end-column="26" />
-              <folding>
-                <element signature="n#!!block;n#NewRegexpsManager#0" />
-                <element signature="n#!!block;n#GetRegexp#0" />
-                <element signature="n#!!block;n#CharIsSpecial#0" />
-                <element signature="n#!!block;n#GetResponseHandledWords#0" />
               </folding>
             </state>
           </provider>
@@ -86,8 +68,8 @@
         <entry file="file://$PROJECT_DIR$/doc/source2.md">
           <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
             <state split_layout="SPLIT">
-              <first_editor relative-caret-position="33">
-                <caret line="1" column="13" selection-start-line="1" selection-start-column="13" selection-end-line="1" selection-end-column="13" />
+              <first_editor>
+                <caret column="5" lean-forward="true" selection-start-column="5" selection-end-column="5" />
               </first_editor>
               <second_editor />
             </state>
@@ -95,13 +77,24 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/lexical/token.go">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="165">
+              <caret line="14" column="1" lean-forward="true" selection-start-line="14" selection-start-column="1" selection-end-line="14" selection-end-column="1" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/stateMachine/2_nfa.go">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="152">
-              <caret line="48" selection-start-line="48" selection-end-line="77" selection-end-column="1" />
+            <state relative-caret-position="115">
+              <caret line="108" column="33" selection-start-line="108" selection-start-column="33" selection-end-line="108" selection-end-column="33" />
               <folding>
                 <element signature="e#22#57#0" expanded="true" />
+                <element signature="n#!!block;n#NewEmptyNFA#0" />
                 <element signature="n#!!block;n#NewNFA#0" />
+                <element signature="n#!!block;n#respondingSpecialChar#0" />
                 <element signature="n#!!block;n#EliminateBlankStates#0" />
                 <element signature="n#!!block;n#ToBeDFA#0" />
                 <element signature="n#!!block;n#Get#0" />
@@ -114,7 +107,7 @@
         <entry file="file://$PROJECT_DIR$/src/lexical/contentParser.go">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="363">
-              <caret line="11" lean-forward="true" selection-start-line="11" selection-end-line="11" />
+              <caret line="11" selection-start-line="11" selection-end-line="11" />
             </state>
           </provider>
         </entry>
@@ -123,20 +116,8 @@
         <entry file="file://$PROJECT_DIR$/doc/grammar.md">
           <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
             <state split_layout="SPLIT">
-              <first_editor relative-caret-position="396">
-                <caret line="12" lean-forward="true" selection-start-line="12" selection-end-line="12" />
-              </first_editor>
-              <second_editor />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/doc/source.md">
-          <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
-            <state split_layout="SPLIT">
-              <first_editor relative-caret-position="489">
-                <caret line="28" column="2" selection-start-line="28" selection-start-column="2" selection-end-line="28" selection-end-column="2" />
+              <first_editor relative-caret-position="132">
+                <caret line="4" column="34" selection-start-line="4" selection-start-column="34" selection-end-line="4" selection-end-column="34" />
               </first_editor>
               <second_editor />
             </state>
@@ -144,17 +125,32 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/doc/source.md">
+          <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
+            <state split_layout="SPLIT">
+              <first_editor relative-caret-position="726">
+                <caret line="22" column="16" lean-forward="true" selection-start-line="22" selection-start-column="16" selection-end-line="22" selection-end-column="16" />
+              </first_editor>
+              <second_editor />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/lexical/LexicalAnalyzer.go">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="80">
-              <caret line="106" column="42" lean-forward="true" selection-start-line="106" selection-start-column="42" selection-end-line="106" selection-end-column="42" />
+            <state relative-caret-position="23">
+              <caret line="117" column="42" selection-start-line="117" selection-start-column="26" selection-end-line="117" selection-end-column="42" />
               <folding>
                 <element signature="e#17#61#0" expanded="true" />
                 <element signature="n#!!block;n#NewLexicalAnalyzer#0" />
                 <element signature="n#!!block;n#Init#0" />
                 <element signature="n#!!block;n#FormWordToCode#0" />
                 <element signature="n#!!block;n#FormWordToKind#0" />
+                <element signature="n#!!block;n#GetKeyWords#0" />
+                <element signature="n#!!block;n#GetOperators#0" />
                 <element signature="n#!!block;n#GetDelimiters#0" />
+                <element signature="n#!!block;n#GetKind#0" />
                 <element signature="n#!!block;n#GetCode#0" />
               </folding>
             </state>
@@ -247,7 +243,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/src/lexicalTest/nfa.go" />
         <option value="$PROJECT_DIR$/src/Grammar.go" />
         <option value="$PROJECT_DIR$/src/grammar/utils.go" />
         <option value="$PROJECT_DIR$/src/file/utils.go" />
@@ -287,17 +282,18 @@
         <option value="$PROJECT_DIR$/src/lexical/pair.go" />
         <option value="$PROJECT_DIR$/src/testLay/3_lexicalAnalyzerTestUnit.go" />
         <option value="$PROJECT_DIR$/doc/sourceData/source1.md" />
-        <option value="$PROJECT_DIR$/doc/source2.md" />
-        <option value="$PROJECT_DIR$/src/stateMachine/1_nfaBuilder.go" />
         <option value="$PROJECT_DIR$/src/stateMachine/3_state.go" />
         <option value="$PROJECT_DIR$/src/regexpsManager/1_regexpsManager.go" />
         <option value="$PROJECT_DIR$/src/regexpsManager/contentParser.go" />
         <option value="$PROJECT_DIR$/src/lexical/contentParser.go" />
         <option value="$PROJECT_DIR$/src/stateMachine/2_nfa.go" />
-        <option value="$PROJECT_DIR$/doc/grammar.md" />
-        <option value="$PROJECT_DIR$/main.go" />
-        <option value="$PROJECT_DIR$/doc/source.md" />
+        <option value="$PROJECT_DIR$/src/stateMachine/1_nfaBuilder.go" />
+        <option value="$PROJECT_DIR$/doc/source2.md" />
+        <option value="$PROJECT_DIR$/src/lexical/token.go" />
         <option value="$PROJECT_DIR$/src/lexical/LexicalAnalyzer.go" />
+        <option value="$PROJECT_DIR$/main.go" />
+        <option value="$PROJECT_DIR$/doc/grammar.md" />
+        <option value="$PROJECT_DIR$/doc/source.md" />
       </list>
     </option>
   </component>
@@ -335,6 +331,12 @@
               <item name="编译器" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="lexical" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="编译器" type="b2602c69:ProjectViewProjectNode" />
+              <item name="编译器" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="stateMachine" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="编译器" type="b2602c69:ProjectViewProjectNode" />
@@ -416,7 +418,7 @@
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.45878524" visible="true" weight="0.22547974" />
+      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.45878524" visible="true" weight="0.1380597" />
       <window_info id="Structure" order="1" sideWeight="0.54121476" side_tool="true" weight="0.24626866" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
@@ -429,7 +431,7 @@
       <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
       <window_info anchor="bottom" id="Database Changes" order="8" />
       <window_info anchor="bottom" id="Version Control" order="9" sideWeight="0.49946696" weight="0.329718" />
-      <window_info anchor="bottom" id="Terminal" order="10" sideWeight="0.6801706" weight="0.4370933" />
+      <window_info anchor="bottom" id="Terminal" order="10" sideWeight="0.6801706" weight="0.45227766" />
       <window_info anchor="bottom" id="Event Log" order="11" sideWeight="0.31982943" side_tool="true" weight="0.6670282" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
@@ -636,13 +638,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/lexical/pair.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="165">
-          <caret line="5" column="16" selection-start-line="5" selection-start-column="16" selection-end-line="5" selection-end-column="16" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/stateMachine/unUsedCode.go">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="99">
@@ -724,22 +719,23 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/stateMachine/1_nfaBuilder.go">
+    <entry file="file://$PROJECT_DIR$/src/regexpsManager/1_regexpsManager.go">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="606">
-          <caret line="45" column="26" selection-start-line="45" selection-start-column="26" selection-end-line="45" selection-end-column="26" />
+        <state relative-caret-position="990">
+          <caret line="46" column="26" selection-start-line="46" selection-start-column="26" selection-end-line="46" selection-end-column="26" />
           <folding>
-            <element signature="e#191#421#0" />
-            <element signature="n#!!block;n#NewNFABuilder#0" />
-            <element signature="n#!!block;n#parseChar#0" />
-            <element signature="n#!!block;n#getBaseChar#0" />
-            <element signature="n#!!block;n#getNextChar#0" />
-            <element signature="n#!!block;n#buildRegexpIsRespondToSingleNFA#0" />
-            <element signature="n#!!block;n#readingPositionMoveOnce#0" />
-            <element signature="n#!!block;n#readingPositionMoveTwice#0" />
-            <element signature="n#!!block;n#readingIsOver#0" />
-            <element signature="n#!!block;n#setReadingRegexp#0" />
+            <element signature="n#!!block;n#NewRegexpsManager#0" />
+            <element signature="n#!!block;n#GetRegexp#0" />
+            <element signature="n#!!block;n#CharIsSpecial#0" />
+            <element signature="n#!!block;n#GetResponseHandledWords#0" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/lexical/contentParser.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="363">
+          <caret line="11" selection-start-line="11" selection-end-line="11" />
         </state>
       </provider>
     </entry>
@@ -774,11 +770,13 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/stateMachine/2_nfa.go">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="152">
-          <caret line="48" selection-start-line="48" selection-end-line="77" selection-end-column="1" />
+        <state relative-caret-position="115">
+          <caret line="108" column="33" selection-start-line="108" selection-start-column="33" selection-end-line="108" selection-end-column="33" />
           <folding>
             <element signature="e#22#57#0" expanded="true" />
+            <element signature="n#!!block;n#NewEmptyNFA#0" />
             <element signature="n#!!block;n#NewNFA#0" />
+            <element signature="n#!!block;n#respondingSpecialChar#0" />
             <element signature="n#!!block;n#EliminateBlankStates#0" />
             <element signature="n#!!block;n#ToBeDFA#0" />
             <element signature="n#!!block;n#Get#0" />
@@ -786,31 +784,74 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/doc/source2.md">
-      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
-        <state split_layout="SPLIT">
-          <first_editor relative-caret-position="33">
-            <caret line="1" column="13" selection-start-line="1" selection-start-column="13" selection-end-line="1" selection-end-column="13" />
-          </first_editor>
-          <second_editor />
+    <entry file="file://$PROJECT_DIR$/src/stateMachine/1_nfaBuilder.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="115">
+          <caret line="34" column="21" selection-start-line="34" selection-start-column="21" selection-end-line="34" selection-end-column="21" />
+          <folding>
+            <element signature="n#!!block;n#parseChar#0" />
+            <element signature="n#!!block;n#getBaseChar#0" />
+            <element signature="n#!!block;n#getNextChar#0" />
+            <element signature="n#!!block;n#buildRegexpIsRespondToSingleNFA#0" />
+            <element signature="n#!!block;n#readingPositionMoveOnce#0" />
+            <element signature="n#!!block;n#readingPositionMoveTwice#0" />
+            <element signature="n#!!block;n#readingIsOver#0" />
+            <element signature="n#!!block;n#setReadingRegexp#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/lexical/token.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="165">
+          <caret line="14" column="1" lean-forward="true" selection-start-line="14" selection-start-column="1" selection-end-line="14" selection-end-column="1" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/lexical/LexicalAnalyzer.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="23">
+          <caret line="117" column="42" selection-start-line="117" selection-start-column="26" selection-end-line="117" selection-end-column="42" />
+          <folding>
+            <element signature="e#17#61#0" expanded="true" />
+            <element signature="n#!!block;n#NewLexicalAnalyzer#0" />
+            <element signature="n#!!block;n#Init#0" />
+            <element signature="n#!!block;n#FormWordToCode#0" />
+            <element signature="n#!!block;n#FormWordToKind#0" />
+            <element signature="n#!!block;n#GetKeyWords#0" />
+            <element signature="n#!!block;n#GetOperators#0" />
+            <element signature="n#!!block;n#GetDelimiters#0" />
+            <element signature="n#!!block;n#GetKind#0" />
+            <element signature="n#!!block;n#GetCode#0" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/main.go">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="254">
-          <caret line="25" column="72" selection-start-line="25" selection-start-column="72" selection-end-line="25" selection-end-column="72" />
+        <state relative-caret-position="393">
+          <caret line="45" column="34" selection-start-line="45" selection-start-column="34" selection-end-line="45" selection-end-column="34" />
           <folding>
             <element signature="n#!!block;n#allTest#0" />
           </folding>
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/doc/source2.md">
+      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
+        <state split_layout="SPLIT">
+          <first_editor>
+            <caret column="5" lean-forward="true" selection-start-column="5" selection-end-column="5" />
+          </first_editor>
+          <second_editor />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/doc/grammar.md">
       <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
         <state split_layout="SPLIT">
-          <first_editor relative-caret-position="396">
-            <caret line="12" lean-forward="true" selection-start-line="12" selection-end-line="12" />
+          <first_editor relative-caret-position="132">
+            <caret line="4" column="34" selection-start-line="4" selection-start-column="34" selection-end-line="4" selection-end-column="34" />
           </first_editor>
           <second_editor />
         </state>
@@ -819,46 +860,10 @@
     <entry file="file://$PROJECT_DIR$/doc/source.md">
       <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
         <state split_layout="SPLIT">
-          <first_editor relative-caret-position="489">
-            <caret line="28" column="2" selection-start-line="28" selection-start-column="2" selection-end-line="28" selection-end-column="2" />
+          <first_editor relative-caret-position="726">
+            <caret line="22" column="16" lean-forward="true" selection-start-line="22" selection-start-column="16" selection-end-line="22" selection-end-column="16" />
           </first_editor>
           <second_editor />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/regexpsManager/1_regexpsManager.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="679">
-          <caret line="46" column="26" selection-start-line="46" selection-start-column="26" selection-end-line="46" selection-end-column="26" />
-          <folding>
-            <element signature="n#!!block;n#NewRegexpsManager#0" />
-            <element signature="n#!!block;n#GetRegexp#0" />
-            <element signature="n#!!block;n#CharIsSpecial#0" />
-            <element signature="n#!!block;n#GetResponseHandledWords#0" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/lexical/contentParser.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="363">
-          <caret line="11" lean-forward="true" selection-start-line="11" selection-end-line="11" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/lexical/LexicalAnalyzer.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="80">
-          <caret line="106" column="42" lean-forward="true" selection-start-line="106" selection-start-column="42" selection-end-line="106" selection-end-column="42" />
-          <folding>
-            <element signature="e#17#61#0" expanded="true" />
-            <element signature="n#!!block;n#NewLexicalAnalyzer#0" />
-            <element signature="n#!!block;n#Init#0" />
-            <element signature="n#!!block;n#FormWordToCode#0" />
-            <element signature="n#!!block;n#FormWordToKind#0" />
-            <element signature="n#!!block;n#GetDelimiters#0" />
-            <element signature="n#!!block;n#GetCode#0" />
-          </folding>
         </state>
       </provider>
     </entry>

@@ -20,7 +20,9 @@ type NFABuilder struct {
 	readingRegex    string // 不存在 RegexSplitString 的正则表达式，只能形成一个NFA
 	readingPosition int
 	finalNFA        *NFA
+	respondingSpecialChar byte
 	regexpsManager *regexpsManager.RegexpsManager
+
 }
 
 func NewNFABuilder(buildRegexp string,regexpsManager *regexpsManager.RegexpsManager) *NFABuilder {
@@ -30,6 +32,7 @@ func NewNFABuilder(buildRegexp string,regexpsManager *regexpsManager.RegexpsMana
 		buildRegexp,
 		0,
 		NewEmptyNFA(regexpsManager),
+		buildRegexp[0],
 		regexpsManager,
 	}
 }
@@ -56,6 +59,7 @@ func (nb *NFABuilder) BuildNFA() *NFA {
 }
 func (nb *NFABuilder) BuildDFA() *NFA {
 	nfa := nb.BuildNFA()
+	nfa.SetRespondingSpecialChar(nb.respondingSpecialChar)
 	nfa.EliminateBlankStates()
 	nfa.ToBeDFA()
 	if !nfa.IsDFA() {

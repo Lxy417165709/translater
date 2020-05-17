@@ -38,22 +38,12 @@ func main() {
 		wordDelimiter,
 	)
 	regexpsManager.Init()
-	//nfa := stateMachine.NewNFABuilder("U",regexpsManager).BuildNFA()
-	//nfa.EliminateBlankStates()
-	//nfa.Show()
-	//nfa.ToBeDFA()
-	//nfa.Show()
-	//fmt.Println(nfa.Get("if it intx int"))
 
 
 	lexicalAnalyzer := lexical.NewLexicalAnalyzer(regexpsManager)
 	lexicalAnalyzer.Init()
-	pairs := lexicalAnalyzer.Parse(file.NewFileReader(programFilePath).GetFileBytes())
-	for index,pair := range pairs{
-		fmt.Printf("[第 %d 个 token] (%s, %d, %v)\n",index+1,pair.GetKind(),pair.GetKindCode(),pair.GetValue())
-	}
-
-	//allTest()
+	lexicalAnalyzer.ShowParsedTokens(file.NewFileReader(programFilePath).GetFileBytes())
+	lexicalAnalyzer.ShowKindCode()
 }
 
 func allTest() {
