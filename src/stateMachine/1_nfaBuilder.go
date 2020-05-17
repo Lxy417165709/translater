@@ -27,12 +27,17 @@ type NFABuilder struct {
 
 func NewNFABuilder(buildRegexp string,regexpsManager *regexpsManager.RegexpsManager) *NFABuilder {
 	//endChar := byte('#')
+	specialChar := byte(0)
+	if len(buildRegexp)!=0{
+		specialChar = buildRegexp[0]
+	}
+
 	return &NFABuilder{
 		buildRegexp, // 为了方便越界判断
 		buildRegexp,
 		0,
 		NewEmptyNFA(regexpsManager),
-		buildRegexp[0],
+		specialChar,
 		regexpsManager,
 	}
 }

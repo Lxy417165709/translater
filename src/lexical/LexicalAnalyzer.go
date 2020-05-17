@@ -49,7 +49,7 @@ func (la *LexicalAnalyzer) Init() {
 	intDFA := stateMachine.NewNFABuilder(string(specialCharOfInt), la.regexpsManager).BuildDFA()
 	delimiterDFA := stateMachine.NewNFABuilder(string(specialCharOfDelimiter), la.regexpsManager).BuildDFA()
 	keyWordDFA := stateMachine.NewNFABuilder(string(specialCharOfKeyWord), la.regexpsManager).BuildDFA()
-
+	keyWordDFA.Show()
 	// 这里会影响parse，先加入的优先级越大
 	la.dfas = append(la.dfas,
 		keyWordDFA,

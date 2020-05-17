@@ -3,7 +3,6 @@ package main
 import (
 	"file"
 	"fmt"
-	"lexical"
 	"regexpsManager"
 	"testLay"
 )
@@ -38,12 +37,15 @@ func main() {
 		wordDelimiter,
 	)
 	regexpsManager.Init()
-
-
-	lexicalAnalyzer := lexical.NewLexicalAnalyzer(regexpsManager)
-	lexicalAnalyzer.Init()
-	lexicalAnalyzer.ShowParsedTokens(file.NewFileReader(programFilePath).GetFileBytes())
-	lexicalAnalyzer.ShowKindCode()
+	allTest()
+	//nfa := stateMachine.NewNFABuilder("Z|O|J|W",regexpsManager).BuildNFA()
+	//nfa := stateMachine.NewNFABuilder("X|Z",regexpsManager).BuildNFA()
+	//nfa.EliminateBlankStates()
+	//nfa.OutputNFA()
+	//lexicalAnalyzer := lexical.NewLexicalAnalyzer(regexpsManager)
+	//lexicalAnalyzer.Init()
+	//lexicalAnalyzer.ShowParsedTokens(file.NewFileReader(programFilePath).GetFileBytes())
+	//lexicalAnalyzer.ShowKindCode()
 }
 
 func allTest() {

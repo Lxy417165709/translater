@@ -174,7 +174,7 @@ func (s *State) IsMatch(pattern string) bool {
 	return false
 }
 
-
+// 生成 mermaid 图
 func (s *State) ShowFromHere(startId int, stateToId map[*State]int, stateIsVisit map[*State]bool,line *int) {
 	currentState := s
 	if stateIsVisit[currentState] {
@@ -187,20 +187,42 @@ func (s *State) ShowFromHere(startId int, stateToId map[*State]int, stateIsVisit
 			*line++
 			nextState.ShowFromHere(len(stateToId), stateToId, stateIsVisit,line)
 			option := string(bytes)
-			fmt.Printf("id:%d%s|%s --%s--> id:%d%s|%s\n",
+			fmt.Printf("id:%d%s -- .%s. --> id:%d%s\n",
 				stateToId[currentState],
-				currentState.getEndMark(),
-				string(currentState.markFlag),
+				currentState.getEndMark(stateToId[currentState]),
 				option,
 				stateToId[nextState],
-				nextState.getEndMark(),
-				string(currentState.markFlag),
+				nextState.getEndMark(stateToId[nextState]),
 			)
 		}
 	}
 }
 
 
+func (s *State) GetShowDataFromHere(startId int, stateToId map[*State]int, stateIsVisit map[*State]bool,line *int,result *[]string){
+	currentState := s
+
+	if stateIsVisit[currentState] {
+		return
+	}
+	stateIsVisit[currentState] = true
+	stateToId[currentState] = startId
+	for bytes, nextStates := range s.toNextState {
+		for _, nextState := range nextStates {
+			*line++
+			nextState.GetShowDataFromHere(len(stateToId), stateToId, stateIsVisit,line,result)
+			option := string(bytes)
+			*result = append(*result,fmt.Sprintf("id:%d%s -- .%s. --> id:%d%s\n",
+				stateToId[currentState],
+				currentState.getEndMark(stateToId[currentState]),
+				option,
+				stateToId[nextState],
+				nextState.getEndMark(stateToId[nextState]),
+			))
+
+		}
+	}
+}
 
 
 
@@ -272,11 +294,11 @@ func (s *State) getNextStates(char byte) []*State {
 
 
 
-func (s *State) getEndMark() string {
+func (s *State) getEndMark(value int) string {
 	if s.endFlag == true {
-		return "(OK)"
+		return fmt.Sprintf("{%d}",value)
 	}
-	return "    "
+	return fmt.Sprintf("((%d))",value)
 }
 func (s *State) setEndFlag(value bool) {
 	s.endFlag = value

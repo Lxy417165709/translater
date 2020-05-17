@@ -2,7 +2,6 @@ package regexpsManager
 
 import (
 	"file"
-	"fmt"
 	"strings"
 )
 
@@ -26,11 +25,11 @@ func NewRegexpsManager(grammarFilePath string,grammarUnitDelimiter string,wordDe
 
 func (nm *RegexpsManager) Init() {
 	lines := file.NewFileReader(nm.grammarFilePath).GetFileLines()
-	for index, line := range lines {
+	for _, line := range lines {
 		unit := NewGrammarUnit(0,"",nm.grammarUnitDelimiter)
 		unit.Parse(line)
 		nm.addSpecialChar(unit.SpecialChar, unit.Regexp)
-		fmt.Printf("添加了第 %d 个特殊字符：%s   对应的正则表达式是：%s\n",index,string(unit.SpecialChar),unit.Regexp)
+		//fmt.Printf("添加了第 %d 个特殊字符：%s   对应的正则表达式是：%s\n",index,string(unit.SpecialChar),unit.Regexp)
 	}
 }
 func (nm *RegexpsManager)addSpecialChar(specialChar byte, regexp string) {

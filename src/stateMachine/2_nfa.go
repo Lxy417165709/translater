@@ -2,6 +2,7 @@ package stateMachine
 
 import (
 	"fmt"
+	"os"
 	"regexpsManager"
 )
 
@@ -48,6 +49,40 @@ func (nfa *NFA) Show() {
 	fmt.Println(ids)
 	fmt.Println("-------------------------------------------------------------")
 }
+func (nfa *NFA) FormMermaid(file *os.File) {
+	ids := make(map[*State]int)
+	lines := new(int)
+	result := make([]string,0)
+	nfa.getStartState().GetShowDataFromHere(0, ids, make(map[*State]bool), lines,&result)
+	_,err := file.WriteString("```mermaid\ngraph LR\n")
+	for i:=0;i<len(result);i++{
+		_ ,err = file.WriteString(result[i])
+		if err!=nil{
+			panic(err)
+		}
+	}
+	_,err = file.WriteString("```\n")
+	if err!=nil{
+		panic(err)
+	}
+}
+func (nfa *NFA) OutputNFA() {
+	filePath := `C:\Users\hasee\Desktop\Go_Practice\编译器\doc\nfa_Visualization_data\`+"nfa.md"
+	file,err := os.Create(filePath)
+	defer file.Close()
+	if err!=nil{
+		panic(err)
+	}
+	nfa.FormMermaid(file)
+	nfa.EliminateBlankStates()
+	nfa.FormMermaid(file)
+	//nfa.ToBeDFA()
+	//nfa.FormMermaid(file)
+}
+
+
+
+
 
 func (nfa *NFA) ToBeDFA() {
 	// TODO: 这可能有些问题，可能nfa.endState会发生改变
