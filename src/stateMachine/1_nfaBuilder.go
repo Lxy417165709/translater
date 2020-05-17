@@ -30,7 +30,6 @@ func NewNFABuilder(buildRegexp string,regexpsManager *regexpsManager.RegexpsMana
 	if len(buildRegexp)!=0{
 		specialChar = buildRegexp[0]
 	}
-
 	return &NFABuilder{
 		buildRegexp, // 为了方便越界判断
 		buildRegexp,
@@ -40,7 +39,11 @@ func NewNFABuilder(buildRegexp string,regexpsManager *regexpsManager.RegexpsMana
 		regexpsManager,
 	}
 }
-
+func (nb *NFABuilder) BuildNotBlankStateNFA() *NFA{
+	nfa := nb.BuildNFA()
+	nfa.EliminateBlankStates()
+	return nfa
+}
 func (nb *NFABuilder) BuildNFA() *NFA {
 	regexps := strings.Split(nb.buildRegexp, RegexSplitString)
 	if len(regexps) == 0 {
@@ -52,6 +55,11 @@ func (nb *NFABuilder) BuildNFA() *NFA {
 		for !nb.readingIsOver() {
 			nb.parseChar()
 		}
+
+		// 标记
+		nb.finalNFA.SetRespondingSpecialChar(nb.respondingSpecialChar)
+		nb.finalNFA.MarkDown()
+
 		return nb.finalNFA
 	}
 	// 这要去除空格（这职责应该不是由它担任）
@@ -63,7 +71,6 @@ func (nb *NFABuilder) BuildNFA() *NFA {
 }
 func (nb *NFABuilder) BuildDFA() *NFA {
 	nfa := nb.BuildNFA()
-	nfa.SetRespondingSpecialChar(nb.respondingSpecialChar)
 	nfa.EliminateBlankStates()
 	nfa.ToBeDFA()
 	if !nfa.IsDFA() {

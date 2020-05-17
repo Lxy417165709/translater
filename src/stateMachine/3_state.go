@@ -8,13 +8,36 @@ import "fmt"
 type State struct {
 	endFlag     bool
 	markFlag    byte
+	code int
 	toNextState map[byte][]*State
 }
 
 func NewState(endFlag bool) *State {
-	return &State{endFlag, eps, make(map[byte][]*State)}
+	return &State{endFlag, eps,  0,make(map[byte][]*State)}
 }
+func (s *State) GetWordEndPair(word string,hasVisit map[*State]bool) []*WordEndPair{
+	if hasVisit[s]{
+		return []*WordEndPair{}
+	}
+	hasVisit[s] = true
 
+	if s==nil{
+		return []*WordEndPair{}
+	}
+	result := make([]*WordEndPair,0)
+	if s.endFlag{
+		result = append(result,&WordEndPair{s,word})
+	}
+	for char, nextStates := range s.toNextState {
+		for _, nextState := range nextStates {
+			result = append(result,nextState.GetWordEndPair(word + string(char),hasVisit)...)
+		}
+	}
+	return result
+}
+func (s *State) SetCode(code int) {
+	s.code = code
+}
 func (s *State) Link(nextState *State) {
 	s.LinkByChar(eps, nextState)
 }
@@ -174,56 +197,6 @@ func (s *State) IsMatch(pattern string) bool {
 	return false
 }
 
-// 生成 mermaid 图
-func (s *State) ShowFromHere(startId int, stateToId map[*State]int, stateIsVisit map[*State]bool,line *int) {
-	currentState := s
-	if stateIsVisit[currentState] {
-		return
-	}
-	stateIsVisit[currentState] = true
-	stateToId[currentState] = startId
-	for bytes, nextStates := range s.toNextState {
-		for _, nextState := range nextStates {
-			*line++
-			nextState.ShowFromHere(len(stateToId), stateToId, stateIsVisit,line)
-			option := string(bytes)
-			fmt.Printf("id:%d%s -- .%s. --> id:%d%s\n",
-				stateToId[currentState],
-				currentState.getEndMark(stateToId[currentState]),
-				option,
-				stateToId[nextState],
-				nextState.getEndMark(stateToId[nextState]),
-			)
-		}
-	}
-}
-
-
-func (s *State) GetShowDataFromHere(startId int, stateToId map[*State]int, stateIsVisit map[*State]bool,line *int,result *[]string){
-	currentState := s
-
-	if stateIsVisit[currentState] {
-		return
-	}
-	stateIsVisit[currentState] = true
-	stateToId[currentState] = startId
-	for bytes, nextStates := range s.toNextState {
-		for _, nextState := range nextStates {
-			*line++
-			nextState.GetShowDataFromHere(len(stateToId), stateToId, stateIsVisit,line,result)
-			option := string(bytes)
-			*result = append(*result,fmt.Sprintf("id:%d%s -- .%s. --> id:%d%s\n",
-				stateToId[currentState],
-				currentState.getEndMark(stateToId[currentState]),
-				option,
-				stateToId[nextState],
-				nextState.getEndMark(stateToId[nextState]),
-			))
-
-		}
-	}
-}
-
 
 
 func (s *State) hasSelf(char byte) bool {
@@ -293,13 +266,6 @@ func (s *State) getNextStates(char byte) []*State {
 
 
 
-
-func (s *State) getEndMark(value int) string {
-	if s.endFlag == true {
-		return fmt.Sprintf("{%d}",value)
-	}
-	return fmt.Sprintf("((%d))",value)
-}
 func (s *State) setEndFlag(value bool) {
 	s.endFlag = value
 }
@@ -324,3 +290,80 @@ func getStatesToNext(states []*State) map[byte][]*State {
 	}
 	return result
 }
+
+
+
+// 生成 mermaid 图
+func (s *State) ShowFromHere(startId int, stateToId map[*State]int, stateIsVisit map[*State]bool,line *int) {
+	currentState := s
+	if stateIsVisit[currentState] {
+		return
+	}
+	stateIsVisit[currentState] = true
+	stateToId[currentState] = startId
+	for bytes, nextStates := range s.toNextState {
+		for _, nextState := range nextStates {
+			*line++
+			nextState.ShowFromHere(len(stateToId), stateToId, stateIsVisit,line)
+			option := string(bytes)
+			fmt.Printf("id:%d%s -- .%s. --> id:%d%s\n",
+				stateToId[currentState],
+				currentState.getEndMark(stateToId[currentState]),
+				option,
+				stateToId[nextState],
+				nextState.getEndMark(stateToId[nextState]),
+			)
+		}
+	}
+}
+
+
+func (s *State) GetShowDataFromHere(startId int, stateToId map[*State]int, stateIsVisit map[*State]bool,line *int,result *[]string){
+	currentState := s
+
+	if stateIsVisit[currentState] {
+		return
+	}
+	stateIsVisit[currentState] = true
+	stateToId[currentState] = startId
+	for bytes, nextStates := range s.toNextState {
+		for _, nextState := range nextStates {
+			*line++
+			nextState.GetShowDataFromHere(len(stateToId), stateToId, stateIsVisit,line,result)
+			option := string(bytes)
+			*result = append(*result,fmt.Sprintf("id:%d%s -- .%s. --> id:%d%s\n",
+				stateToId[currentState],
+				currentState.getEndMark(stateToId[currentState]),
+				HandleToSuitMermaid(option),
+				stateToId[nextState],
+				nextState.getEndMark(stateToId[nextState]),
+			))
+
+		}
+	}
+}
+func (s *State) getEndMark(value int) string {
+	if s.endFlag == true {
+		return fmt.Sprintf("{%d_%s-%d}",value,string(s.markFlag),s.code)
+	}
+	return fmt.Sprintf("((%d))",value)
+}
+func HandleToSuitMermaid(str string) string{
+	if str =="-"{
+		return "减号"
+	}
+	if str =="."{
+		return "逗号"
+	}
+	if str =="("{
+		return "左括号"
+	}
+	if str ==")"{
+		return "右括号"
+	}
+	if str == ";"{
+		return "冒号"
+	}
+	return str
+}
+

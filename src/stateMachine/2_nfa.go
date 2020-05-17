@@ -27,6 +27,9 @@ func NewNFA(char byte, regexpsManager *regexpsManager.RegexpsManager) *NFA {
 	return nfa
 }
 
+
+
+
 func (nfa *NFA) SetRespondingSpecialChar(char byte) {
 	nfa.respondingSpecialChar = char
 }
@@ -34,35 +37,7 @@ func (nfa *NFA) GetRespondingSpecialChar() byte {
 	return nfa.respondingSpecialChar
 }
 
-func (nfa *NFA) FormMermaid(file *os.File) {
-	ids := make(map[*State]int)
-	lines := new(int)
-	result := make([]string, 0)
-	nfa.getStartState().GetShowDataFromHere(0, ids, make(map[*State]bool), lines, &result)
-	_, err := file.WriteString("```mermaid\ngraph LR\n")
-	for i := 0; i < len(result); i++ {
-		_, err = file.WriteString(result[i])
-		if err != nil {
-			panic(err)
-		}
-	}
-	_, err = file.WriteString("```\n")
-	if err != nil {
-		panic(err)
-	}
-}
-func (nfa *NFA) OutputNFA(filePath string) {
-	file, err := os.Create(filePath)
-	defer file.Close()
-	if err != nil {
-		panic(err)
-	}
-	nfa.FormMermaid(file)
-	nfa.EliminateBlankStates()
-	nfa.FormMermaid(file)
-	//nfa.ToBeDFA()
-	//nfa.FormMermaid(file)
-}
+
 
 func (nfa *NFA) EliminateBlankStates() {
 	hasVisited := make(map[*State]bool)
@@ -80,14 +55,15 @@ func (nfa *NFA) Show() {
 	fmt.Println("-------------------------------------------------------------")
 }
 
-func (nfa *NFA) GetByNFA(pattern string) []string {
-	pattern += "#"
+const endSymbal = '#'
+func (nfa *NFA) GetTokenByNFA(pattern string) []*Token {
+	pattern += string(endSymbal)
 	buffer := ""
-	result := make([]string, 0)
+	tokens := make([]*Token,0)
 	queue := make([]*State, 0)
 	queue = append(queue, nfa.startState)
 	readingPosition := 0
-	for pattern[readingPosition] != '#' {
+	for pattern[readingPosition] != endSymbal {
 		lastEndState := getFirstEndState(queue)
 		queue = getNextStates(queue, pattern[readingPosition])
 		if len(queue) != 0 {
@@ -96,11 +72,15 @@ func (nfa *NFA) GetByNFA(pattern string) []string {
 			continue
 		}
 		if lastEndState==nil && !isBlank(pattern[readingPosition]) {
-			panic("源文件存在非法字符：" + string(pattern[readingPosition]))
+			panic(fmt.Sprintf("源文件存在非法字符：%s 索引:%d",string(pattern[readingPosition]),readingPosition))
 		}
 		switch {
 		case lastEndState != nil:
-			result = append(result, buffer)
+			tokens = append(tokens, &Token{
+				lastEndState.markFlag,
+				lastEndState.code,
+				buffer,
+			})
 		case isBlank(pattern[readingPosition]):
 			readingPosition++
 		}
@@ -109,7 +89,7 @@ func (nfa *NFA) GetByNFA(pattern string) []string {
 		queue = append(queue, nfa.startState)
 	}
 
-	return result
+	return tokens
 }
 
 func isBlank(char byte) bool {
@@ -228,3 +208,51 @@ func (nfa *NFA) setStartState(state *State) {
 func (nfa *NFA) setEndState(state *State) {
 	nfa.endState = state
 }
+
+func (nfa *NFA) MarkDown() *NFA{
+	nfa.startState.MarkDown(nfa.respondingSpecialChar,make(map[*State]bool))
+	return nfa
+}
+func (nfa *NFA) FormMermaid(file *os.File) {
+	ids := make(map[*State]int)
+	lines := new(int)
+	result := make([]string, 0)
+	nfa.getStartState().GetShowDataFromHere(0, ids, make(map[*State]bool), lines, &result)
+	_, err := file.WriteString("```mermaid\ngraph LR\n")
+	for i := 0; i < len(result); i++ {
+		_, err = file.WriteString(result[i])
+		if err != nil {
+			panic(err)
+		}
+	}
+	_, err = file.WriteString("```\n")
+	if err != nil {
+		panic(err)
+	}
+}
+func (nfa *NFA) OutputNFA(filePath string) {
+	file, err := os.Create(filePath)
+	defer file.Close()
+	if err != nil {
+		panic(err)
+	}
+	file.WriteString("## NFA：\n")
+	nfa.FormMermaid(file)
+	nfa.EliminateBlankStates()
+	file.WriteString("## 无空白边的 NFA：\n")
+	nfa.FormMermaid(file)
+}
+
+func (nfa *NFA) GetWordEndPair() []*WordEndPair{
+	return nfa.startState.GetWordEndPair("",make(map[*State]bool))
+}
+
+func (nfa *NFA)GetStartState() *State{
+	return nfa.startState
+}
+type WordEndPair struct{
+	EndStates *State
+	Word string
+}
+
+
