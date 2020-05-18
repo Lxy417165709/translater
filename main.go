@@ -23,12 +23,14 @@ var testFilePaths = [...]string{
 	`C:\Users\hasee\Desktop\Go_Practice\编译器\doc\nfaTestFile\nfaGraphTest11.md`,
 }
 
-var programFilePath = `C:\Users\hasee\Desktop\Go_Practice\编译器\doc\source.md`
-var nfaFilePath =  `C:\Users\hasee\Desktop\Go_Practice\编译器\doc\nfa_Visualization_data\nfa.md`
+
 const (
 	wordDelimiter        = "|"
 	grammarUnitDelimiter = "->"
-	grammarFilePath      = `C:\Users\hasee\Desktop\Go_Practice\编译器\doc\grammar.md`
+	grammarFilePath      = `C:\Users\hasee\Desktop\Go_Practice\编译器\doc\aboutLexicalAnalyzer\1_grammar.md`
+	programFilePath = `C:\Users\hasee\Desktop\Go_Practice\编译器\doc\aboutLexicalAnalyzer\2_source.md`
+	codeFilePath = `C:\Users\hasee\Desktop\Go_Practice\编译器\doc\aboutLexicalAnalyzer\code.md`
+	tokensFilePath = `C:\Users\hasee\Desktop\Go_Practice\编译器\doc\aboutLexicalAnalyzer\tokens.md`
 )
 
 func main() {
@@ -41,8 +43,8 @@ func main() {
 
 	lex := lexical.NewLexicalAnalyzer(regexpsManager)
 	lex.Init()
-	lex.ShowParsedTokens(file.NewFileReader(programFilePath).GetFileBytes())
-
+	lex.FormKindCodeFile(codeFilePath)
+	lex.FromTheMarkdownFileOfTokens(file.NewFileReader(programFilePath).GetFileBytes(),tokensFilePath)
 	//stateMachine.NewNFABuilder("U",regexpsManager).BuildNotBlankStateNFA().OutputNFA(nfaFilePath)
 	//stateMachine.NewNFABuilder("O",regexpsManager).BuildNotBlankStateNFA().OutputNFA(nfaFilePath )
 	//stateMachine.NewNFABuilder("J",regexpsManager).BuildNotBlankStateNFA().OutputNFA(nfaFilePath )

@@ -39,16 +39,7 @@ func (nfa *NFA) EliminateBlankStates() {
 	nfa.getStartState().EliminateNextBlankStatesFromHere(hasVisited)
 }
 
-func (nfa *NFA) Show() {
-	ids := make(map[*State]int)
-	lines := new(int)
-	fmt.Println("-------------------------------------------------------------")
-	fmt.Println("是否DFA:", nfa.IsDFA())
-	nfa.getStartState().ShowFromHere(0, ids, make(map[*State]bool), lines)
-	fmt.Println("总边数:", *lines)
-	fmt.Println(ids)
-	fmt.Println("-------------------------------------------------------------")
-}
+
 
 const endSymbol = '#'
 
@@ -107,48 +98,11 @@ func getFirstEndState(states []*State) *State {
 	return nil
 }
 
-func (nfa *NFA) ToBeDFA() {
-	// TODO: 这可能有些问题，可能nfa.endState会发生改变
-	hasVisited := make(map[*State]bool)
-	nfa.getStartState().MultiWayMergeFromHere(hasVisited)
-}
-func (nfa *NFA) Get(pattern string) []string {
-	result := make([]string, 0)
-	begin := nfa.startState
-	buffer := ""
-	for position := 0; position < len(pattern); position++ {
-		char := pattern[position]
-		if char == '#' {
-			break
-		}
-		// 不匹配
-		if len(begin.toNextState[char]) == 0 {
-			if begin.endFlag {
-				result = append(result, buffer)
-			}
-			begin = nfa.startState
-			buffer = ""
-			if len(begin.toNextState[char]) != 0 {
-				position--
-			}
-			continue
-		}
-		// 成功匹配
-		buffer += string(char)
-		begin = begin.toNextState[char][0]
-	}
-	if buffer != "" && begin.endFlag {
-		result = append(result, buffer)
-	}
-	return result
-}
+
 func (nfa *NFA) IsMatch(pattern string) bool {
 	return nfa.startState.IsMatch(pattern)
 }
-func (nfa *NFA) IsDFA() bool {
-	hasVisited := make(map[*State]bool)
-	return nfa.getStartState().CanBeStartOfDFA(hasVisited)
-}
+
 func (nfa *NFA) RepeatPlus(char byte) {
 	shouldAddNFA := NewNFA(char, nfa.regexpsManager)
 	shouldAddNFA.linkEndStateToStartState()
@@ -224,7 +178,7 @@ func (nfa *NFA) FormMermaid(file *os.File) {
 		panic(err)
 	}
 }
-func (nfa *NFA) OutputNFA(filePath string) {
+func (nfa *NFA) FormTheMermaidGraphOfNFA(filePath string) {
 	file, err := os.Create(filePath)
 	defer file.Close()
 	if err != nil {
@@ -245,7 +199,4 @@ func (nfa *NFA) GetStartState() *State {
 	return nfa.startState
 }
 
-type WordEndPair struct {
-	EndStates *State
-	Word      string
-}
+

@@ -1,7 +1,6 @@
 package stateMachine
 
 import (
-	"fmt"
 	"regexpsManager"
 	"strings"
 )
@@ -22,7 +21,6 @@ type NFABuilder struct {
 	finalNFA        *NFA
 	respondingSpecialChar byte
 	regexpsManager *regexpsManager.RegexpsManager
-
 }
 
 func NewNFABuilder(buildRegexp string,regexpsManager *regexpsManager.RegexpsManager) *NFABuilder {
@@ -68,15 +66,6 @@ func (nb *NFABuilder) BuildNFA() *NFA {
 		nb.finalNFA.AddParallelNFA(addedNfa)
 	}
 	return nb.finalNFA
-}
-func (nb *NFABuilder) BuildDFA() *NFA {
-	nfa := nb.BuildNFA()
-	nfa.EliminateBlankStates()
-	nfa.ToBeDFA()
-	if !nfa.IsDFA() {
-		panic(fmt.Sprintf("DFA算法有误"))
-	}
-	return nfa
 }
 
 func (nb *NFABuilder) parseChar() {

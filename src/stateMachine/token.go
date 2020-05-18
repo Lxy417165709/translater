@@ -7,9 +7,7 @@ type Token struct {
 	value interface{}
 }
 
-func NewPair(speicalChar byte,kindCode int,value interface{}) *Token{
-	return &Token{speicalChar,kindCode,value}
-}
+
 func (p *Token) GetSpecialChar() byte{
 	return p.specialChar
 }

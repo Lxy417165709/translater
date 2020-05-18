@@ -30,14 +30,6 @@ func (unit *NFATestUnit) nfaTest() bool {
 	nfa := nfaBuilder.BuildNFA()
 	return nfa.IsMatch(unit.pattern) == unit.isMatch
 }
-func (unit *NFATestUnit) dfaTest() bool {
-	nfaBuilder := stateMachine.NewNFABuilder(unit.regex,unit.regexpsManager)
-	dfa := nfaBuilder.BuildDFA()
-	if !dfa.IsDFA() {
-		panic(fmt.Sprintf("DFA算法有误 %v", *unit))
-	}
-	return dfa.IsMatch(unit.pattern) == unit.isMatch
-}
 func (unit *NFATestUnit) Parse(line string) {
 	parts := strings.Split(strings.TrimSpace(line), testUnitDelimiter)
 	if len(parts) != 3 {

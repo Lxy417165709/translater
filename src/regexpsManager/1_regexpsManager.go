@@ -18,12 +18,11 @@ func NewRegexpsManager(grammarFilePath string,grammarUnitDelimiter string,wordDe
 		grammarUnitDelimiter,
 		wordDelimiter,
 		make(map[byte]string),
-
 	}
 }
 
 
-func (nm *RegexpsManager) Init() {
+func (nm *RegexpsManager)Init() {
 	lines := file.NewFileReader(nm.grammarFilePath).GetFileLines()
 	for _, line := range lines {
 		unit := NewGrammarUnit(0,"",nm.grammarUnitDelimiter)
@@ -31,6 +30,7 @@ func (nm *RegexpsManager) Init() {
 		nm.addSpecialChar(unit.SpecialChar, unit.Regexp)
 		//fmt.Printf("添加了第 %d 个特殊字符：%s   对应的正则表达式是：%s\n",index,string(unit.SpecialChar),unit.Regexp)
 	}
+
 }
 func (nm *RegexpsManager)addSpecialChar(specialChar byte, regexp string) {
 	nm.charToRegexp[specialChar] = regexp
@@ -51,6 +51,3 @@ func (nm *RegexpsManager) GetResponseHandledWords(specialChar byte) []string {
 	}
 	return result
 }
-
-
-
