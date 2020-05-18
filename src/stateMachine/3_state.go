@@ -278,7 +278,7 @@ func HandleToSuitMermaid(str string) string{
 		return "右括号"
 	}
 	if str == ";"{
-		return "冒号"
+		return "分号"
 	}
 	return str
 }

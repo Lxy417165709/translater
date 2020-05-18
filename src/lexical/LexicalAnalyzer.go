@@ -7,6 +7,7 @@ import (
 	"stateMachine"
 )
 const nfaFilePath =  `C:\Users\hasee\Desktop\Go_Practice\编译器\doc\aboutLexicalAnalyzer\nfa.md`
+const baseFilePath =  `C:\Users\hasee\Desktop\Go_Practice\编译器\doc\aboutLexicalAnalyzer\sonNFA\`
 const codeFilePath = `C:\Users\hasee\Desktop\Go_Practice\编译器\doc\aboutLexicalAnalyzer\code.md`
 
 const (
@@ -143,6 +144,8 @@ func (la *LexicalAnalyzer) InitFixedNFA() {
 		stateMachine.NewNFABuilder(string(specialCharOfDelimiter), la.regexpsManager).BuildNotBlankStateNFA().MarkDown(),
 	}
 }
+
+
 func (la *LexicalAnalyzer) InitFinalNFA() {
 	la.finalNfa = stateMachine.NewEmptyNFA(la.regexpsManager)
 	for i := 0; i < len(la.fixedNFAs); i++ {
@@ -156,11 +159,20 @@ func (la *LexicalAnalyzer) InitFinalNFA() {
 
 // 只需初始化一次
 func (la *LexicalAnalyzer) Init() {
+	la.InitSpecialCharToKind()
+
 	la.InitVariableNFA()
+	// 展示
+	for _,variableNFA := range la.variableNFAs{
+		variableNFA.FormTheMermaidGraphOfNFA(fmt.Sprintf("%s/%s状态机.md",baseFilePath,la.GetSpecialCharToKind(variableNFA.GetRespondingSpecialChar())))
+	}
 	la.InitFixedNFA()
+	// 展示
+	for _,fixedNFA := range la.fixedNFAs{
+		fixedNFA.FormTheMermaidGraphOfNFA(fmt.Sprintf("%s/%s状态机.md",baseFilePath,la.GetSpecialCharToKind(fixedNFA.GetRespondingSpecialChar())))
+	}
 	la.InitFinalNFA()
 
-	la.InitSpecialCharToKind()
 	la.InitOtherInformationAndMarkState()
 
 	la.FormKindCodeFile(codeFilePath)

@@ -45,9 +45,9 @@ func main() {
 	lex.Init()
 	lex.FormKindCodeFile(codeFilePath)
 	lex.FromTheMarkdownFileOfTokens(file.NewFileReader(programFilePath).GetFileBytes(),tokensFilePath)
-	//stateMachine.NewNFABuilder("U",regexpsManager).BuildNotBlankStateNFA().OutputNFA(nfaFilePath)
-	//stateMachine.NewNFABuilder("O",regexpsManager).BuildNotBlankStateNFA().OutputNFA(nfaFilePath )
-	//stateMachine.NewNFABuilder("J",regexpsManager).BuildNotBlankStateNFA().OutputNFA(nfaFilePath )
+
+	mdo := file. NewMarkDownObject()
+	mdo.Write()
 }
 
 func allTest() {

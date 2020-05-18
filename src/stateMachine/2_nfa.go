@@ -184,10 +184,7 @@ func (nfa *NFA) FormTheMermaidGraphOfNFA(filePath string) {
 	if err != nil {
 		panic(err)
 	}
-	file.WriteString("## NFA：\n")
-	nfa.FormMermaid(file)
 	nfa.EliminateBlankStates()
-	file.WriteString("## 无空白边的 NFA：\n")
 	nfa.FormMermaid(file)
 }
 
