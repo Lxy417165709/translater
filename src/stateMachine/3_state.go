@@ -1,45 +1,24 @@
 package stateMachine
 
-import "fmt"
+import (
+	"fmt"
+	"regexpsManager"
+)
 
 
 
 // TODO: 重构！！！！！
 type State struct {
 	endFlag     bool
-	markFlag    byte
-	code int
 	toNextState map[byte][]*State
+	token *regexpsManager.Token
 }
 
 func NewState(endFlag bool) *State {
-	return &State{endFlag, eps,  0,make(map[byte][]*State)}
-}
-func (s *State) GetWordEndPair(word string,hasVisit map[*State]bool) []*WordEndPair{
-	if hasVisit[s]{
-		return []*WordEndPair{}
-	}
-	hasVisit[s] = true
-
-	if s==nil{
-		return []*WordEndPair{}
-	}
-	result := make([]*WordEndPair,0)
-	if s.endFlag{
-		result = append(result,&WordEndPair{s,word})
-	}
-	for char, nextStates := range s.toNextState {
-		for _, nextState := range nextStates {
-			result = append(result,nextState.GetWordEndPair(word + string(char),hasVisit)...)
-		}
-	}
-	return result
-}
-func (s *State) SetCode(code int) {
-	s.code = code
+	return &State{endFlag, make(map[byte][]*State),nil}
 }
 func (s *State) Link(nextState *State) {
-	s.LinkByChar(eps, nextState)
+	s.LinkByChar(regexpsManager.Eps, nextState)
 }
 func (s *State) LinkByChar(ch byte, nextState *State) {
 	if s.stateIsLiving(ch,nextState){
@@ -122,7 +101,7 @@ func (s *State) toNextIsSame(reference *State) bool {
 
 func (s *State) IsMatch(pattern string) bool {
 	// 空匹配
-	for _, nextState := range s.getNextStates(eps) {
+	for _, nextState := range s.getNextStates(regexpsManager.Eps) {
 		if nextState.IsMatch(pattern) {
 			return true
 		}
@@ -147,7 +126,7 @@ func (s *State) IsMatch(pattern string) bool {
 
 
 func (s *State) cleanBlankStates() {
-	s.cleanNextStates(eps)
+	s.cleanNextStates(regexpsManager.Eps)
 }
 func (s *State) cleanNextStates(char byte) {
 	delete(s.toNextState, char)
@@ -156,7 +135,7 @@ func (s *State) cleanNextStates(char byte) {
 
 func (s *State) isNextBlankStatesHaveEndState() bool {
 
-	return s.isNextStatesHaveEndState(eps)
+	return s.isNextStatesHaveEndState(regexpsManager.Eps)
 }
 func (s *State) isNextStatesHaveEndState(char byte) bool {
 	for _, state := range s.toNextState[char] {
@@ -192,7 +171,7 @@ func (s *State) getAllNextStates() []*State {
 	return result
 }
 func (s *State) getNextBlankStates() []*State {
-	return s.getNextStates(eps)
+	return s.getNextStates(regexpsManager.Eps)
 }
 func (s *State) getNextStates(char byte) []*State {
 	return s.toNextState[char]
@@ -207,16 +186,18 @@ func (s *State) setEndFlag(value bool) {
 
 
 // TODO: 用于标记该状态属于哪个自动机
-func (s *State) MarkDown(specialChar byte, stateIsVisit map[*State]bool) {
+func (s *State) InsertToken(nowWord string, specialChar byte,stateIsVisit map[*State]bool) {
 	currentState := s
 	if stateIsVisit[currentState] {
 		return
 	}
 	stateIsVisit[currentState] = true
-	s.markFlag = specialChar
-	for _, nextStates := range s.toNextState {
+	if s.endFlag{
+		s.token = regexpsManager.GetRegexpsManager().GetToken(specialChar,nowWord)
+	}
+	for char, nextStates := range s.toNextState {
 		for _, nextState := range nextStates {
-			nextState.MarkDown(specialChar, stateIsVisit)
+			nextState.InsertToken(nowWord+string(char),specialChar, stateIsVisit)
 		}
 	}
 }
@@ -247,23 +228,21 @@ func (s *State) GetShowDataFromHere(startId int, stateToId map[*State]int, state
 	}
 }
 func (s *State) getEndMark(value int) string {
-	//if s.endFlag == true {
-	//	return fmt.Sprintf("{%d_%s-%d}",value,string(s.markFlag),s.code)
-	//}
-	//return fmt.Sprintf("((%d))",value)
-	if s.endFlag == true {
+	if s.endFlag{
 		partOne,partTwo := "",""
-		if s.markFlag!=0{
-			partOne = "_" + string(s.markFlag)
+		if s.token.GetSpecialChar()!=0{
+
+			partOne = "_" + string(s.token.GetSpecialChar())
 		}
-		if s.code!=0{
-			partTwo = fmt.Sprintf("-%d",s.code)
+		if s.token.GetKindCode()!=0{
+			partTwo = fmt.Sprintf("-%d",s.token.GetKindCode())
 		}
 
 		return fmt.Sprintf("{%d%s%s}",value,partOne,partTwo)
 	}
 	return fmt.Sprintf("((%d))",value)
 }
+
 func HandleToSuitMermaid(str string) string{
 	if str =="-"{
 		return "减号"
@@ -276,6 +255,18 @@ func HandleToSuitMermaid(str string) string{
 	}
 	if str ==")"{
 		return "右括号"
+	}
+	if str =="{"{
+		return "左大括号"
+	}
+	if str =="}"{
+		return "右大括号"
+	}
+	if str =="["{
+		return "左中括号"
+	}
+	if str =="]"{
+		return "右中括号"
 	}
 	if str == ";"{
 		return "分号"

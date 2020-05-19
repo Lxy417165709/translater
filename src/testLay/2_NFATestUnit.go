@@ -2,7 +2,6 @@ package testLay
 
 import (
 	"fmt"
-	"regexpsManager"
 	"stateMachine"
 	"strconv"
 	"strings"
@@ -16,17 +15,16 @@ type NFATestUnit struct {
 	regex   string
 	pattern string
 	isMatch bool
-	regexpsManager *regexpsManager.RegexpsManager
 }
 
-func NewNFATestUnit(regexpsManager *regexpsManager.RegexpsManager) *NFATestUnit {
-	return &NFATestUnit{regexpsManager:regexpsManager}
+func NewNFATestUnit() *NFATestUnit {
+	return &NFATestUnit{}
 }
 func (unit *NFATestUnit) Test() bool{
 	return unit.nfaTest() && unit.nfaTest()
 }
 func (unit *NFATestUnit) nfaTest() bool {
-	nfaBuilder := stateMachine.NewNFABuilder(unit.regex,unit.regexpsManager)
+	nfaBuilder := stateMachine.NewNFABuilder(unit.regex)
 	nfa := nfaBuilder.BuildNFA()
 	return nfa.IsMatch(unit.pattern) == unit.isMatch
 }

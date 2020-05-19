@@ -1,4 +1,4 @@
-package stateMachine
+package regexpsManager
 
 
 type Token struct {
@@ -16,4 +16,7 @@ func (p *Token) GetKindCode() int{
 }
 func (p *Token) GetValue() interface{}{
 	return p.value
+}
+func (t *Token) SetValue(value interface{}) {
+	t.value = value
 }

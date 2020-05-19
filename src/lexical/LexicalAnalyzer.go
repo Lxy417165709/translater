@@ -1,14 +1,14 @@
 package lexical
 
 import (
+	file2 "file"
 	"fmt"
 	"os"
 	"regexpsManager"
 	"stateMachine"
 )
-const nfaFilePath =  `C:\Users\hasee\Desktop\Go_Practice\编译器\doc\aboutLexicalAnalyzer\nfa.md`
-const baseFilePath =  `C:\Users\hasee\Desktop\Go_Practice\编译器\doc\aboutLexicalAnalyzer\sonNFA\`
-const codeFilePath = `C:\Users\hasee\Desktop\Go_Practice\编译器\doc\aboutLexicalAnalyzer\code.md`
+
+
 
 const (
 	specialCharOfIdentity  = 'I'
@@ -19,11 +19,6 @@ const (
 	specialCharOfDecimal   = 'X'
 )
 
-const (
-	codeOfIdentity = 10086
-	codeOfInt      = 1008611
-	codeOfDecimal  = 12345
-)
 const (
 	kindOfIdentity  = "标识符"
 	kindOfInt       = "整数"
@@ -44,53 +39,27 @@ func (la *LexicalAnalyzer) InitSpecialCharToKind() {
 }
 
 type LexicalAnalyzer struct {
-	regexpsManager    *regexpsManager.RegexpsManager
 	variableNFAs      []*stateMachine.NFA
 	fixedNFAs         []*stateMachine.NFA
 	finalNfa          *stateMachine.NFA
-	canParseWords     []string
 	wordToCode        map[string]int
 	wordToKind        map[string]string
 	specialCharToKind map[byte]string
-	wordEndPairs      []*stateMachine.WordEndPair
 }
 
-func NewLexicalAnalyzer(regexpsManager *regexpsManager.RegexpsManager) *LexicalAnalyzer {
-	return &LexicalAnalyzer{
-		regexpsManager: regexpsManager,
-	}
+func NewLexicalAnalyzer() *LexicalAnalyzer {
+	return &LexicalAnalyzer{}
 }
 
-func (la *LexicalAnalyzer) FormCanParsedWordAndWordToCode() {
-	la.wordToCode = make(map[string]int)
-	la.canParseWords = make([]string, 0)
-	la.canParseWords = append(la.canParseWords, la.GetKeyWords()...)
-	la.canParseWords = append(la.canParseWords, la.GetOperators()...)
-	la.canParseWords = append(la.canParseWords, la.GetDelimiters()...)
-	for index, word := range la.canParseWords {
-		la.wordToCode[word] = index + 1
-	}
-}
-
-func (la *LexicalAnalyzer) GetKeyWords() []string {
-	return la.regexpsManager.GetResponseHandledWords(specialCharOfKeyWord)
-}
-func (la *LexicalAnalyzer) GetOperators() []string {
-	return la.regexpsManager.GetResponseHandledWords(specialCharOfOperator)
-}
-func (la *LexicalAnalyzer) GetDelimiters() [] string {
-	return la.regexpsManager.GetResponseHandledWords(specialCharOfDelimiter)
-}
-
-func (la *LexicalAnalyzer) GetTokens(bytes []byte) []*stateMachine.Token {
-	tokens := la.finalNfa.GetTokenByNFA(string(bytes))
+func (la *LexicalAnalyzer) GetTokens(bytes []byte) []*regexpsManager.Token {
+	tokens := la.finalNfa.GetTokens(string(bytes))
 	return tokens
 }
 
-func (la *LexicalAnalyzer) FromTheMarkdownFileOfTokens(data []byte,filePath string) {
-	tokens := la.GetTokens(data)
-	file,err := os.Create(filePath)
-	if err!=nil{
+func (la *LexicalAnalyzer) FromTheMarkdownFileOfTokens(parsedFilePath string, storeFilePath string) {
+	tokens := la.GetTokens(file2.NewFileReader(parsedFilePath).GetFileBytes())
+	file, err := os.Create(storeFilePath)
+	if err != nil {
 		panic(err)
 	}
 	defer file.Close()
@@ -101,58 +70,41 @@ func (la *LexicalAnalyzer) FromTheMarkdownFileOfTokens(data []byte,filePath stri
 	}
 }
 
-func (la *LexicalAnalyzer) FormKindCodeFile(filePath string) {
-	file, err := os.Create(filePath)
+func (la *LexicalAnalyzer) FormKindCodeFile(storeFilePath string) {
+	file, err := os.Create(storeFilePath)
 	defer file.Close()
 	if err != nil {
 		panic(err)
 	}
 	file.WriteString("索引|单词|类别|种别码\n")
 	file.WriteString("--|--|--|--\n")
-	for index, word := range la.canParseWords {
-		file.WriteString(fmt.Sprintf("%d|`%s`|`%s`|`%d`\n", index+1,word, la.wordToKind[word], la.wordToCode[word]))
+	for index, token := range regexpsManager.GetRegexpsManager().GetAllTokens() {
+		file.WriteString(fmt.Sprintf("%d|`%s`|`%s`|`%d`\n", index+1, token.GetValue(), la.specialCharToKind[token.GetSpecialChar()], token.GetKindCode()))
 	}
-	file.WriteString(fmt.Sprintf("%d| |`%s`|`%d`\n",len(la.canParseWords)+1, kindOfIdentity, codeOfIdentity))
-	file.WriteString(fmt.Sprintf("%d| |`%s`|`%d`\n",len(la.canParseWords)+2, kindOfInt, codeOfInt))
-	file.WriteString(fmt.Sprintf("%d| |`%s`|`%d`\n",len(la.canParseWords)+3, KindOfDecimal, codeOfDecimal))
 }
 
-
 func (la *LexicalAnalyzer) InitVariableNFA() {
-	identityNfa := stateMachine.NewNFABuilder(string(specialCharOfIdentity), la.regexpsManager).BuildNotBlankStateNFA().MarkDown()
-	for _, pair := range identityNfa.GetWordEndPair() {
-		pair.EndStates.SetCode(codeOfIdentity)
-	}
-	intNfa := stateMachine.NewNFABuilder(string(specialCharOfInt), la.regexpsManager).BuildNotBlankStateNFA().MarkDown()
-	for _, pair := range intNfa.GetWordEndPair() {
-		pair.EndStates.SetCode(codeOfInt)
-	}
-	decimalNfa := stateMachine.NewNFABuilder(string(specialCharOfDecimal), la.regexpsManager).BuildNotBlankStateNFA().MarkDown()
-	for _, pair := range decimalNfa.GetWordEndPair() {
-		pair.EndStates.SetCode(codeOfDecimal)
-	}
 	la.variableNFAs = []*stateMachine.NFA{
-		identityNfa,
-		intNfa,
-		decimalNfa,
+		stateMachine.NewNFABuilder(string(specialCharOfIdentity)).BuildNotBlankStateNFA().MarkToken(),
+		stateMachine.NewNFABuilder(string(specialCharOfInt)).BuildNotBlankStateNFA().MarkToken(),
+		stateMachine.NewNFABuilder(string(specialCharOfDecimal)).BuildNotBlankStateNFA().MarkToken(),
 	}
 }
 func (la *LexicalAnalyzer) InitFixedNFA() {
 	la.fixedNFAs = []*stateMachine.NFA{
-		stateMachine.NewNFABuilder(string(specialCharOfKeyWord), la.regexpsManager).BuildNotBlankStateNFA().MarkDown(),
-		stateMachine.NewNFABuilder(string(specialCharOfOperator), la.regexpsManager).BuildNotBlankStateNFA().MarkDown(),
-		stateMachine.NewNFABuilder(string(specialCharOfDelimiter), la.regexpsManager).BuildNotBlankStateNFA().MarkDown(),
+		stateMachine.NewNFABuilder(string(specialCharOfKeyWord)).BuildNotBlankStateNFA().MarkToken(),
+		stateMachine.NewNFABuilder(string(specialCharOfOperator)).BuildNotBlankStateNFA().MarkToken(),
+		stateMachine.NewNFABuilder(string(specialCharOfDelimiter)).BuildNotBlankStateNFA().MarkToken(),
 	}
 }
 
-
 func (la *LexicalAnalyzer) InitFinalNFA() {
-	la.finalNfa = stateMachine.NewEmptyNFA(la.regexpsManager)
+	la.finalNfa = stateMachine.NewNFA(regexpsManager.Eps)
 	for i := 0; i < len(la.fixedNFAs); i++ {
-		la.finalNfa.GetStartState().Link(la.fixedNFAs[i].GetStartState())
+		la.finalNfa.AddParallelNFA(la.fixedNFAs[i])
 	}
 	for i := 0; i < len(la.variableNFAs); i++ {
-		la.finalNfa.GetStartState().Link(la.variableNFAs[i].GetStartState())
+		la.finalNfa.AddParallelNFA(la.variableNFAs[i])
 	}
 	la.finalNfa.EliminateBlankStates()
 }
@@ -160,41 +112,40 @@ func (la *LexicalAnalyzer) InitFinalNFA() {
 // 只需初始化一次
 func (la *LexicalAnalyzer) Init() {
 	la.InitSpecialCharToKind()
-
 	la.InitVariableNFA()
-	// 展示
-	for _,variableNFA := range la.variableNFAs{
-		variableNFA.FormTheMermaidGraphOfNFA(fmt.Sprintf("%s/%s状态机.md",baseFilePath,la.GetSpecialCharToKind(variableNFA.GetRespondingSpecialChar())))
-	}
 	la.InitFixedNFA()
-	// 展示
-	for _,fixedNFA := range la.fixedNFAs{
-		fixedNFA.FormTheMermaidGraphOfNFA(fmt.Sprintf("%s/%s状态机.md",baseFilePath,la.GetSpecialCharToKind(fixedNFA.GetRespondingSpecialChar())))
-	}
 	la.InitFinalNFA()
+}
 
-	la.InitOtherInformationAndMarkState()
 
-	la.FormKindCodeFile(codeFilePath)
-	la.finalNfa.FormTheMermaidGraphOfNFA(nfaFilePath)
+
+const stateMachineDirName = "stateMachine"
+const kindCodeFileName = "kindCode.md"
+const tokensFileName = "tokens.md"
+const finalNFAFileName = "最终状态机.md"
+
+
+
+
+func (la *LexicalAnalyzer) FormLexicalFile(storeFileDir string) {
+	la.FormStateMachineFiles(storeFileDir)
+	la.FormKindCodeFile(fmt.Sprintf("%s/%s", storeFileDir, kindCodeFileName))
+}
+func (la *LexicalAnalyzer) FormStateMachineFiles(storeFileDir string) {
+	stateMachineStoreFileDir := fmt.Sprintf("%s/%s", storeFileDir, stateMachineDirName)
+	if err := os.MkdirAll(stateMachineStoreFileDir, 0666); err != nil {
+		panic(err)
+	}
+	for _, variableNFA := range la.variableNFAs {
+		variableNFA.FormTheMermaidGraphOfNFA(fmt.Sprintf("%s/%s状态机.md", stateMachineStoreFileDir, la.GetSpecialCharToKind(variableNFA.GetSpecialChar())))
+	}
+	for _, fixedNFA := range la.fixedNFAs {
+		fixedNFA.FormTheMermaidGraphOfNFA(fmt.Sprintf("%s/%s状态机.md", stateMachineStoreFileDir, la.GetSpecialCharToKind(fixedNFA.GetSpecialChar())))
+	}
+	la.finalNfa.FormTheMermaidGraphOfNFA(fmt.Sprintf("%s/%s", stateMachineStoreFileDir, finalNFAFileName))
+
 }
 
 func (la *LexicalAnalyzer) GetSpecialCharToKind(SpecialChar byte) string {
 	return la.specialCharToKind[SpecialChar]
-}
-
-func (la *LexicalAnalyzer) InitOtherInformationAndMarkState() {
-	la.wordToCode = make(map[string]int)
-	la.wordToKind = make(map[string]string)
-	la.canParseWords = make([]string, 0)
-
-	for _, nfa := range la.fixedNFAs {
-		for _, pair := range nfa.GetWordEndPair() {
-			code := len(la.canParseWords)+1
-			la.wordToCode[pair.Word] = code
-			la.wordToKind[pair.Word] = la.GetSpecialCharToKind(nfa.GetRespondingSpecialChar())
-			la.canParseWords = append(la.canParseWords, pair.Word)
-			pair.EndStates.SetCode(code)
-		}
-	}
 }
