@@ -2,6 +2,7 @@ a := 10.5689
 b := 457
 c = a+b-d
 e := 0.5688
+f := "hello"
 begin
         begin
                 begin

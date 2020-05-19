@@ -26,7 +26,7 @@ var testFilePaths = [...]string{
 func main() {
 	regexpsManager.Init(&conf.GetConf().GrammarConf)
 
-	lex := lexical.NewLexicalAnalyzer()
+	lex := lexical.NewLexicalAnalyzer(&conf.GetConf().LexicalConf)
 	lex.Init()
 	lex.FormLexicalFile(conf.GetConf().LexicalInformationDir)
 	lex.FromTheMarkdownFileOfTokens(conf.GetConf().SourceFilePath,conf.GetConf().LexicalInformationDir+"/tokens.md")

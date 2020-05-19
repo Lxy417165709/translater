@@ -1,12 +1,13 @@
 {
   "GrammarConf": {
     "FilePath": "C:\\Users\\hasee\\Desktop\\Go_Practice\\编译器\\conf\\1_grammar.md",
-    "WordDelimiter": "|",
-    "UnitDelimiter": "->",
-    "SpecialCharOfFixedWord": "WOJ",
-    "SpecialCharOfVariableWord": "IXZ"
+    "PartDelimiter": "|",
+    "RegexpDelimiter": ","
   },
   "SourceFilePath": "C:\\Users\\hasee\\Desktop\\Go_Practice\\编译器\\conf\\2_source.md",
+  "LexicalConf": {
+    "SpecialCharsOfNFAs": "WOIJXZS"
+  },
   "LexicalInformationDir": "C:\\Users\\hasee\\Desktop\\Go_Practice\\编译器\\doc\\gen\\LexicalInformation",
   "LexicalAnalyzerDisplayDocumentPath": "C:\\Users\\hasee\\Desktop\\Go_Practice\\编译器\\doc\\gen\\LexicalDisplayDocument.md"
 }

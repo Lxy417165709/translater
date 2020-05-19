@@ -7,8 +7,9 @@ import (
 
 // TODO: 重构
 type NFABuilder struct {
-	buildRegexp     string // 存在 RegexSplitString 的正则表达式，可以分割为多个NFA
-	readingRegex    string // 不存在 RegexSplitString 的正则表达式，只能形成一个NFA
+	buildRegexp     string
+
+	readingRegex    string
 	readingPosition int
 	finalNFA        *NFA
 }
@@ -22,9 +23,7 @@ func NewNFABuilder(buildRegexp string) *NFABuilder {
 	}
 }
 func (nb *NFABuilder) BuildNotBlankStateNFA() *NFA {
-	nfa := nb.BuildNFA()
-	nfa.EliminateBlankStates()
-	return nfa
+	return nb.BuildNFA().EliminateBlankStates()
 }
 func (nb *NFABuilder) BuildNFA() *NFA {
 	if nb.buildRegexpIsRespondToSingleNFA() {
@@ -33,11 +32,11 @@ func (nb *NFABuilder) BuildNFA() *NFA {
 	return nb.buildFinalNFAByParsingNotSingleBuildRegexp()
 }
 func (nb *NFABuilder) buildRegexpIsRespondToSingleNFA() bool {
-	regexps := strings.Split(nb.buildRegexp, regexpsManager.RegexSplitString)
+	regexps := strings.Split(nb.buildRegexp, regexpsManager.GetRegexpsManager().GetRegexpDelimiter())
 	return len(regexps) == 1
 }
 func (nb *NFABuilder) buildFinalNFAByParsingNotSingleBuildRegexp() *NFA {
-	regexps := strings.Split(nb.buildRegexp, regexpsManager.RegexSplitString)
+	regexps := strings.Split(nb.buildRegexp, regexpsManager.GetRegexpsManager().GetRegexpDelimiter())
 	// 这要去除空格（这职责应该不是由它担任）
 	for i := 0; i < len(regexps); i++ {
 		addedNfa := NewNFABuilder(strings.TrimSpace(regexps[i])).BuildNFA()

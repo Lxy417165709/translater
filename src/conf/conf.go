@@ -2,7 +2,6 @@ package conf
 
 import (
 	"encoding/json"
-	"fmt"
 	"io/ioutil"
 )
 
@@ -12,10 +11,10 @@ var globalConf *conf
 func init() {
 	globalConf = &conf{}
 	globalConf.init()
-	fmt.Println(globalConf)
 }
 type conf struct {
 	GrammarConf GrammarConf `json:"GrammarConf"`
+	LexicalConf LexicalConf `json:"LexicalConf"`
 	SourceFilePath  string `json:"SourceFilePath"`
 	LexicalAnalyzerDisplayDocumentPath string `json:"LexicalAnalyzerDisplayDocumentPath"`
 	LexicalInformationDir string `json:"LexicalInformationDir"`

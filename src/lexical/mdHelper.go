@@ -46,7 +46,7 @@ func (mdo *MarkDownObject) writeContentToStoreFile() {
 }
 
 func (mdo *MarkDownObject) constructContentPartOne() {
-	mdo.writeFileContent("语法", conf.GetConf().GrammarConf.FilePath, true)
+	mdo.writeFileContent("语法", conf.GetConf().GrammarConf.FilePath, false)
 }
 func (mdo *MarkDownObject) constructContentPartTwo() {
 	stateMachineStoreFileDir := fmt.Sprintf("%s/%s", conf.GetConf().LexicalInformationDir, stateMachineDirName)

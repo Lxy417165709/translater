@@ -202,7 +202,6 @@ func (s *State) InsertToken(nowWord string, specialChar byte,stateIsVisit map[*S
 	}
 }
 
-
 func (s *State) GetShowDataFromHere(startId int, stateToId map[*State]int, stateIsVisit map[*State]bool,line *int,result *[]string){
 	currentState := s
 
