@@ -4,8 +4,8 @@ import (
 	"conf"
 	"file"
 	"fmt"
+	"grammar"
 	"lexical"
-	"regexpsManager"
 	"testLay"
 )
 
@@ -24,14 +24,11 @@ var testFilePaths = [...]string{
 	`C:\Users\hasee\Desktop\Go_Practice\编译器\doc\nfaTestFile\nfaGraphTest11.md`,
 }
 func main() {
-	regexpsManager.Init(&conf.GetConf().GrammarConf)
-
-	lex := lexical.NewLexicalAnalyzer(&conf.GetConf().LexicalConf)
-	lex.Init()
-	lex.FormLexicalFile(conf.GetConf().LexicalInformationDir)
-	lex.FromTheMarkdownFileOfTokens(conf.GetConf().SourceFilePath,conf.GetConf().LexicalInformationDir+"/tokens.md")
-	mdo := lexical.NewMarkDownObject(conf.GetConf().LexicalAnalyzerDisplayDocumentPath)
-	mdo.Generate()
+	grammar.Init(&conf.GetConf().GrammarConf)
+	lexical.Init(&conf.GetConf().LexicalConf)
+	lexicalAnalyzer := lexical.GetLexicalAnalyzer()
+	lexicalAnalyzer.FormLexicalFile()
+	lexicalAnalyzer.FormLexicalDocument()
 }
 
 

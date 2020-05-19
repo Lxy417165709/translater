@@ -1,4 +1,4 @@
-package regexpsManager
+package grammar
 
 
 type Token struct {
@@ -7,6 +7,14 @@ type Token struct {
 	value interface{}
 }
 
+func (t *Token)Copy() *Token{
+	token := &Token{
+		t.specialChar,
+		t.kindCode,
+		t.value,
+	}
+	return token
+}
 
 func (p *Token) GetSpecialChar() byte{
 	return p.specialChar

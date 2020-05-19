@@ -2,12 +2,19 @@
   "GrammarConf": {
     "FilePath": "C:\\Users\\hasee\\Desktop\\Go_Practice\\编译器\\conf\\1_grammar.md",
     "PartDelimiter": "|",
-    "RegexpDelimiter": ","
+    "RegexpDelimiter": ",",
+    "MatchMoreThanOnceSymbol": "@",
+    "MatchMoreThanZeroTimesSymbol": "$"
+
   },
-  "SourceFilePath": "C:\\Users\\hasee\\Desktop\\Go_Practice\\编译器\\conf\\2_source.md",
   "LexicalConf": {
-    "SpecialCharsOfNFAs": "WOIJXZS"
-  },
-  "LexicalInformationDir": "C:\\Users\\hasee\\Desktop\\Go_Practice\\编译器\\doc\\gen\\LexicalInformation",
-  "LexicalAnalyzerDisplayDocumentPath": "C:\\Users\\hasee\\Desktop\\Go_Practice\\编译器\\doc\\gen\\LexicalDisplayDocument.md"
+    "SpecialCharsOfNFAs": "WOIJXZS",
+    "InformationDir": "C:\\Users\\hasee\\Desktop\\Go_Practice\\编译器\\doc\\gen\\LexicalInformation",
+    "StateMachineDirName": "stateMachine",
+    "FileNameOfStoringKindCodes": "kindCode.md",
+    "FileNameOfStoringTokens": "tokens.md",
+    "FileNameOfStoringFinalNFA": "最终状态机.md",
+    "DisplayDocumentPath": "C:\\Users\\hasee\\Desktop\\Go_Practice\\编译器\\doc\\gen\\LexicalDisplayDocument.md",
+    "SourceFilePath": "C:\\Users\\hasee\\Desktop\\Go_Practice\\编译器\\conf\\2_source.md"
+  }
 }

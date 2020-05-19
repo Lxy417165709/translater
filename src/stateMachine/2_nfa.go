@@ -2,11 +2,9 @@ package stateMachine
 
 import (
 	"fmt"
+	"grammar"
 	"os"
-	"regexpsManager"
 )
-
-
 
 const endSymbol = '#'
 
@@ -17,11 +15,14 @@ type NFA struct {
 	specialChar byte
 }
 
-func NewNFA(specialChar byte) *NFA {
-	startState := NewState(false)
-	endState := NewState(true)
-	nfa := &NFA{startState,endState, specialChar}
-	return nfa
+func NewNFA() *NFA {
+	startState :=NewState(false)
+	endState :=NewState(true)
+	//startState.Link(endState)
+	return &NFA{
+		startState:startState,
+		endState:endState,
+	}
 }
 
 func (nfa *NFA) SetSpecialChar(char byte) {
@@ -41,10 +42,10 @@ func (nfa *NFA) EliminateBlankStates() *NFA{
 
 
 
-func (nfa *NFA) GetTokens(pattern string) []*regexpsManager.Token {
+func (nfa *NFA) GetTokens(pattern string) []*grammar.Token {
 	pattern += string(endSymbol)
 	buffer := ""
-	tokens, queue := make([]*regexpsManager.Token, 0), make([]*State, 0)
+	tokens, queue := make([]*grammar.Token, 0), make([]*State, 0)
 	queue = append(queue, nfa.startState)
 	readingPosition := 0
 	for pattern[readingPosition] != endSymbol {
@@ -60,9 +61,8 @@ func (nfa *NFA) GetTokens(pattern string) []*regexpsManager.Token {
 		}
 		switch {
 		case lastEndState != nil:
-			token := lastEndState.token
-			token.SetValue(buffer)
-			tokens = append(tokens, lastEndState.token)
+			token := grammar.GetRegexpsManager().GetToken(lastEndState.belongToSpecialChar,buffer).Copy()
+			tokens = append(tokens, token)
 		case isBlank(pattern[readingPosition]):
 			readingPosition++
 		}
@@ -73,16 +73,16 @@ func (nfa *NFA) GetTokens(pattern string) []*regexpsManager.Token {
 	return tokens
 }
 
-func (nfa *NFA) RepeatPlus(beAddedNFA *NFA) *NFA{
+func (nfa *NFA) MatchMoreThanOnce(beAddedNFA *NFA) *NFA{
 	nfa.AddSeriesNFA(beAddedNFA.linkEndStateToStartState())
 	return nfa
 }
-func (nfa *NFA) RepeatZero(beAddedNFA *NFA) *NFA{
+func (nfa *NFA) MatchMoreThanZeroTimes(beAddedNFA *NFA) *NFA{
 	endStateOfShouldAddNFA := NewState(true)
 	beAddedNFA.linkEndStateToStartState().linkStartStateTo(endStateOfShouldAddNFA).setEndState(endStateOfShouldAddNFA)
 	return nfa.AddSeriesNFA(beAddedNFA)
 }
-func (nfa *NFA) Once(beAddedNFA *NFA)*NFA {
+func (nfa *NFA) MatchOnce(beAddedNFA *NFA)*NFA {
 	return nfa.AddSeriesNFA(beAddedNFA)
 }
 func (nfa *NFA) AddParallelNFA(beAddedNFA *NFA) *NFA{
@@ -95,11 +95,9 @@ func (nfa *NFA) AddSeriesNFA(beAddedNFA *NFA) *NFA{
 	nfa.linkEndStateTo(beAddedNFA.getStartState()).setEndState(beAddedNFA.getEndState())
 	return nfa
 }
-
-
-
-
-
+func (nfa *NFA) breakDown() {
+	nfa.getEndState().endFlag = false
+}
 func (nfa *NFA) FormMermaid(file *os.File) {
 	ids := make(map[*State]int)
 	lines := new(int)
@@ -126,14 +124,6 @@ func (nfa *NFA) FormTheMermaidGraphOfNFA(filePath string) {
 	nfa.EliminateBlankStates().FormMermaid(file)
 }
 
-func (nfa *NFA) MarkToken() *NFA{
-	nfa.startState.InsertToken("",nfa.specialChar,make(map[*State]bool))
-	return nfa
-}
-
-
-
-
 func (nfa *NFA) linkStartStateToEndState () *NFA{
 	return nfa.linkStartStateTo(nfa.endState)
 }
@@ -155,9 +145,7 @@ func (nfa *NFA) linkEndStateTo(state *State) *NFA{
 }
 
 
-func (nfa *NFA) breakDown() {
-	nfa.getEndState().endFlag = false
-}
+
 func (nfa *NFA) getStartState() *State {
 	return nfa.startState
 }
@@ -169,6 +157,11 @@ func (nfa *NFA) setStartState(state *State) {
 }
 func (nfa *NFA) setEndState(state *State) {
 	nfa.endState = state
+}
+
+func (nfa *NFA) MarkSpecialChar() *NFA{
+	nfa.startState.MarkSpecialChar(nfa.specialChar,make(map[*State]bool))
+	return nfa
 }
 
 func getNextStates(states []*State, readingChar byte) []*State {

@@ -6,18 +6,17 @@ import (
 )
 
 const configureFilePath = `C:\Users\hasee\Desktop\Go_Practice\编译器\conf\conf.json`
+
 var globalConf *conf
 
 func init() {
 	globalConf = &conf{}
 	globalConf.init()
 }
+
 type conf struct {
-	GrammarConf GrammarConf `json:"GrammarConf"`
-	LexicalConf LexicalConf `json:"LexicalConf"`
-	SourceFilePath  string `json:"SourceFilePath"`
-	LexicalAnalyzerDisplayDocumentPath string `json:"LexicalAnalyzerDisplayDocumentPath"`
-	LexicalInformationDir string `json:"LexicalInformationDir"`
+	GrammarConf    GrammarConf `json:"GrammarConf"`
+	LexicalConf    LexicalConf `json:"LexicalConf"`
 }
 
 func GetConf() *conf {

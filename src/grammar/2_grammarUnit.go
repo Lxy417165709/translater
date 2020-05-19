@@ -1,4 +1,4 @@
-package regexpsManager
+package grammar
 
 import (
 	"fmt"

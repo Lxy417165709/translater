@@ -14,29 +14,29 @@ const (
 	KB = 1024
 )
 
-type MarkDownObject struct {
-	storeFileName string
+type lexicalDocumentGenerator struct {
+	lexicalConf *conf.LexicalConf
 	content bytes.Buffer
 }
 
-func NewMarkDownObject(storeFileName string) *MarkDownObject {
-	return &MarkDownObject{storeFileName: storeFileName}
+func NewlexicalDocumentGenerator(lexicalConf *conf.LexicalConf) *lexicalDocumentGenerator {
+	return &lexicalDocumentGenerator{lexicalConf:lexicalConf}
 }
 
-func (mdo *MarkDownObject) Generate() {
+func (mdo *lexicalDocumentGenerator) Generate() {
 	mdo.constructContent()
 	mdo.writeContentToStoreFile()
 }
 
-func (mdo *MarkDownObject) constructContent() {
+func (mdo *lexicalDocumentGenerator) constructContent() {
 	mdo.content.WriteString("@[TOC]\n")
 	mdo.content.WriteString("# 我是一个自动生成的MarkDown文件\n")
 	mdo.constructContentPartOne()
 	mdo.constructContentPartTwo()
 	mdo.constructContentPartThree()
 }
-func (mdo *MarkDownObject) writeContentToStoreFile() {
-	storeFile, err := os.Create(mdo.storeFileName)
+func (mdo *lexicalDocumentGenerator) writeContentToStoreFile() {
+	storeFile, err := os.Create(mdo.lexicalConf.DisplayDocumentPath)
 	defer storeFile.Close()
 	if err != nil {
 		panic(err)
@@ -45,11 +45,11 @@ func (mdo *MarkDownObject) writeContentToStoreFile() {
 	fmt.Println("文档已自动生成！")
 }
 
-func (mdo *MarkDownObject) constructContentPartOne() {
+func (mdo *lexicalDocumentGenerator) constructContentPartOne() {
 	mdo.writeFileContent("语法", conf.GetConf().GrammarConf.FilePath, false)
 }
-func (mdo *MarkDownObject) constructContentPartTwo() {
-	stateMachineStoreFileDir := fmt.Sprintf("%s/%s", conf.GetConf().LexicalInformationDir, stateMachineDirName)
+func (mdo *lexicalDocumentGenerator) constructContentPartTwo() {
+	stateMachineStoreFileDir := fmt.Sprintf("%s/%s", mdo.lexicalConf.InformationDir, mdo.lexicalConf.StateMachineDirName)
 	fileInfos, err := ioutil.ReadDir(stateMachineStoreFileDir)
 	if err != nil {
 		panic(err)
@@ -65,14 +65,14 @@ func (mdo *MarkDownObject) constructContentPartTwo() {
 		mdo.content.Write(file.NewFileReader(stateMachineStoreFilePath).GetFileBytes())
 	}
 }
-func (mdo *MarkDownObject) constructContentPartThree() {
-	kindCodeFilePath :=  fmt.Sprintf("%s/%s",conf.GetConf().LexicalInformationDir,kindCodeFileName)
-	tokensFilePath := fmt.Sprintf("%s/%s",conf.GetConf().LexicalInformationDir,tokensFileName)
+func (mdo *lexicalDocumentGenerator) constructContentPartThree() {
+	kindCodeFilePath :=  fmt.Sprintf("%s/%s",mdo.lexicalConf.InformationDir,mdo.lexicalConf.FileNameOfStoringKindCodes)
+	tokensFilePath := fmt.Sprintf("%s/%s",mdo.lexicalConf.InformationDir,mdo.lexicalConf.FileNameOfStoringTokens)
 	mdo.writeFileContent("种别码", kindCodeFilePath, false)
-	mdo.writeFileContent("被识别的源代码", conf.GetConf().SourceFilePath, true)
+	mdo.writeFileContent("被识别的源代码", mdo.lexicalConf.SourceFilePath, true)
 	mdo.writeFileContent("识别出的所有Token",tokensFilePath, false)
 }
-func (mdo *MarkDownObject) writeFileContent(topic string, fileName string, isCode bool) {
+func (mdo *lexicalDocumentGenerator) writeFileContent(topic string, fileName string, isCode bool) {
 	mdo.content.WriteString(fmt.Sprintf("## %s\n", topic))
 	if isCode {
 		mdo.content.WriteString("```go\n")

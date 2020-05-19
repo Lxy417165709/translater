@@ -1,15 +1,11 @@
-package regexpsManager
+package grammar
 
 import (
 	"conf"
 	"file"
 )
 
-const (
-	RepeatPlusSymbol = '@'
-	RepeatZeroSymbol = '$'
-	Eps              = byte(0)
-)
+const Eps = byte(0)
 
 var singleRegexpsManager = &RegexpsManager{}
 
@@ -66,8 +62,9 @@ func (nm *RegexpsManager) InitToken() {
 func (nm *RegexpsManager) InitFixedWordToken() {
 	nm.fixedWordToToken = make(map[string]*Token)
 
+	nowCode := 1
 	for _, grammarUnit := range nm.grammarUnits {
-		nowCode := 1
+
 		if grammarUnit.KindCodeRule == coding {
 			for _, fixedWord := range grammarUnit.GetWords() {
 				nm.fixedWordToToken[fixedWord] = &Token{
@@ -97,7 +94,9 @@ func (nm *RegexpsManager) InitVariableCharToken() {
 
 func (nm *RegexpsManager) GetToken(specialChar byte, word string) *Token {
 	if nm.isVariableChar(specialChar) {
-		return nm.variableCharToken[specialChar]
+		token := nm.variableCharToken[specialChar]
+		token.SetValue(word)
+		return token
 	}
 	if nm.isFixedWord(word) {
 		return nm.fixedWordToToken[word]
@@ -118,8 +117,8 @@ func (nm *RegexpsManager) GetAllTokens() []*Token {
 func (nm *RegexpsManager) isVariableChar(specialChar byte) bool {
 	return nm.variableCharToken[specialChar] != nil
 }
-func (nm *RegexpsManager) isFixedWord(word string) bool{
-	return nm.fixedWordToToken[word]!=nil
+func (nm *RegexpsManager) isFixedWord(word string) bool {
+	return nm.fixedWordToToken[word] != nil
 }
 
 func (nm *RegexpsManager) GetSpecialCharFormRegexp(regexp string) byte {
@@ -144,10 +143,10 @@ func (nm *RegexpsManager) CharIsSpecial(char byte) bool {
 	return nm.charToRegexp[char] != ""
 }
 
-func (nm *RegexpsManager) GetType (specialChar byte) string{
-	for i:=0;i<len(nm.grammarUnits);i++{
-		if nm.grammarUnits[i].SpecialChar == specialChar{
-			return  nm.grammarUnits[i].Type
+func (nm *RegexpsManager) GetType(specialChar byte) string {
+	for i := 0; i < len(nm.grammarUnits); i++ {
+		if nm.grammarUnits[i].SpecialChar == specialChar {
+			return nm.grammarUnits[i].Type
 		}
 	}
 	return "error"
