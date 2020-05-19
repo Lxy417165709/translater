@@ -18,7 +18,6 @@ type NFA struct {
 func NewNFA() *NFA {
 	startState :=NewState(false)
 	endState :=NewState(true)
-	//startState.Link(endState)
 	return &NFA{
 		startState:startState,
 		endState:endState,
@@ -98,31 +97,41 @@ func (nfa *NFA) AddSeriesNFA(beAddedNFA *NFA) *NFA{
 func (nfa *NFA) breakDown() {
 	nfa.getEndState().endFlag = false
 }
-func (nfa *NFA) FormMermaid(file *os.File) {
-	ids := make(map[*State]int)
-	lines := new(int)
-	result := make([]string, 0)
-	nfa.getStartState().GetShowDataFromHere(0, ids, make(map[*State]bool), lines, &result)
-	_, err := file.WriteString("```mermaid\ngraph LR\n")
-	for i := 0; i < len(result); i++ {
-		_, err = file.WriteString(result[i])
-		if err != nil {
-			panic(err)
+
+
+
+
+
+func (nfa *NFA) FormTheMermaidGraphOfNFA(filePath string) error {
+	var file *os.File
+	var err error
+	if file, err = os.Create(filePath);err!=nil{
+		return err
+	}
+	defer file.Close()
+	for _,line := range nfa.getMermaidLines() {
+		if _,err = file.WriteString(line);err!=nil{
+			return err
 		}
 	}
-	_, err = file.WriteString("```\n")
-	if err != nil {
-		panic(err)
-	}
+	return err
 }
-func (nfa *NFA) FormTheMermaidGraphOfNFA(filePath string) {
-	file, err := os.Create(filePath)
-	defer file.Close()
-	if err != nil {
-		panic(err)
-	}
-	nfa.EliminateBlankStates().FormMermaid(file)
+func (nfa *NFA) getMermaidLines() []string{
+	lines := make([]string,0)
+	lines = append(lines, "```mermaid\ngraph LR\n")
+	lines = append(lines,nfa.getMetaMermaidData()...)
+	lines = append(lines,"```\n")
+	return lines
 }
+func (nfa *NFA) getMetaMermaidData() []string{
+	metaMermaidData := make([]string,0)
+	nfa.getStartState().GetShowDataFromHere(0, make(map[*State]int), make(map[*State]bool), &metaMermaidData)
+	return metaMermaidData
+}
+
+
+
+
 
 func (nfa *NFA) linkStartStateToEndState () *NFA{
 	return nfa.linkStartStateTo(nfa.endState)

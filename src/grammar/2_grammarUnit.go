@@ -1,6 +1,7 @@
 package grammar
 
 import (
+	"bytes"
 	"fmt"
 	"strconv"
 	"strings"
@@ -28,6 +29,37 @@ func (unit *GrammarUnit) GetWords() []string {
 		words[i] = strings.TrimSpace(words[i])
 	}
 	return words
+}
+
+func (unit *GrammarUnit) reformToLine() string{
+	partOne := AddBackticks(string(unit.SpecialChar))
+	partTwo := AddBackticks(string(unit.Type))
+	partThree := AddBackticks(strconv.Itoa(unit.KindCodeRule))
+	partFour := bytes.Buffer{}
+
+	words := unit.GetWords()
+	for index,word := range words{
+		if index==len(words)-1{
+			partFour.WriteString(AddBackticks(word))
+		}else{
+			partFour.WriteString(AddBackticks(word)+unit.RegexpDelimiter)
+		}
+	}
+	return fmt.Sprintf(
+		"%s%s%s%s%s%s%s",
+		partOne,
+		unit.PartDelimiter,
+		partTwo,
+		unit.PartDelimiter,
+		partThree,
+		unit.PartDelimiter,
+		partFour.String(),
+	)
+
+}
+
+func AddBackticks(source string) string{
+	return fmt.Sprintf("`%s`",source)
 }
 
 

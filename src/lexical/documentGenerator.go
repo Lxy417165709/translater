@@ -5,22 +5,22 @@ import (
 	"conf"
 	"file"
 	"fmt"
+	"grammar"
 	"io/ioutil"
 	"os"
 	"strings"
 )
 
-const (
-	KB = 1024
-)
+const KB = 1024
+const stateMachineFileInfoSizeLimit = 2*KB
 
 type lexicalDocumentGenerator struct {
 	lexicalConf *conf.LexicalConf
-	content bytes.Buffer
+	content     bytes.Buffer
 }
 
 func NewlexicalDocumentGenerator(lexicalConf *conf.LexicalConf) *lexicalDocumentGenerator {
-	return &lexicalDocumentGenerator{lexicalConf:lexicalConf}
+	return &lexicalDocumentGenerator{lexicalConf: lexicalConf}
 }
 
 func (mdo *lexicalDocumentGenerator) Generate() {
@@ -36,20 +36,34 @@ func (mdo *lexicalDocumentGenerator) constructContent() {
 	mdo.constructContentPartThree()
 }
 func (mdo *lexicalDocumentGenerator) writeContentToStoreFile() {
-	storeFile, err := os.Create(mdo.lexicalConf.DisplayDocumentPath)
-	defer storeFile.Close()
-	if err != nil {
+	var storeFile *os.File
+	var err error
+	if storeFile, err = os.Create(mdo.lexicalConf.DisplayDocumentPath); err != nil {
 		panic(err)
 	}
-	storeFile.Write(mdo.content.Bytes())
+	defer storeFile.Close()
+
+	if _, err = storeFile.Write(mdo.content.Bytes()); err != nil {
+		panic(err)
+	}
 	fmt.Println("文档已自动生成！")
 }
 
 func (mdo *lexicalDocumentGenerator) constructContentPartOne() {
-	mdo.writeFileContent("语法", conf.GetConf().GrammarConf.FilePath, false)
+
+	mdo.content.WriteString("## 语法\n")
+	lines := grammar.GetRegexpsManager().GetReformLinesOfGrammarFile()
+	for _,line := range lines{
+		mdo.content.WriteString(line + "\n")
+	}
 }
+
+
+
+
+
 func (mdo *lexicalDocumentGenerator) constructContentPartTwo() {
-	stateMachineStoreFileDir := fmt.Sprintf("%s/%s", mdo.lexicalConf.InformationDir, mdo.lexicalConf.StateMachineDirName)
+	stateMachineStoreFileDir :=  mdo.lexicalConf.GetStoreDirPathOfStateMachine()
 	fileInfos, err := ioutil.ReadDir(stateMachineStoreFileDir)
 	if err != nil {
 		panic(err)
@@ -57,7 +71,7 @@ func (mdo *lexicalDocumentGenerator) constructContentPartTwo() {
 	mdo.content.WriteString("## 自动机\n")
 	for _, fileInfo := range fileInfos {
 		mdo.content.WriteString("### " + getTheFirstPartOfFileName(fileInfo.Name()) + "\n")
-		if fileInfo.Size() > 2*KB {
+		if stateMachineIsTooLarge(fileInfo) {
 			mdo.content.WriteString("状态机过于庞大\n")
 			continue
 		}
@@ -66,11 +80,11 @@ func (mdo *lexicalDocumentGenerator) constructContentPartTwo() {
 	}
 }
 func (mdo *lexicalDocumentGenerator) constructContentPartThree() {
-	kindCodeFilePath :=  fmt.Sprintf("%s/%s",mdo.lexicalConf.InformationDir,mdo.lexicalConf.FileNameOfStoringKindCodes)
-	tokensFilePath := fmt.Sprintf("%s/%s",mdo.lexicalConf.InformationDir,mdo.lexicalConf.FileNameOfStoringTokens)
+	kindCodeFilePath := mdo.lexicalConf.GetStorePathOfKindCodes()
+	tokensFilePath := mdo.lexicalConf.GetStorePathOfTokens()
 	mdo.writeFileContent("种别码", kindCodeFilePath, false)
 	mdo.writeFileContent("被识别的源代码", mdo.lexicalConf.SourceFilePath, true)
-	mdo.writeFileContent("识别出的所有Token",tokensFilePath, false)
+	mdo.writeFileContent("识别出的所有Token", tokensFilePath, false)
 }
 func (mdo *lexicalDocumentGenerator) writeFileContent(topic string, fileName string, isCode bool) {
 	mdo.content.WriteString(fmt.Sprintf("## %s\n", topic))
@@ -83,6 +97,10 @@ func (mdo *lexicalDocumentGenerator) writeFileContent(topic string, fileName str
 	}
 }
 
+
+func stateMachineIsTooLarge(stateMachineFileInfo os.FileInfo) bool{
+	return stateMachineFileInfo.Size()>stateMachineFileInfoSizeLimit
+}
 func getTheFirstPartOfFileName(fileName string) string {
 	parts := strings.Split(fileName, ".")
 	if len(parts) == 0 {
@@ -90,3 +108,4 @@ func getTheFirstPartOfFileName(fileName string) string {
 	}
 	return parts[0]
 }
+

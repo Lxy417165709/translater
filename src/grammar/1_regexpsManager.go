@@ -3,9 +3,11 @@ package grammar
 import (
 	"conf"
 	"file"
+	"fmt"
 )
 
 const Eps = byte(0)
+const beginCode = 1
 
 var singleRegexpsManager = &RegexpsManager{}
 
@@ -48,6 +50,23 @@ func (nm *RegexpsManager) getAllGrammarUnit() []*GrammarUnit {
 	}
 	return result
 }
+func (nm *RegexpsManager) GetReformLinesOfGrammarFile() []string{
+	result := make([]string,0)
+	result = append(result,"索引|特殊符号|类型|种别码编码规则|匹配")
+	result = append(result,"--|--|--|--|--")
+	grammarUnits := nm.getAllGrammarUnit()
+	for index,grammarUnit := range grammarUnits {
+		result = append(result,fmt.Sprintf("%d%s%s",index+1,nm.grammarConf.PartDelimiter,grammarUnit.reformToLine()))
+
+	}
+	return result
+}
+
+
+
+
+
+
 
 func (nm *RegexpsManager) InitCharToRegexp() {
 	nm.charToRegexp = make(map[byte]string)
@@ -62,21 +81,20 @@ func (nm *RegexpsManager) InitToken() {
 func (nm *RegexpsManager) InitFixedWordToken() {
 	nm.fixedWordToToken = make(map[string]*Token)
 
-	nowCode := 1
+	nowCode := beginCode
 	for _, grammarUnit := range nm.grammarUnits {
-
 		if grammarUnit.KindCodeRule == coding {
 			for _, fixedWord := range grammarUnit.GetWords() {
 				nm.fixedWordToToken[fixedWord] = &Token{
 					grammarUnit.SpecialChar,
 					nowCode,
+					grammarUnit.Type,
 					fixedWord,
 				}
 				nowCode++
 			}
 		}
 	}
-
 }
 
 func (nm *RegexpsManager) InitVariableCharToken() {
@@ -86,6 +104,7 @@ func (nm *RegexpsManager) InitVariableCharToken() {
 			nm.variableCharToken[grammarUnit.SpecialChar] = &Token{
 				grammarUnit.SpecialChar,
 				grammarUnit.KindCodeRule,
+				grammarUnit.Type,
 				"",
 			}
 		}
@@ -141,13 +160,4 @@ func (nm *RegexpsManager) GetRegexp(specialChar byte) string {
 }
 func (nm *RegexpsManager) CharIsSpecial(char byte) bool {
 	return nm.charToRegexp[char] != ""
-}
-
-func (nm *RegexpsManager) GetType(specialChar byte) string {
-	for i := 0; i < len(nm.grammarUnits); i++ {
-		if nm.grammarUnits[i].SpecialChar == specialChar {
-			return nm.grammarUnits[i].Type
-		}
-	}
-	return "error"
 }

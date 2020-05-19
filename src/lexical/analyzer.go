@@ -2,7 +2,7 @@ package lexical
 
 import (
 	"conf"
-	file2 "file"
+	"file"
 	"fmt"
 	"grammar"
 	"os"
@@ -28,16 +28,7 @@ func (la *LexicalAnalyzer) initLexicalDocumentGenerator() {
 func GetLexicalAnalyzer() *LexicalAnalyzer{
 	return globalLexicalAnalyzer
 }
-func (la *LexicalAnalyzer) GetTokens(bytes []byte) []*grammar.Token {
-	return la.finalNfa.GetTokens(string(bytes))
-}
 
-func (la *LexicalAnalyzer) formTheMarkdownFileOfTokens() {
-	tokens := la.GetTokens(file2.NewFileReader(la.lexicalConf.SourceFilePath).GetFileBytes())
-	if err := la.writeTokensToFile(tokens,la.getStorePathOfTokens());err!=nil{
-		panic(err)
-	}
-}
 
 func (la *LexicalAnalyzer) writeTokensToFile(tokens []*grammar.Token,filePath string) error{
 	var file *os.File
@@ -63,7 +54,7 @@ func (la *LexicalAnalyzer) changeTokensToFileLines(tokens []*grammar.Token) []st
 			"%d|`%v`|`%s`|`%d`\n",
 			index+1,
 			token.GetValue(),
-			grammar.GetRegexpsManager().GetType(token.GetSpecialChar()),
+			token.GetType(),
 			token.GetKindCode()),
 		)
 	}
@@ -72,20 +63,7 @@ func (la *LexicalAnalyzer) changeTokensToFileLines(tokens []*grammar.Token) []st
 }
 
 
-func (la *LexicalAnalyzer) formKindCodeFile() {
-	file, err := os.Create(la.getStorePathOfKindCodes())
-	defer file.Close()
-	if err != nil {
-		panic(err)
-	}
-	file.WriteString("索引|单词|类别|种别码\n")
-	file.WriteString("--|--|--|--\n")
-	for index, token := range grammar.GetRegexpsManager().GetAllTokens() {
-		file.WriteString(fmt.Sprintf("%d|`%s`|`%s`|`%d`\n", index+1, token.GetValue(), grammar.GetRegexpsManager().GetType(token.GetSpecialChar()), token.GetKindCode()))
-	}
-}
 
-// 只需初始化一次
 func (la *LexicalAnalyzer) Init() {
 	la.initNFAs()
 	la.initFinalNFA()
@@ -107,29 +85,13 @@ func (la *LexicalAnalyzer) initFinalNFA() {
 	la.finalNfa.EliminateBlankStates()
 }
 
-func (la *LexicalAnalyzer) getStorePathOfKindCodes() string {
-	return fmt.Sprintf("%s/%s", la.lexicalConf.InformationDir, la.lexicalConf.FileNameOfStoringKindCodes)
-}
-func (la *LexicalAnalyzer) getStorePathOfTokens() string {
-	return fmt.Sprintf("%s/%s", la.lexicalConf.InformationDir, la.lexicalConf.FileNameOfStoringTokens)
-}
-func (la *LexicalAnalyzer) getStoreDirPathOfStateMachine() string {
-	return fmt.Sprintf("%s/%s", la.lexicalConf.InformationDir, la.lexicalConf.StateMachineDirName)
-}
-
-
-func (la *LexicalAnalyzer)FormLexicalDocument() {
-	la.lexicalDocumentGenerator.Generate()
-}
 func (la *LexicalAnalyzer) FormLexicalFile() {
 	la.formStateMachineFiles()
 	la.formKindCodeFile()
 	la.formTheMarkdownFileOfTokens()
 }
-
-
 func (la *LexicalAnalyzer) formStateMachineFiles() {
-	storeDirPathOfStateMachine := la.getStoreDirPathOfStateMachine()
+	storeDirPathOfStateMachine := la.lexicalConf.GetStoreDirPathOfStateMachine()
 	if err := os.MkdirAll(storeDirPathOfStateMachine, 0666); err != nil {
 		panic(err)
 	}
@@ -139,3 +101,30 @@ func (la *LexicalAnalyzer) formStateMachineFiles() {
 	la.finalNfa.FormTheMermaidGraphOfNFA(fmt.Sprintf("%s/%s", storeDirPathOfStateMachine, la.lexicalConf.FileNameOfStoringFinalNFA))
 
 }
+func (la *LexicalAnalyzer) formKindCodeFile() {
+	file, err := os.Create(la.lexicalConf.GetStorePathOfKindCodes())
+	defer file.Close()
+	if err != nil {
+		panic(err)
+	}
+	file.WriteString("索引|单词|类别|种别码\n")
+	file.WriteString("--|--|--|--\n")
+	for index, token := range grammar.GetRegexpsManager().GetAllTokens() {
+		file.WriteString(fmt.Sprintf("%d|`%s`|`%s`|`%d`\n", index+1, token.GetValue(), token.GetType(), token.GetKindCode()))
+	}
+}
+func (la *LexicalAnalyzer) formTheMarkdownFileOfTokens() {
+	tokens := la.getTokens(file.NewFileReader(la.lexicalConf.SourceFilePath).GetFileBytes())
+	if err := la.writeTokensToFile(tokens,la.lexicalConf.GetStorePathOfTokens());err!=nil{
+		panic(err)
+	}
+}
+func (la *LexicalAnalyzer) getTokens(bytes []byte) []*grammar.Token {
+	return la.finalNfa.GetTokens(string(bytes))
+}
+
+func (la *LexicalAnalyzer)FormLexicalDocument() {
+	la.lexicalDocumentGenerator.Generate()
+}
+
+

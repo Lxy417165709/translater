@@ -109,7 +109,7 @@ func (s *State) getNextStates(char byte) []*State {
 }
 
 
-func (s *State) GetShowDataFromHere(startId int, stateToId map[*State]int, stateIsVisit map[*State]bool, line *int, result *[]string) {
+func (s *State) GetShowDataFromHere(startId int, stateToId map[*State]int, stateIsVisit map[*State]bool, result *[]string) {
 	currentState := s
 	if stateIsVisit[currentState] {
 		return
@@ -118,8 +118,7 @@ func (s *State) GetShowDataFromHere(startId int, stateToId map[*State]int, state
 	stateToId[currentState] = startId
 	for bytes, nextStates := range s.toNextState {
 		for _, nextState := range nextStates {
-			*line++
-			nextState.GetShowDataFromHere(len(stateToId), stateToId, stateIsVisit, line, result)
+			nextState.GetShowDataFromHere(len(stateToId), stateToId, stateIsVisit, result)
 			option := string(bytes)
 			*result = append(*result, fmt.Sprintf("id:%d%s -- .%s. --> id:%d%s\n",
 				stateToId[currentState],

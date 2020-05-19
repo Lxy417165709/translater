@@ -1,5 +1,7 @@
 package conf
 
+import "fmt"
+
 type LexicalConf struct {
 	SpecialCharsOfNFAs string `json:"SpecialCharsOfNFAs"`
 	InformationDir		string `json:"InformationDir"`
@@ -10,3 +12,15 @@ type LexicalConf struct {
 	FileNameOfStoringFinalNFA string `json:"FileNameOfStoringFinalNFA"`
 	DisplayDocumentPath string `json:"DisplayDocumentPath"`
 }
+
+
+func (lc *LexicalConf) GetStorePathOfKindCodes() string {
+	return fmt.Sprintf("%s/%s", lc.InformationDir,lc.FileNameOfStoringKindCodes)
+}
+func (lc *LexicalConf) GetStorePathOfTokens() string {
+	return fmt.Sprintf("%s/%s", lc.InformationDir, lc.FileNameOfStoringTokens)
+}
+func (lc *LexicalConf) GetStoreDirPathOfStateMachine() string {
+	return fmt.Sprintf("%s/%s", lc.InformationDir, lc.StateMachineDirName)
+}
+
