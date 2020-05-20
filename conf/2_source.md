@@ -30,6 +30,8 @@ begin
         ee>>=12345;
         ff<<=123456;
         gg++;
+12abccc
 end
+
 #~
 

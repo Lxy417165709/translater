@@ -6,7 +6,6 @@ import (
 	"strings"
 )
 
-// TODO: 重构
 type NFABuilder struct {
 	buildRegexp     string
 

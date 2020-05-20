@@ -7,11 +7,11 @@ import (
 
 const configureFilePath = `C:\Users\hasee\Desktop\Go_Practice\编译器\conf\conf.json`
 
-var globalConf *conf
+var singleConf *conf
 
 func init() {
-	globalConf = &conf{}
-	globalConf.init()
+	singleConf = &conf{}
+	singleConf.init()
 }
 
 type conf struct {
@@ -20,7 +20,7 @@ type conf struct {
 }
 
 func GetConf() *conf {
-	return globalConf
+	return singleConf
 }
 
 func (cn *conf) init() {

@@ -5,7 +5,6 @@
     "RegexpDelimiter": ",",
     "MatchMoreThanOnceSymbol": "@",
     "MatchMoreThanZeroTimesSymbol": "$"
-
   },
   "LexicalConf": {
     "SpecialCharsOfNFAs": "WOIJXZS",

@@ -11,6 +11,7 @@ import (
 	"strings"
 )
 
+// TODO: 这个更应该放在全局
 const KB = 1024
 const stateMachineFileInfoSizeLimit = 2*KB
 
@@ -57,10 +58,6 @@ func (mdo *lexicalDocumentGenerator) constructContentPartOne() {
 		mdo.content.WriteString(line + "\n")
 	}
 }
-
-
-
-
 
 func (mdo *lexicalDocumentGenerator) constructContentPartTwo() {
 	stateMachineStoreFileDir :=  mdo.lexicalConf.GetStoreDirPathOfStateMachine()
