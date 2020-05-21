@@ -5,13 +5,12 @@ import (
 	"io/ioutil"
 )
 
-const configureFilePath = `C:\Users\hasee\Desktop\Go_Practice\编译器\conf\conf.json`
 
 var singleConf *conf
 
-func init() {
+func Init(confFilePath string) {
 	singleConf = &conf{}
-	singleConf.init()
+	singleConf.init(confFilePath)
 }
 
 type conf struct {
@@ -23,10 +22,10 @@ func GetConf() *conf {
 	return singleConf
 }
 
-func (cn *conf) init() {
+func (cn *conf) init(confFilePath string) {
 	var err error
 	var jsonBytes []byte
-	if jsonBytes, err = ioutil.ReadFile(configureFilePath); err != nil {
+	if jsonBytes, err = ioutil.ReadFile(confFilePath); err != nil {
 		panic(err)
 	}
 	if err = json.Unmarshal(jsonBytes, cn); err != nil {

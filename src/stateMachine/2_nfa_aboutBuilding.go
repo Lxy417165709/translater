@@ -39,9 +39,10 @@ func (nfa *NFA) breakDown() {
 	nfa.getEndState().endFlag = false
 }
 
-
-
-
+func (nfa *NFA) MarkSpecialChar() *NFA{
+	nfa.startState.MarkSpecialChar(nfa.specialChar,make(map[*State]bool))
+	return nfa
+}
 
 func (nfa *NFA) linkStartStateToEndState () *NFA{
 	return nfa.linkStartStateTo(nfa.endState)
@@ -78,10 +79,6 @@ func (nfa *NFA) setEndState(state *State) {
 	nfa.endState = state
 }
 
-func (nfa *NFA) MarkSpecialChar() *NFA{
-	nfa.startState.MarkSpecialChar(nfa.specialChar,make(map[*State]bool))
-	return nfa
-}
 
 func getNextStates(states []*State, readingChar byte) []*State {
 	tmpQueue := make([]*State, 0)
@@ -91,12 +88,4 @@ func getNextStates(states []*State, readingChar byte) []*State {
 		}
 	}
 	return tmpQueue
-}
-func getFirstEndState(states []*State) *State {
-	for _, state := range states {
-		if state.endFlag {
-			return state
-		}
-	}
-	return nil
 }

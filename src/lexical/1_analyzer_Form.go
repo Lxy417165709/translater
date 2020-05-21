@@ -43,12 +43,12 @@ func (la *LexicalAnalyzer) formKindCodeFile() {
 	}
 }
 func (la *LexicalAnalyzer) formTheMarkdownFileOfTokens() {
-	tokens := la.getTokens(file.NewFileReader(la.lexicalConf.SourceFilePath).GetFileBytes())
+	tokens := la.GetTokens(file.NewFileReader(la.lexicalConf.SourceFilePath).GetFileBytes())
 	if err := la.writeTokensToFile(tokens,la.lexicalConf.GetStorePathOfTokens());err!=nil{
 		panic(err)
 	}
 }
-func (la *LexicalAnalyzer) getTokens(bytes []byte) []*stateMachine.Token {
+func (la *LexicalAnalyzer) GetTokens(bytes []byte) []*stateMachine.Token {
 	la.finalNfa.SetPattern(bytes)
 	return la.finalNfa.ParsePattern()
 }

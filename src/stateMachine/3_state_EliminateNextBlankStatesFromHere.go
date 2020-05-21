@@ -65,3 +65,23 @@ func (s *State) addNextStates(addedMap map[byte][]*State) {
 	}
 }
 
+func getStatesToNext(states []*State) map[byte][]*State {
+	result := make(map[byte][]*State)
+	hasExist := make(map[byte]map[*State]bool)
+	for _, state := range states {
+		for char, nextStates := range state.toNextState {
+			for _, nextState := range nextStates {
+				if hasExist[char] == nil {
+					hasExist[char] = make(map[*State]bool)
+				}
+				if hasExist[char][nextState] {
+					continue
+				}
+				hasExist[char][nextState] = true
+				result[char] = append(result[char], nextState)
+			}
+		}
+	}
+	return result
+}
+

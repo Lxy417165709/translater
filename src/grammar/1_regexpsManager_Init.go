@@ -31,12 +31,14 @@ func (nm *RegexpsManager) InitFixedWordCodeAndVariableCharCode() {
 
 	nowCode := beginCode
 	for _, grammarUnit := range nm.grammarUnits {
-		if grammarUnit.KindCodeRule == coding {
+		switch grammarUnit.KindCodeRule{
+		case coding:
 			for _, fixedWord := range grammarUnit.GetWords() {
 				nm.fixedWordToCode[fixedWord]=nowCode
 				nowCode++
 			}
-		}else{
+		case notCoding:
+		default:
 			nm.variableCharToCode[grammarUnit.SpecialChar]=grammarUnit.KindCodeRule
 		}
 	}

@@ -94,3 +94,16 @@ func (nfa *NFA) generateToken() {
 	nfa.tokens = append(nfa.tokens, NewToken(specialChar,word))
 }
 
+func getFirstEndState(states []*State) *State {
+	for _, state := range states {
+		if state.endFlag {
+			return state
+		}
+	}
+	return nil
+}
+
+
+func isBlank(char byte) bool {
+	return char == ' ' || char == '\n' || char == '\t' || char == '\r'
+}
