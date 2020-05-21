@@ -4,32 +4,49 @@ import (
 	"file"
 )
 
-type LLOne struct {
+type StateTableFormer struct {
 	filePath string
 
-	llUnits      []*llUnit
-	handledUnits []*llUnit
+	originProductions []*production // 可能有左递归
+	productions       []*production // 消除了左递归
 
 	First  map[string][]string
 	Follow map[string][]string
-	Select map[string][]string
+	Select map[*sentence][]string
+	StateTable map[string]map[string]*sentence
+	SentenceToNonTerminator map[*sentence]string
 
-	handlingUnitPosition        int
-	handlingUnitExpressPosition int
-	delimitersBuffer            map[string][]string
+	positionOfHandlingProduction         int
+	positionOfHandlingProductionSentence int
+	bufferOfSet                          map[string][]string // First,Follow 集合求取过程的缓存
 }
 
-func NewLLOne(filePath string) *LLOne {
-	one := &LLOne{filePath: filePath}
-	one.initLLUnits()
-	return one
+func NewStateTableFormer(filePath string) *StateTableFormer {
+	stf := &StateTableFormer{filePath: filePath}
+	stf.initOriginProductions()
+	stf.initProductions()
+	stf.initSentenceToNonTerminator()
+	return stf
 }
 
-func (one *LLOne) initLLUnits() {
-	lines := file.NewFileReader(one.filePath).GetFileLines()
+func (stf *StateTableFormer) initOriginProductions() {
+	lines := file.NewFileReader(stf.filePath).GetFileLines()
 	for _, line := range lines {
-		unit := &llUnit{}
-		unit.Parse(line)
-		one.llUnits = append(one.llUnits, unit)
+		production := &production{}
+		production.Parse(line)
+		stf.originProductions = append(stf.originProductions, production)
+	}
+}
+func (stf *StateTableFormer) initProductions() {
+	for _, originProduction := range stf.originProductions {
+		stf.productions = append(stf.productions, originProduction.ChangeToNonLeftRecursionProductions()...)
+	}
+}
+func (stf *StateTableFormer) initSentenceToNonTerminator() {
+	stf.SentenceToNonTerminator = make(map[*sentence]string)
+	for _, production := range stf.productions {
+		for _,sentence := range production.sentences{
+			stf.SentenceToNonTerminator[sentence] = production.leftNonTerminator
+		}
 	}
 }

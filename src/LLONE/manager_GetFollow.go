@@ -1,102 +1,76 @@
 package LLONE
 
-
-
-//
 // 感觉可以用模板方法模式
-func (one *LLOne) GetFollow() {
-	one.Follow = make(map[string][]string)
-	one.delimitersBuffer = make(map[string][]string)
-	one.Follow["EXP"] = append(one.Follow["EXP"], "END")	// 添加终止符
+func (stf *StateTableFormer) GetFollow() {
+	stf.Follow = make(map[string][]string)
+	stf.bufferOfSet = make(map[string][]string)
+	stf.Follow["EXP"] = append(stf.Follow["EXP"], "END") // 添加终止符
 
 	for  {
-		for one.initHandleUnitPosition(); one.handlingUnitIsNotOver(); one.moveToNextUnit() {
-			for one.initHandleUnitExpressPosition(); one.handlingUnitExpressIsNotOver(); one.moveToNextUnitExpress() {
-				one.handleGettingFollow()
+		for stf.initHandlingProductionPosition(); stf.handlingProductionsIsNotOver(); stf.goToHandleNextProduction() {
+			for stf.initHandleProductionSentencePosition(); stf.handlingProductionSentenceIsNotOver(); stf.goToHandleNextProductionSentence() {
+				stf.handleGettingFollow()
 			}
 		}
-		if !one.syncFollowDelimiterBuffer() {
+		if !stf.syncBufferOfFollow(){
 			break
 		}
 	}
-
-	// TODO: BLA [END ASO RIGHT_PAR] 空白的应该加入吗？
-	//for k,v := range one.Follow{
+	//for k,v := range stf.Follow{
 	//	fmt.Println(k,v)
 	//}
 }
+func (stf *StateTableFormer) handleGettingFollow() {
 
-// 有冗余
-func (one *LLOne) syncFollowDelimiterBuffer() bool {
-	isAdd := false
-	for symbol,expressParts:= range one.delimitersBuffer{
-		for _,expressPart := range expressParts{
-			if !one.endDelimiterIsLivingInFollow(symbol, expressPart) {
-				one.Follow[symbol] = append(one.Follow[symbol], expressPart)
-				isAdd = true
-			}
-		}
-	}
-	one.flushDelimitersBuffer()
-	return isAdd
-}
-// 有冗余
-func (one *LLOne) endDelimiterIsLivingInFollow(symbol string, endDelimiter string) bool {
-	for _, delimiter := range one.Follow[symbol] {
-		if endDelimiter == delimiter {
-			return true
-		}
-	}
-	return false
-}
+	handlingProduction := stf.productions[stf.positionOfHandlingProduction]
+	handlingProductionSentence := handlingProduction.sentences[stf.positionOfHandlingProductionSentence]
 
-
-func (one *LLOne) handleGettingFollow() {
-	handlingUnit := one.handledUnits[one.handlingUnitPosition]
-	handlingExpress := handlingUnit.expresses[one.handlingUnitExpressPosition]
-
-	for i:=0;i<len(handlingExpress);i++{
-		if isEndDelimiters(handlingExpress[i]){
+	for i := 0; i < len(handlingProductionSentence.symbols); i++ {
+		if isTerminator(handlingProductionSentence.symbols[i]) {
 			continue
 		}
-		nextPosition := i+1
+		nextPosition := i + 1
 		switch {
 
 		// 位于最后
-		case i==len(handlingExpress)-1:
-			one.delimitersBuffer[handlingExpress[i]] = append(one.delimitersBuffer[handlingExpress[i]],one.Follow[handlingUnit.symbol]...)
+		case i == len(handlingProductionSentence.symbols)-1:
+			stf.bufferOfSet[handlingProductionSentence.symbols[i]] = append(stf.bufferOfSet[handlingProductionSentence.symbols[i]], stf.Follow[handlingProduction.leftNonTerminator]...)
 
-		case  i==len(handlingExpress)-2:
+		case i == len(handlingProductionSentence.symbols)-2:
 			// 位于倒数第二，而且倒数第一存在空符
-			if hasBlankDelimiter(one.First[handlingExpress[nextPosition]]){
-				one.delimitersBuffer[handlingExpress[i]] = append(one.delimitersBuffer[handlingExpress[i]],one.Follow[handlingUnit.symbol]...)
+			if hasBlankSymbol(stf.First[handlingProductionSentence.symbols[nextPosition]]) {
+				stf.bufferOfSet[handlingProductionSentence.symbols[i]] = append(stf.bufferOfSet[handlingProductionSentence.symbols[i]], stf.Follow[handlingProduction.leftNonTerminator]...)
 			}
-
-			// 冗余
-			if isEndDelimiters(handlingExpress[nextPosition]) {
-				one.delimitersBuffer[handlingExpress[i]] = append(
-					one.delimitersBuffer[handlingExpress[i]],
-					handlingExpress[nextPosition],
-				)
-			}else{
-				one.delimitersBuffer[handlingExpress[i]] = append(
-					one.delimitersBuffer[handlingExpress[i]],
-					delBlankDelimiter(one.First[handlingExpress[nextPosition]])...
-				)
-			}
+			fallthrough
 		default:
 			// 冗余
-			if isEndDelimiters(handlingExpress[nextPosition]) {
-				one.delimitersBuffer[handlingExpress[i]] = append(
-					one.delimitersBuffer[handlingExpress[i]],
-					handlingExpress[nextPosition],
+			if isTerminator(handlingProductionSentence.symbols[nextPosition]) {
+				stf.bufferOfSet[handlingProductionSentence.symbols[i]] = append(
+					stf.bufferOfSet[handlingProductionSentence.symbols[i]],
+					handlingProductionSentence.symbols[nextPosition],
 				)
-			}else{
-				one.delimitersBuffer[handlingExpress[i]] = append(
-					one.delimitersBuffer[handlingExpress[i]],
-					delBlankDelimiter(one.First[handlingExpress[nextPosition]])...
+			} else {
+				stf.bufferOfSet[handlingProductionSentence.symbols[i]] = append(
+					stf.bufferOfSet[handlingProductionSentence.symbols[i]],
+					removeBlankSymbol(stf.First[handlingProductionSentence.symbols[nextPosition]])...
 				)
 			}
 		}
 	}
+}
+func (stf *StateTableFormer) syncBufferOfFollow() bool {
+	followSetHasBeenUpdated := false
+	for leftNonTerminator,sentence:= range stf.bufferOfSet{
+		for _, symbol := range sentence {
+			if !stf.terminatorIsLivingInFollow(leftNonTerminator, symbol) {
+				stf.Follow[leftNonTerminator] = append(stf.Follow[leftNonTerminator], symbol)
+				followSetHasBeenUpdated = true
+			}
+		}
+	}
+	stf.flushBufferOfSet()
+	return followSetHasBeenUpdated
+}
+func (stf *StateTableFormer) terminatorIsLivingInFollow(leftNonTerminator string, terminator string) bool {
+	return arrayHasTerminator(stf.Follow[leftNonTerminator],terminator)
 }

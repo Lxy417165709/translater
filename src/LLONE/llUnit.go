@@ -4,147 +4,147 @@ import (
 	"fmt"
 	"strings"
 )
-
-type llUnit struct{
-	symbol string
-	expresses [][]string
+// END 是结束符
+var terminators = [...]string{
+	"LEFT_PAR", "RIGHT_PAR", "IDE", "FDO", "ASO","END",
 }
-func (u *llUnit)getLeftRecursionExpress() [][]string{
-	result := make([][]string,0)
-	for _,express := range u.expresses {
-		if u.symbol==express[0]{
-			result = append(result,express)
+
+const blankSymbol = "BLA"
+const additionCharBeginChar = byte('a')
+
+
+func (u *production) Parse(line string) {
+	line = strings.TrimSpace(line)
+	parts := strings.Split(line, "->")
+	if len(parts) != 2 {
+		panic("分割production发生错误，分割后的长度不为2")
+	}
+	u.leftNonTerminator = strings.TrimSpace(parts[0])
+	for _, sentenceString := range strings.Split(parts[1], "|") {
+		sentence := NewEmptySentence()
+		sentence.Parse(sentenceString)
+		u.sentences = append(u.sentences,sentence)
+	}
+}
+func (u *production) nthSentenceFirstSymbolIsTerminator(index int) bool {
+	for i := 0; i < len(terminators); i++ {
+		if u.getNthSentenceFirstSymbol(index) == terminators[i] {
+			return true
+		}
+	}
+	return false
+}
+func (u *production) nthSentenceFirstSymbolIsBlank(index int) bool {
+	return len(u.getNthSentenceFirstSymbol(index)) == 1 && u.getNthSentenceFirstSymbol(index) == blankSymbol
+}
+func (u *production) getNthSentenceFirstSymbol(index int) string {
+	return u.sentences[index].symbols[0]
+}
+func (u *production) getLeftRecursionSentence() []*sentence {
+	result := make([]*sentence, 0)
+	for _, sentence := range u.sentences {
+		if u.leftNonTerminator == sentence.symbols[0] {
+			result = append(result, sentence)
 		}
 	}
 	return result
 }
-func (u *llUnit)getFirstNotLeftRecursionExpress() []string{
-	for _,express := range u.expresses {
-		if u.symbol!=express[0]{
-			return express
+func (u *production) getFirstNotLeftRecursionSentence() *sentence {
+	for _, sentence := range u.sentences {
+		if u.leftNonTerminator != sentence.symbols[0] {
+			return sentence
 		}
 	}
 	return nil
 }
-
-
-func (u *llUnit)Parse(line string) {
-	line = strings.TrimSpace(line)
-	parts := strings.Split(line,"->")
-	if len(parts)!=2{
-		panic("分割llUnit发生错误，分割后的长度不为2")
-	}
-	u.symbol = strings.TrimSpace(parts[0])
-	for index,element := range strings.Split(parts[1],"|"){
-		u.expresses = append(u.expresses,[]string{})
-		expressParts := strings.Split(element," ")
-		for _,expressPart := range expressParts{
-			expressPart = strings.TrimSpace(expressPart)
-
-			u.expresses[index] = append(u.expresses[index],expressPart)
-		}
-
-	}
-}
-
-func (u *llUnit)nExpressFirstIsEndDelimiter(index int) bool{
-	for i:=0;i<len(endDelimiters);i++{
-		if u.getNExpressFirst(index)==endDelimiters[i]{
+func (u *production) hasLeftRecursionSentence() bool {
+	for index := range u.sentences {
+		if u.nthSentenceIsLeftRecursion(index) {
 			return true
 		}
 	}
 	return false
 }
-func (u *llUnit)nExpressFirstIsBlank(index int) bool{
-	return len(u.getNExpressFirst(index))==1 && u.getNExpressFirst(index)==blankDelimiter
+func (u *production) nthSentenceIsLeftRecursion(sentenceIndex int) bool {
+	return u.sentences[sentenceIndex].symbols[0] == u.leftNonTerminator
 }
-
-
-
-func (u *llUnit)getNExpressFirst(index int)string{
-	return u.expresses[index][0]
-}
-
-
-func (u *llUnit) isLeftRecursion() bool{
-	for _,express := range u.expresses{
-		if u.expressIsLeftRecursion(express){
-			return true
-		}
-	}
-	return false
-}
-
-const additionCharBeginChar = byte( 'a')
-func (u *llUnit) GetDelimiterLeftRecursionUnits() []*llUnit{
-	result := make([]*llUnit,0)
-	if !u.isLeftRecursion() {
-		result = append(result,u)
+func (u *production) ChangeToNonLeftRecursionProductions() []*production {
+	result := make([]*production, 0)
+	if !u.hasLeftRecursionSentence() {
+		result = append(result, u)
 		return result
 	}
 
-	leftRecursionExpresses := u.getLeftRecursionExpress()
+	leftRecursionSentences := u.getLeftRecursionSentence()
 	additionChar := additionCharBeginChar
-	for _,express := range leftRecursionExpresses{
-		result = append(result,u.FormNotLeftRecursionUnits(express,additionChar)...)
+	for _, sentence := range leftRecursionSentences {
+		result = append(result, u.formNonLeftRecursionProductions(sentence, additionChar)...)
 		additionChar++
 	}
 	return result
 }
+func (u *production) formLeftNonTerminator(additionChar byte) string {
+	return fmt.Sprintf("%s%s", u.leftNonTerminator, string(additionChar))
+}
+func (u *production) formNonLeftRecursionProductions(stc *sentence, additionChar byte) []*production {
+	result := make([]*production, 0)
+	newLeftNonTerminator := u.formLeftNonTerminator(additionChar)
+	notLeftRecursionSentence := u.getFirstNotLeftRecursionSentence()
 
-func (u *llUnit) FormNotLeftRecursionUnits(express []string,additionChar byte) []*llUnit{
-	result := make([]*llUnit,0)
-	newExpressSymbol := u.getExpressNewSymbol(additionChar)
-	notLeftRecursionExpress := u.getFirstNotLeftRecursionExpress()
-	result = append(result, &llUnit{
-		newExpressSymbol,
-		[][]string{append(express[1:],newExpressSymbol),{blankDelimiter}},
+	result = append(result, &production{
+		newLeftNonTerminator,
+		[]*sentence{
+			NewSentence(append(stc.symbols[1:], newLeftNonTerminator)),
+			NewBlankSentence(),
+		},
 	})
-	result = append(result, &llUnit{
-		u.symbol,
-		[][]string{append(notLeftRecursionExpress,newExpressSymbol)},
+	result = append(result, &production{
+		u.leftNonTerminator,
+		[]*sentence{
+			NewSentence(append(notLeftRecursionSentence.symbols,newLeftNonTerminator))	,
+		},
 	})
-	return  result
-}
-func (u *llUnit) getExpressNewSymbol(additionChar byte) string{
-	return fmt.Sprintf("%s%s",u.symbol,string(additionChar))
-}
-
-
-
-
-var endDelimiters = []string{
-	"LEFT_PAR","RIGHT_PAR","IDE","FDO","ASO","ASS","DEL",
-}
-var blankDelimiter = "BLA"
-func isEndDelimiters(str string) bool{
-	for i:=0;i<len(endDelimiters);i++{
-		if str==endDelimiters[i]{
-			return true
-		}
-	}
-	return false
-}
-
-func hasBlankDelimiter(parts []string) bool{
-	for _,part := range parts{
-		if part==blankDelimiter{
-			return true
-		}
-	}
-	return false
-}
-func delBlankDelimiter(parts []string)[]string{
-	result := make([]string,0)
-	for _,part := range parts{
-		if part==blankDelimiter{
-			continue
-		}
-		result = append(result,part)
-	}
 	return result
 }
 
-func (u *llUnit)expressIsLeftRecursion(express []string) bool{
-	return express[0]==u.symbol
+func removeBlankSymbol(sentence []string) []string {
+	result := make([]string, 0)
+	for _, symbol := range sentence {
+		if symbol == blankSymbol {
+			continue
+		}
+		result = append(result, symbol)
+	}
+	return result
 }
+func hasBlankSymbol(sentence []string) bool {
+	for _, symbol := range sentence {
+		if symbol == blankSymbol {
+			return true
+		}
+	}
+	return false
+}
+func isTerminator(symbol string) bool {
+	for _,terminator := range terminators{
+		if symbol == terminator{
+			return true
+		}
+	}
+	return false
+}
+
+type production struct {
+	leftNonTerminator string
+	sentences []*sentence
+}
+
+
+
+
+
+
+
+
+
+

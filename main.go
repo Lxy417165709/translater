@@ -10,21 +10,16 @@ import (
 const configureFilePath = `C:\Users\hasee\Desktop\Go_Practice\编译器\conf\conf.json`
 const llOneFilePath=`C:\Users\hasee\Desktop\Go_Practice\编译器\conf\LL1`
 func main() {
-	llone := LLONE.NewLLOne(llOneFilePath)
-	llone.EliminateDirectLeftRecursion()
-	llone.GetFirst()
+	stf := LLONE.NewStateTableFormer(llOneFilePath)
+	stf.GetFirst()
 	fmt.Println()
-	llone.GetFollow()
-	//configureFilePath := os.Args[1]
-	//conf.Init(configureFilePath)
-	//grammar.Init(&conf.GetConf().GrammarConf)
-	//lexical.Init(&conf.GetConf().LexicalConf)
-	//allTest()
-	//lexicalAnalyzer := lexical.GetLexicalAnalyzer()
-	//lexicalAnalyzer.FormLexicalFile()
-	//lexicalAnalyzer.FormLexicalDocument()
-	//grammarTree.NewGrammarTree(lexicalAnalyzer).Do(`C:\Users\hasee\Desktop\Go_Practice\编译器\conf\2_source.md`)
-
+	stf.GetFollow()
+	fmt.Println()
+	stf.GetSelect()
+	fmt.Println()
+	stf.GetStateTable()
+	fmt.Println()
+	fmt.Println(stf.ShowStateTable())
 }
 
 

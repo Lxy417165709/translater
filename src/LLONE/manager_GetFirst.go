@@ -1,108 +1,87 @@
 package LLONE
 
-import "fmt"
 
-func (one *LLOne) GetFirst() {
-	one.First = make(map[string][]string)
-	one.delimitersBuffer = make(map[string][]string)
-	for  {
-		for one.initHandleUnitPosition(); one.handlingUnitIsNotOver(); one.moveToNextUnit() {
-			for one.initHandleUnitExpressPosition(); one.handlingUnitExpressIsNotOver(); one.moveToNextUnitExpress() {
-				one.handleGettingFirst()
+
+func (stf *StateTableFormer) terminatorIsLivingInFirst(leftNonTerminator string, terminator string) bool {
+	return arrayHasTerminator(stf.First[leftNonTerminator],terminator)
+}
+func (stf *StateTableFormer) syncBufferOfFirst() bool {
+	firstSetHasBeenUpdated := false
+	for leftNonTerminator,sentence:= range stf.bufferOfSet{
+		for _,symbol := range sentence{
+			if !stf.terminatorIsLivingInFirst(leftNonTerminator, symbol) {
+				stf.First[leftNonTerminator] = append(stf.First[leftNonTerminator], symbol)
+				firstSetHasBeenUpdated= true
 			}
 		}
-		if !one.syncFirstDelimiterBuffer(){
+	}
+	stf.flushBufferOfSet()
+	return firstSetHasBeenUpdated
+}
+
+
+func (stf *StateTableFormer) GetFirst() {
+	stf.First = make(map[string][]string)
+	stf.bufferOfSet = make(map[string][]string)
+	for  {
+		for stf.initHandlingProductionPosition(); stf.handlingProductionsIsNotOver(); stf.goToHandleNextProduction() {
+			for stf.initHandleProductionSentencePosition(); stf.handlingProductionSentenceIsNotOver(); stf.goToHandleNextProductionSentence() {
+				stf.handleGettingFirst()
+			}
+		}
+		if !stf.syncBufferOfFirst(){
 			break
 		}
 	}
-	for k,v := range one.First{
-		fmt.Println(k,v)
-	}
 }
-func (one *LLOne) handleGettingFirst() {
-	handlingUnit := one.handledUnits[one.handlingUnitPosition]
-	handlingExpress := handlingUnit.expresses[one.handlingUnitExpressPosition]
-	if expressIsBlank(handlingExpress) {
-		one.handleGettingFirstOfExpressIsBlank()
+func (stf *StateTableFormer) handleGettingFirst() {
+	handlingProduction := stf.productions[stf.positionOfHandlingProduction]
+	handlingSentence := handlingProduction.sentences[stf.positionOfHandlingProductionSentence]
+	if handlingSentence.isBlank() {
+		stf.handleGettingFirstOfSentenceIsBlank()
 	} else {
-		one.handleGettingFirstOfExpressIsNotBlank()
+		stf.handleGettingFirstOfSentenceIsNotBlank()
 	}
 }
 
-func (one *LLOne) handleGettingFirstOfExpressIsBlank() {
-	handlingUnit := one.handledUnits[one.handlingUnitPosition]
-	one.delimitersBuffer[handlingUnit.symbol] = append(one.delimitersBuffer[handlingUnit.symbol], blankDelimiter)
+func (stf *StateTableFormer) handleGettingFirstOfSentenceIsBlank() {
+	handlingProduction := stf.productions[stf.positionOfHandlingProduction]
+	stf.bufferOfSet[handlingProduction.leftNonTerminator] = append(stf.bufferOfSet[handlingProduction.leftNonTerminator], blankSymbol)
 }
-func (one *LLOne) handleGettingFirstOfExpressIsNotBlank() {
-	handlingUnit := one.handledUnits[one.handlingUnitPosition]
-	handlingExpress := handlingUnit.expresses[one.handlingUnitExpressPosition]
-	for pIndex, expressPart := range handlingExpress {
-		firstSetOfExpressPart := one.First[expressPart]
+func (stf *StateTableFormer) handleGettingFirstOfSentenceIsNotBlank() {
+	handlingProduction := stf.productions[stf.positionOfHandlingProduction]
+	handlingSentence := handlingProduction.sentences[stf.positionOfHandlingProductionSentence]
+	for pIndex, symbol := range handlingSentence.symbols {
+		firstSetOfSymbol := stf.First[symbol]
 		switch {
-		case isEndDelimiters(expressPart):
-
-			one.delimitersBuffer[handlingUnit.symbol] = append(one.delimitersBuffer[handlingUnit.symbol], expressPart)
+		case isTerminator(symbol):
+			stf.bufferOfSet[handlingProduction.leftNonTerminator] = append(stf.bufferOfSet[handlingProduction.leftNonTerminator], symbol)
 			return
-		case !hasBlankDelimiter(firstSetOfExpressPart):
-			one.delimitersBuffer[handlingUnit.symbol] = append(one.delimitersBuffer[handlingUnit.symbol], delBlankDelimiter(firstSetOfExpressPart)...)
+		case !hasBlankSymbol(firstSetOfSymbol):
+			stf.bufferOfSet[handlingProduction.leftNonTerminator] = append(stf.bufferOfSet[handlingProduction.leftNonTerminator], removeBlankSymbol(firstSetOfSymbol)...)
 			return
-		case hasBlankDelimiter(firstSetOfExpressPart):
-			if pIndex == len(handlingExpress)-1 {
-				one.delimitersBuffer[handlingUnit.symbol] = append(one.delimitersBuffer[handlingUnit.symbol], firstSetOfExpressPart...)
+		case hasBlankSymbol(firstSetOfSymbol):
+			if pIndex == len(handlingSentence.symbols)-1 {
+				stf.bufferOfSet[handlingProduction.leftNonTerminator] = append(stf.bufferOfSet[handlingProduction.leftNonTerminator], firstSetOfSymbol...)
 			} else {
-				one.delimitersBuffer[handlingUnit.symbol] = append(one.delimitersBuffer[handlingUnit.symbol], delBlankDelimiter(firstSetOfExpressPart)...)
+				stf.bufferOfSet[handlingProduction.leftNonTerminator] = append(stf.bufferOfSet[handlingProduction.leftNonTerminator],  removeBlankSymbol(firstSetOfSymbol)...)
 			}
 		default:
 			panic("存在没有考虑的情况")
 		}
 	}
 }
-func (one *LLOne) syncFirstDelimiterBuffer() bool {
-	isAdd := false
-	for symbol,expressParts:= range one.delimitersBuffer{
-		for _,expressPart := range expressParts{
-			if !one.endDelimiterIsLivingInFirst(symbol, expressPart) {
-				one.First[symbol] = append(one.First[symbol], expressPart)
-				isAdd = true
-			}
-		}
-	}
-	one.flushDelimitersBuffer()
-	return isAdd
-}
 
 
 
 
 
-func (one *LLOne) handlingUnitIsNotOver() bool {
-	return one.handlingUnitPosition < len(one.handledUnits)
-}
-func (one *LLOne) handlingUnitExpressIsNotOver() bool {
-	handlingUnit := one.handledUnits[one.handlingUnitPosition]
-	return one.handlingUnitExpressPosition < len(handlingUnit.expresses)
-}
-func (one *LLOne) initHandleUnitPosition() {
-	one.handlingUnitPosition = 0
-}
-func (one *LLOne) initHandleUnitExpressPosition() {
-	one.handlingUnitExpressPosition = 0
-}
-func (one *LLOne) moveToNextUnit() {
-	one.handlingUnitPosition++
-}
-func (one *LLOne) moveToNextUnitExpress() {
-	one.handlingUnitExpressPosition++
-}
-func (one *LLOne) endDelimiterIsLivingInFirst(symbol string, endDelimiter string) bool {
-	for _, delimiter := range one.First[symbol] {
-		if endDelimiter == delimiter {
-			return true
-		}
-	}
-	return false
-}
 
-func expressIsBlank(express []string) bool {
-	return len(express) == 1 && express[0] == blankDelimiter
-}
+
+
+
+
+
+
+
+
