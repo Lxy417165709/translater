@@ -6,7 +6,7 @@ import (
 )
 // END 是结束符
 var terminators = [...]string{
-	"LEFT_PAR", "RIGHT_PAR", "IDE", "FDO", "ASO","END",
+	"LEFT_PAR", "RIGHT_PAR", "IDE", "FDO", "ASO","END","ZS",
 }
 
 const blankSymbol = "BLA"

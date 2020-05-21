@@ -2,24 +2,28 @@ package main
 
 import (
 	"LLONE"
+	"conf"
 	"file"
 	"fmt"
+	"grammar"
+	"lexical"
 	"testLay"
 )
 
 const configureFilePath = `C:\Users\hasee\Desktop\Go_Practice\编译器\conf\conf.json`
 const llOneFilePath=`C:\Users\hasee\Desktop\Go_Practice\编译器\conf\LL1`
 func main() {
+	conf.Init(configureFilePath)
+	grammar.Init(&conf.GetConf().GrammarConf)
+	lexical.Init(&conf.GetConf().LexicalConf)
+
 	stf := LLONE.NewStateTableFormer(llOneFilePath)
-	stf.GetFirst()
-	fmt.Println()
-	stf.GetFollow()
-	fmt.Println()
-	stf.GetSelect()
-	fmt.Println()
-	stf.GetStateTable()
-	fmt.Println()
 	fmt.Println(stf.ShowStateTable())
+
+	gt := LLONE.NewGrammarTree(stf,lexical.GetLexicalAnalyzer())
+	gt.Do(`C:\Users\hasee\Desktop\Go_Practice\编译器\conf\2_source.md`)
+
+
 }
 
 

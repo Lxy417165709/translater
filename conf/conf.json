@@ -10,7 +10,7 @@
     "SourceFilePath": "C:\\Users\\hasee\\Desktop\\Go_Practice\\编译器\\conf\\2_source.md",
     "DisplayDocumentPath": "C:\\Users\\hasee\\Desktop\\Go_Practice\\编译器\\doc\\gen\\LexicalDisplayDocument.md",
     "InformationDir": "C:\\Users\\hasee\\Desktop\\Go_Practice\\编译器\\doc\\gen\\LexicalInformation",
-    "SpecialCharsOfNFAs": "WAFYUI",
+    "SpecialCharsOfNFAs": "WAFYUIZ",
     "StateMachineDirName": "stateMachine",
     "FileNameOfStoringKindCodes": "kindCode.md",
     "FileNameOfStoringTokens": "tokens.md",

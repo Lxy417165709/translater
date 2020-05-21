@@ -26,6 +26,10 @@ func NewStateTableFormer(filePath string) *StateTableFormer {
 	stf.initOriginProductions()
 	stf.initProductions()
 	stf.initSentenceToNonTerminator()
+	stf.GetFirst()
+	stf.GetFollow()
+	stf.GetSelect()
+	stf.GetStateTable()
 	return stf
 }
 
@@ -49,4 +53,8 @@ func (stf *StateTableFormer) initSentenceToNonTerminator() {
 			stf.SentenceToNonTerminator[sentence] = production.leftNonTerminator
 		}
 	}
+}
+
+func (stf *StateTableFormer) GetSentence(nonTerminator,terminator string) *sentence{
+	return stf.StateTable[nonTerminator][terminator]
 }

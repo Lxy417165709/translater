@@ -2,17 +2,16 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="e007b749-02cc-46c6-a4eb-854657eb5e17" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/LLONE/manager_GetSelect.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/LLONE/manager_GetStateTable.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/LLONE/sentence.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/conf/1_grammar.md" beforeDir="false" afterPath="$PROJECT_DIR$/conf/1_grammar.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/conf/2_source.md" beforeDir="false" afterPath="$PROJECT_DIR$/conf/2_source.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/conf/LL1" beforeDir="false" afterPath="$PROJECT_DIR$/conf/LL1" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/conf/conf.json" beforeDir="false" afterPath="$PROJECT_DIR$/conf/conf.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main.go" beforeDir="false" afterPath="$PROJECT_DIR$/main.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/LLONE/llUnit.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/LLONE/llUnit.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/LLONE/manager.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/LLONE/manager.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/LLONE/manager_EliminateDirectLeftRecursion.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/LLONE/manager_GetFirst.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/LLONE/manager_GetFirst.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/LLONE/manager_GetFollow.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/LLONE/manager_GetFollow.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/LLONE/manager_utils.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/LLONE/manager_utils.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/LLONE/llUnit.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/LLONE/production.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/LLONE/manager.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/LLONE/stateTableFormer.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/grammarTree/grammarTree.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/LLONE/grammarTree.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/grammarTree/llTable.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/grammarTree/llTable.go" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -37,21 +36,92 @@
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/LLONE/llUnit.go">
+        <entry file="file://$PROJECT_DIR$/src/LLONE/grammarTree.go">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="297">
-              <caret line="9" column="1" lean-forward="true" selection-start-line="9" selection-start-column="1" selection-end-line="9" selection-end-column="1" />
+            <state relative-caret-position="660">
+              <caret line="103" column="1" lean-forward="true" selection-start-line="103" selection-start-column="1" selection-end-line="103" selection-end-column="1" />
+              <folding>
+                <element signature="n#!!block;n#NewGrammarTree#0" />
+                <element signature="n#!!block;n#initSymbolsStack#0" />
+                <element signature="n#!!block;n#initReadingPosition#0" />
+                <element signature="n#!!block;n#popSymbolStackTop#0" />
+                <element signature="n#!!block;n#showTokens#0" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/LLONE/manager_GetStateTable.go">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="124">
+              <caret line="20" column="43" selection-start-line="20" selection-start-column="29" selection-end-line="20" selection-end-column="43" />
+              <folding>
+                <element signature="e#15#41#0" expanded="true" />
+                <element signature="n#!!block;n#GetNonTerminators#0" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/conf/2_source.md">
+          <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
+            <state split_layout="SPLIT">
+              <first_editor>
+                <caret column="38" selection-start-column="38" selection-end-column="38" />
+              </first_editor>
+              <second_editor />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/conf/1_grammar.md">
+          <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
+            <state split_layout="SPLIT">
+              <first_editor relative-caret-position="231">
+                <caret line="7" column="11" selection-start-line="7" selection-start-column="11" selection-end-line="7" selection-end-column="11" />
+              </first_editor>
+              <second_editor />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/conf/conf.json">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="132">
+              <caret line="12" column="4" selection-start-line="12" selection-start-column="4" selection-end-line="12" selection-end-column="4" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/conf/LL1">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="66">
+              <caret line="2" column="34" selection-start-line="2" selection-start-column="34" selection-end-line="2" selection-end-column="36" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/LLONE/production.go">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="264">
+              <caret line="8" column="60" selection-start-line="8" selection-start-column="60" selection-end-line="8" selection-end-column="60" />
               <folding>
                 <element signature="e#15#43#0" expanded="true" />
                 <element signature="n#!!block;n#Parse#0" />
-                <element signature="n#!!block;n#nExpressFirstIsEndDelimiter#0" />
-                <element signature="n#!!block;n#nSentenceFirstIsBlank#0" />
-                <element signature="n#!!block;n#getNExpressFirst#0" />
+                <element signature="n#!!block;n#nthSentenceFirstSymbolIsTerminator#0" />
+                <element signature="n#!!block;n#nthSentenceFirstSymbolIsBlank#0" />
+                <element signature="n#!!block;n#getNthSentenceFirstSymbol#0" />
                 <element signature="n#!!block;n#getLeftRecursionSentence#0" />
                 <element signature="n#!!block;n#getFirstNotLeftRecursionSentence#0" />
                 <element signature="n#!!block;n#hasLeftRecursionSentence#0" />
                 <element signature="n#!!block;n#nthSentenceIsLeftRecursion#0" />
-                <element signature="n#!!block;n#GetNonLeftRecursionProductions#0" />
+                <element signature="n#!!block;n#ChangeToNonLeftRecursionProductions#0" />
                 <element signature="n#!!block;n#formLeftNonTerminator#0" />
                 <element signature="n#!!block;n#formNonLeftRecursionProductions#0" />
                 <element signature="n#!!block;n#removeBlankSymbol#0" />
@@ -63,30 +133,24 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/LLONE/sentence.go">
+        <entry file="file://$PROJECT_DIR$/main.go">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="660">
-              <caret line="33" selection-start-line="33" selection-end-line="33" />
+            <state relative-caret-position="330">
+              <caret line="18" lean-forward="true" selection-start-line="18" selection-end-line="18" />
               <folding>
-                <element signature="e#29#48#0" />
-                <element signature="n#!!block;n#NewEmptySentence#0" />
-                <element signature="n#!!block;n#NewSentence#0" />
-                <element signature="n#!!block;n#NewBlankSentence#0" />
-                <element signature="n#!!block;n#Parse#0" />
-                <element signature="n#!!block;n#isBlank#0" />
+                <element signature="n#!!block;n#allTest#0" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/LLONE/manager.go">
+        <entry file="file://$PROJECT_DIR$/src/LLONE/stateTableFormer.go">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="759">
-              <caret line="23" column="60" selection-start-line="23" selection-start-column="60" selection-end-line="23" selection-end-column="60" />
+            <state relative-caret-position="313">
+              <caret line="31" column="23" selection-start-line="31" selection-start-column="23" selection-end-line="31" selection-end-column="23" />
               <folding>
-                <element signature="e#15#40#0" expanded="true" />
-                <element signature="n#!!block;n#NewStateTableFormer#0" />
+                <element signature="n#!!block;n#initOriginProductions#0" />
                 <element signature="n#!!block;n#initProductions#0" />
                 <element signature="n#!!block;n#initSentenceToNonTerminator#0" />
               </folding>
@@ -95,95 +159,16 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/LLONE/manager_GetStateTable.go">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="476">
-              <caret line="43" column="5" selection-start-line="43" selection-start-column="5" selection-end-line="43" selection-end-column="5" />
-              <folding>
-                <element signature="e#15#41#0" expanded="true" />
-                <element signature="n#!!block;n#GetNonTerminators#0" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/LLONE/manager_GetFollow.go">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="132">
-              <caret line="22" column="51" selection-start-line="22" selection-start-column="51" selection-end-line="22" selection-end-column="51" />
-              <folding>
-                <element signature="n#!!block;n#GetFollow#0" />
-                <element signature="n#!!block;n#handleGettingFollow#0" />
-                <element signature="n#!!block;n#syncFollowDelimiterBuffer#0" />
-                <element signature="n#!!block;n#terminatorIsLivingInFollow#0" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/LLONE/manager_GetSelect.go">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="594">
-              <caret line="18" column="9" lean-forward="true" selection-start-line="18" selection-start-column="9" selection-end-line="18" selection-end-column="9" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/LLONE/manager_GetFirst.go">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="231">
-              <caret line="21" selection-start-line="21" selection-end-line="21" />
-              <folding>
-                <element signature="n#!!block;n#terminatorIsLivingInFirst#0" />
-                <element signature="n#!!block;n#syncBufferOfFirst#0" />
-                <element signature="n#!!block;n#GetFirst#0" />
-                <element signature="n#!!block;n#handleGettingFirstOfSentenceIsBlank#0" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/conf/1_grammar.md">
-          <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
-            <state split_layout="SPLIT">
-              <first_editor relative-caret-position="462">
-                <caret line="14" column="14" selection-start-line="14" selection-start-column="14" selection-end-line="14" selection-end-column="14" />
-              </first_editor>
-              <second_editor />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/LLONE/manager_utils.go">
+        <entry file="file://$PROJECT_DIR$/src/lexical/1_analyzer_Init.go">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="297">
-              <caret line="24" selection-start-line="24" selection-end-line="24" />
+              <caret line="34" selection-start-line="34" selection-end-line="34" />
               <folding>
-                <element signature="n#!!block;n#flushDelimitersBuffer#0" />
-                <element signature="n#!!block;n#initHandlingProductionPosition#0" />
-                <element signature="n#!!block;n#initHandleProductionSentencePosition#0" />
-                <element signature="n#!!block;n#goToHandleNextProduction#0" />
-                <element signature="n#!!block;n#goToHandleNextProductionSentence#0" />
-                <element signature="n#!!block;n#handlingProductionsIsNotOver#0" />
-                <element signature="n#!!block;n#handlingProductionSentenceIsNotOver#0" />
-                <element signature="n#!!block;n#SetHasTerminator#0" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/main.go">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="693">
-              <caret line="26" lean-forward="true" selection-start-line="26" selection-end-line="26" />
-              <folding>
-                <element signature="n#!!block;n#allTest#0" />
+                <element signature="n#!!block;n#Init#0" />
+                <element signature="n#!!block;n#Init#1" />
+                <element signature="n#!!block;n#initNFAs#0" />
+                <element signature="n#!!block;n#initFinalNFA#0" />
+                <element signature="n#!!block;n#initLexicalDocumentGenerator#0" />
               </folding>
             </state>
           </provider>
@@ -276,9 +261,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/src/stateMachine/3_state_utils.go" />
-        <option value="$PROJECT_DIR$/src/stateMachine/3_state_IsMatch.go" />
-        <option value="$PROJECT_DIR$/src/stateMachine/3_stateAboutShowing.go" />
         <option value="$PROJECT_DIR$/src/stateMachine/2_nfa_IsMatch.go" />
         <option value="$PROJECT_DIR$/src/stateMachine/unusedCode.go" />
         <option value="$PROJECT_DIR$/src/stateMachine/2_nfa_aboutShowing.go" />
@@ -309,14 +291,8 @@
         <option value="$PROJECT_DIR$/src/grammarTree.go" />
         <option value="$PROJECT_DIR$/src/grammarTree/llUnit.go" />
         <option value="$PROJECT_DIR$/src/lexical/1_analyzer_Form.go" />
-        <option value="$PROJECT_DIR$/conf/conf.json" />
-        <option value="$PROJECT_DIR$/conf/1_grammar.md" />
         <option value="$PROJECT_DIR$/src/stateMachine/token.go" />
-        <option value="$PROJECT_DIR$/conf/2_source.md" />
         <option value="$PROJECT_DIR$/conf/LL1Table" />
-        <option value="$PROJECT_DIR$/src/grammarTree/llTable.go" />
-        <option value="$PROJECT_DIR$/src/grammarTree/grammarTree.go" />
-        <option value="$PROJECT_DIR$/conf/LL1" />
         <option value="$PROJECT_DIR$/src/LLONE/manager_EliminateDirectLeftRecursion.go" />
         <option value="$PROJECT_DIR$/src/LLONE/manager_utils.go" />
         <option value="$PROJECT_DIR$/src/LLONE/manager_GetFollow.go" />
@@ -325,14 +301,23 @@
         <option value="$PROJECT_DIR$/src/LLONE/manager_GetSelect.go" />
         <option value="$PROJECT_DIR$/src/LLONE/manager_GetStateTable.go" />
         <option value="$PROJECT_DIR$/src/LLONE/manager.go" />
-        <option value="$PROJECT_DIR$/main.go" />
         <option value="$PROJECT_DIR$/src/LLONE/llUnit.go" />
+        <option value="$PROJECT_DIR$/src/grammarTree/llTable.go" />
+        <option value="$PROJECT_DIR$/src/grammarTree/grammarTree.go" />
+        <option value="$PROJECT_DIR$/src/LLONE/stateTableFormer.go" />
+        <option value="$PROJECT_DIR$/conf/1_grammar.md" />
+        <option value="$PROJECT_DIR$/main.go" />
+        <option value="$PROJECT_DIR$/conf/LL1" />
+        <option value="$PROJECT_DIR$/src/LLONE/production.go" />
+        <option value="$PROJECT_DIR$/conf/conf.json" />
+        <option value="$PROJECT_DIR$/conf/2_source.md" />
+        <option value="$PROJECT_DIR$/src/LLONE/grammarTree.go" />
       </list>
     </option>
   </component>
-  <component name="ProjectFrameBounds">
-    <option name="x" value="415" />
-    <option name="y" value="28" />
+  <component name="ProjectFrameBounds" extendedState="6">
+    <option name="x" value="-227" />
+    <option name="y" value="394" />
     <option name="width" value="1940" />
     <option name="height" value="908" />
   </component>
@@ -374,6 +359,18 @@
               <item name="编译器" type="b2602c69:ProjectViewProjectNode" />
               <item name="编译器" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="grammarTree" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="编译器" type="b2602c69:ProjectViewProjectNode" />
+              <item name="编译器" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="lexical" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="编译器" type="b2602c69:ProjectViewProjectNode" />
+              <item name="编译器" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="LLONE" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
@@ -407,18 +404,18 @@
     <property name="settings.editor.selected.configurable" value="com.goide.configuration.GoLibrariesConfigurableProvider" />
   </component>
   <component name="RecentsManager">
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="C:\Users\hasee\Desktop\Go_Practice\编译器\src\LLONE" />
-      <recent name="C:\Users\hasee\Desktop\Go_Practice\编译器\src\grammarTree" />
-      <recent name="C:\Users\hasee\Desktop\Go_Practice\编译器\src\stateMachine" />
-      <recent name="C:\Users\hasee\Desktop\Go_Practice\编译器\src\grammar" />
-      <recent name="C:\Users\hasee\Desktop\Go_Practice\编译器\src\lexical" />
-    </key>
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\hasee\Desktop\Go_Practice\编译器\src\LLONE" />
       <recent name="C:\Users\hasee\Desktop\Go_Practice\编译器\conf" />
       <recent name="C:\Users\hasee\Desktop\Go_Practice\编译器\src\grammarTree" />
       <recent name="C:\Users\hasee\Desktop\Go_Practice\编译器\src\stateMachine" />
+      <recent name="C:\Users\hasee\Desktop\Go_Practice\编译器\src\lexical" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\hasee\Desktop\Go_Practice\编译器\src\LLONE" />
+      <recent name="C:\Users\hasee\Desktop\Go_Practice\编译器\src\grammarTree" />
+      <recent name="C:\Users\hasee\Desktop\Go_Practice\编译器\src\stateMachine" />
+      <recent name="C:\Users\hasee\Desktop\Go_Practice\编译器\src\grammar" />
       <recent name="C:\Users\hasee\Desktop\Go_Practice\编译器\src\lexical" />
     </key>
   </component>
@@ -459,11 +456,11 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="415" y="28" width="1940" height="908" extended-state="0" />
+    <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.7136294" visible="true" weight="0.20212767" />
-      <window_info id="Structure" order="1" sideWeight="0.2863706" side_tool="true" visible="true" weight="0.20212767" />
+      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.9186551" visible="true" weight="0.25746268" />
+      <window_info id="Structure" order="1" sideWeight="0.0813449" side_tool="true" visible="true" weight="0.25746268" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.329718" />
@@ -475,12 +472,12 @@
       <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
       <window_info anchor="bottom" id="Database Changes" order="8" />
       <window_info anchor="bottom" id="Version Control" order="9" sideWeight="0.49946696" weight="0.329718" />
-      <window_info anchor="bottom" id="Event Log" order="10" sideWeight="0.3251599" side_tool="true" weight="0.4251627" />
-      <window_info anchor="bottom" id="Terminal" order="11" sideWeight="0.6748401" visible="true" weight="0.15633075" />
+      <window_info anchor="bottom" id="Event Log" order="10" sideWeight="0.32622603" side_tool="true" weight="0.5" />
+      <window_info anchor="bottom" id="Terminal" order="11" sideWeight="0.673774" weight="0.6106291" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
-      <window_info anchor="right" id="Database" order="3" visible="true" weight="0.026595745" />
+      <window_info anchor="right" id="Database" order="3" visible="true" weight="0.026652452" />
     </layout>
     <layout-to-restore>
       <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.45878524" visible="true" weight="0.24626866" />
@@ -508,20 +505,6 @@
     <option name="version" value="1" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/lexical/1_analyzer_Init.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="297">
-          <caret line="34" selection-start-line="34" selection-end-line="34" />
-          <folding>
-            <element signature="n#!!block;n#Init#0" />
-            <element signature="n#!!block;n#Init#1" />
-            <element signature="n#!!block;n#initNFAs#0" />
-            <element signature="n#!!block;n#initFinalNFA#0" />
-            <element signature="n#!!block;n#initLexicalDocumentGenerator#0" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/lexical/documentGenerator.go">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="443">
@@ -775,13 +758,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/lexical/1_analyzer.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="591">
-          <caret line="21" selection-start-line="21" selection-end-line="21" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/stateMachine/token.go">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="660">
@@ -809,23 +785,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/conf/conf.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="396">
-          <caret line="12" column="35" selection-start-line="12" selection-start-column="35" selection-end-line="12" selection-end-column="35" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/conf/2_source.md">
-      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
-        <state split_layout="SPLIT">
-          <first_editor>
-            <caret column="5" selection-start-column="5" selection-end-column="5" />
-          </first_editor>
-          <second_editor />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/grammar/grammarUnit.go">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="165">
@@ -835,23 +794,6 @@
             <element signature="n#!!block;n#NewGrammarUnit#0" />
             <element signature="n#!!block;n#reformToLine#0" />
             <element signature="n#!!block;n#GetWords#0" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/grammarTree/grammarTree.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="693">
-          <caret line="26" column="80" selection-start-line="26" selection-start-column="80" selection-end-line="26" selection-end-column="80" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/grammarTree/llTable.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="528">
-          <caret line="19" column="5" selection-start-line="19" selection-start-column="5" selection-end-line="19" selection-end-column="5" />
-          <folding>
-            <element signature="n#!!block;n#Add#0" />
           </folding>
         </state>
       </provider>
@@ -895,23 +837,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/conf/1_grammar.md">
-      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
-        <state split_layout="SPLIT">
-          <first_editor relative-caret-position="462">
-            <caret line="14" column="14" selection-start-line="14" selection-start-column="14" selection-end-line="14" selection-end-column="14" />
-          </first_editor>
-          <second_editor />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/conf/LL1">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="99">
-          <caret line="3" lean-forward="true" selection-start-line="3" selection-end-line="3" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/conf/LL1Table">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="131">
@@ -919,27 +844,44 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/LLONE/manager_EliminateDirectLeftRecursion.go">
+    <entry file="file://$PROJECT_DIR$/src/LLONE/manager_EliminateDirectLeftRecursion.go" />
+    <entry file="file://$PROJECT_DIR$/src/LLONE/sentence.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="726">
+          <caret line="33" selection-start-line="33" selection-end-line="33" />
+          <folding>
+            <element signature="n#!!block;n#NewEmptySentence#0" />
+            <element signature="n#!!block;n#NewSentence#0" />
+            <element signature="n#!!block;n#NewBlankSentence#0" />
+            <element signature="n#!!block;n#Parse#0" />
+            <element signature="n#!!block;n#isBlank#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/grammarTree/llTable.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="363">
+          <caret line="11" column="12" selection-start-line="11" selection-start-column="12" selection-end-line="11" selection-end-column="12" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/LLONE/manager_GetFollow.go">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="132">
-          <caret line="4" lean-forward="true" selection-start-line="4" selection-end-line="4" />
+          <caret line="22" column="51" selection-start-line="22" selection-start-column="51" selection-end-line="22" selection-end-column="51" />
+          <folding>
+            <element signature="n#!!block;n#GetFollow#0" />
+            <element signature="n#!!block;n#handleGettingFollow#0" />
+            <element signature="n#!!block;n#terminatorIsLivingInFollow#0" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/LLONE/manager_GetSelect.go">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="594">
-          <caret line="18" column="9" lean-forward="true" selection-start-line="18" selection-start-column="9" selection-end-line="18" selection-end-column="9" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/main.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="693">
-          <caret line="26" lean-forward="true" selection-start-line="26" selection-end-line="26" />
-          <folding>
-            <element signature="n#!!block;n#allTest#0" />
-          </folding>
+          <caret line="18" column="9" selection-start-line="18" selection-start-column="9" selection-end-line="18" selection-end-column="9" />
         </state>
       </provider>
     </entry>
@@ -956,36 +898,46 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/LLONE/manager_GetFollow.go">
+    <entry file="file://$PROJECT_DIR$/src/LLONE/manager_utils.go">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="132">
-          <caret line="22" column="51" selection-start-line="22" selection-start-column="51" selection-end-line="22" selection-end-column="51" />
+        <state relative-caret-position="363">
+          <caret line="24" selection-start-line="24" selection-end-line="24" />
           <folding>
-            <element signature="n#!!block;n#GetFollow#0" />
-            <element signature="n#!!block;n#handleGettingFollow#0" />
-            <element signature="n#!!block;n#syncFollowDelimiterBuffer#0" />
-            <element signature="n#!!block;n#terminatorIsLivingInFollow#0" />
+            <element signature="n#!!block;n#initHandlingProductionPosition#0" />
+            <element signature="n#!!block;n#initHandleProductionSentencePosition#0" />
+            <element signature="n#!!block;n#goToHandleNextProduction#0" />
+            <element signature="n#!!block;n#goToHandleNextProductionSentence#0" />
+            <element signature="n#!!block;n#handlingProductionsIsNotOver#0" />
+            <element signature="n#!!block;n#handlingProductionSentenceIsNotOver#0" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/LLONE/manager.go">
+    <entry file="file://$PROJECT_DIR$/src/lexical/1_analyzer.go">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="759">
-          <caret line="23" column="60" selection-start-line="23" selection-start-column="60" selection-end-line="23" selection-end-column="60" />
+        <state relative-caret-position="594">
+          <caret line="21" selection-start-line="21" selection-end-line="21" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/lexical/1_analyzer_Init.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="297">
+          <caret line="34" selection-start-line="34" selection-end-line="34" />
           <folding>
-            <element signature="e#15#40#0" expanded="true" />
-            <element signature="n#!!block;n#NewStateTableFormer#0" />
-            <element signature="n#!!block;n#initProductions#0" />
-            <element signature="n#!!block;n#initSentenceToNonTerminator#0" />
+            <element signature="n#!!block;n#Init#0" />
+            <element signature="n#!!block;n#Init#1" />
+            <element signature="n#!!block;n#initNFAs#0" />
+            <element signature="n#!!block;n#initFinalNFA#0" />
+            <element signature="n#!!block;n#initLexicalDocumentGenerator#0" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/LLONE/manager_GetStateTable.go">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="476">
-          <caret line="43" column="5" selection-start-line="43" selection-start-column="5" selection-end-line="43" selection-end-column="5" />
+        <state relative-caret-position="124">
+          <caret line="20" column="43" selection-start-line="20" selection-start-column="29" selection-end-line="20" selection-end-column="43" />
           <folding>
             <element signature="e#15#41#0" expanded="true" />
             <element signature="n#!!block;n#GetNonTerminators#0" />
@@ -993,58 +945,96 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/LLONE/sentence.go">
+    <entry file="file://$PROJECT_DIR$/src/LLONE/stateTableFormer.go">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="660">
-          <caret line="33" selection-start-line="33" selection-end-line="33" />
+        <state relative-caret-position="313">
+          <caret line="31" column="23" selection-start-line="31" selection-start-column="23" selection-end-line="31" selection-end-column="23" />
           <folding>
-            <element signature="e#29#48#0" />
-            <element signature="n#!!block;n#NewEmptySentence#0" />
-            <element signature="n#!!block;n#NewSentence#0" />
-            <element signature="n#!!block;n#NewBlankSentence#0" />
-            <element signature="n#!!block;n#Parse#0" />
-            <element signature="n#!!block;n#isBlank#0" />
+            <element signature="n#!!block;n#initOriginProductions#0" />
+            <element signature="n#!!block;n#initProductions#0" />
+            <element signature="n#!!block;n#initSentenceToNonTerminator#0" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/LLONE/manager_utils.go">
+    <entry file="file://$PROJECT_DIR$/main.go">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="297">
-          <caret line="24" selection-start-line="24" selection-end-line="24" />
+        <state relative-caret-position="330">
+          <caret line="18" lean-forward="true" selection-start-line="18" selection-end-line="18" />
           <folding>
-            <element signature="n#!!block;n#flushDelimitersBuffer#0" />
-            <element signature="n#!!block;n#initHandlingProductionPosition#0" />
-            <element signature="n#!!block;n#initHandleProductionSentencePosition#0" />
-            <element signature="n#!!block;n#goToHandleNextProduction#0" />
-            <element signature="n#!!block;n#goToHandleNextProductionSentence#0" />
-            <element signature="n#!!block;n#handlingProductionsIsNotOver#0" />
-            <element signature="n#!!block;n#handlingProductionSentenceIsNotOver#0" />
-            <element signature="n#!!block;n#SetHasTerminator#0" />
+            <element signature="n#!!block;n#allTest#0" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/LLONE/llUnit.go">
+    <entry file="file://$PROJECT_DIR$/conf/LL1">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="297">
-          <caret line="9" column="1" lean-forward="true" selection-start-line="9" selection-start-column="1" selection-end-line="9" selection-end-column="1" />
+        <state relative-caret-position="66">
+          <caret line="2" column="34" selection-start-line="2" selection-start-column="34" selection-end-line="2" selection-end-column="36" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/LLONE/production.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="264">
+          <caret line="8" column="60" selection-start-line="8" selection-start-column="60" selection-end-line="8" selection-end-column="60" />
           <folding>
             <element signature="e#15#43#0" expanded="true" />
             <element signature="n#!!block;n#Parse#0" />
-            <element signature="n#!!block;n#nExpressFirstIsEndDelimiter#0" />
-            <element signature="n#!!block;n#nSentenceFirstIsBlank#0" />
-            <element signature="n#!!block;n#getNExpressFirst#0" />
+            <element signature="n#!!block;n#nthSentenceFirstSymbolIsTerminator#0" />
+            <element signature="n#!!block;n#nthSentenceFirstSymbolIsBlank#0" />
+            <element signature="n#!!block;n#getNthSentenceFirstSymbol#0" />
             <element signature="n#!!block;n#getLeftRecursionSentence#0" />
             <element signature="n#!!block;n#getFirstNotLeftRecursionSentence#0" />
             <element signature="n#!!block;n#hasLeftRecursionSentence#0" />
             <element signature="n#!!block;n#nthSentenceIsLeftRecursion#0" />
-            <element signature="n#!!block;n#GetNonLeftRecursionProductions#0" />
+            <element signature="n#!!block;n#ChangeToNonLeftRecursionProductions#0" />
             <element signature="n#!!block;n#formLeftNonTerminator#0" />
             <element signature="n#!!block;n#formNonLeftRecursionProductions#0" />
             <element signature="n#!!block;n#removeBlankSymbol#0" />
             <element signature="n#!!block;n#hasBlankSymbol#0" />
             <element signature="n#!!block;n#isTerminator#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/conf/1_grammar.md">
+      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
+        <state split_layout="SPLIT">
+          <first_editor relative-caret-position="231">
+            <caret line="7" column="11" selection-start-line="7" selection-start-column="11" selection-end-line="7" selection-end-column="11" />
+          </first_editor>
+          <second_editor />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/conf/conf.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="132">
+          <caret line="12" column="4" selection-start-line="12" selection-start-column="4" selection-end-line="12" selection-end-column="4" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/conf/2_source.md">
+      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
+        <state split_layout="SPLIT">
+          <first_editor>
+            <caret column="38" selection-start-column="38" selection-end-column="38" />
+          </first_editor>
+          <second_editor />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/LLONE/grammarTree.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="660">
+          <caret line="103" column="1" lean-forward="true" selection-start-line="103" selection-start-column="1" selection-end-line="103" selection-end-column="1" />
+          <folding>
+            <element signature="n#!!block;n#NewGrammarTree#0" />
+            <element signature="n#!!block;n#initSymbolsStack#0" />
+            <element signature="n#!!block;n#initReadingPosition#0" />
+            <element signature="n#!!block;n#popSymbolStackTop#0" />
+            <element signature="n#!!block;n#showTokens#0" />
           </folding>
         </state>
       </provider>
