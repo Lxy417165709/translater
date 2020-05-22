@@ -1,0 +1,106 @@
+产生式   Production
+	代表符号 leftNonTerminator
+	产生句 Sentence
+		符号 Symbols
+
+符号 Symbols: 包括  终结符		Terminator
+					非终结符	nonTerminator
+					空符		blankSymbol
+					结束符		endSymbol
+
+
+单词 word: 包括 fixedWord  固定单词 如 关键字、操作符...
+				variableWord  可变单词 如 整数、标识符...
+
+单词 word 由 char组成
+    char 包括
+        特殊字符 specialChar (能匹配多种、多个字符)
+                包括 fixedChar 代表 关键字、操作符...的字符
+                variableChar 代表 整数、标识符...的字符
+        普通字符 ordinaryChar (只能匹配一个字符)
+        附加字符 additionChar (与特殊字符、普通字符配合使用) 如 + 匹配一或多次，* 匹配零或多次
+特殊字符表 specialCharTable
+         特殊字符表项 specialCharItem
+                特殊字符 specialChar
+                类型     type
+                符号     symbol
+                种别码标志 kindCodeFlag
+                正则表达式  regexp
+                    单词集 words
+
+token 包括：
+    种别码 kindCode
+    值     value
+    类型   type
+    符号   symbol
+
+
+
+配置层
+测试层
+
+语法层 语法树的构建
+文法层 FIRST集、F、S 状态表的构建
+词法层              给出symbols，构建状态机。
+状态机层            NFABuilder: 通过给定的特殊符集(symbols)，构建出状态机。
+                    NFA: 识别TOKEN
+正则层 提供特殊符与匹配的关系
+
+
+
+
+
+
+token {
+    类型
+    种别码
+    值
+}
+
+
+
+specialCharTable{
+    specialCharItems []*specialCharItem
+}
+specialCharItem{
+    specialChar
+    type
+    kindCodeFlag
+    regexp
+}
+
+
+
+特殊符号|类型|种别码编码规则|匹配
+--|--|--|--
+D|数字|-1|0 ,1,2,3,4,5,6,7,8,9
+L|字母|-1|a,b,c,d,e,f,g,h,i,j,k,l,m,n,o,p,q,r,s,t,u,v,w,x,y,z
+T|字母或数字|-1|D,L
+W|关键字|0|if,while,for,int,else,end,begin
+O|操作符|0|*,/,+,-
+Y|LEFT_PAR|0|(
+U|RIGHT_PAR|0|)
+J|界符|0|;,(,), [ , ] ,{,}
+I|IDE|100|LT$
+Z|ZS|101|D@
+X|小数|102|Z.Z
+S|字符串|103|"T$"
+
+
+给出特殊字符表。
+
+
+(通过配置)将为给出特殊字符集，如 WIZ，
+NFABuilder 构建W I Z 的自动机，最后进行并联
+    构建W的自动机，首先要获取对应匹配的单词
+    构建自动机过程中，涉及到特殊字符的转换(依赖特殊字符表)
+构建完毕后，通过给定文本，得出所有的TOKEN
+
+
+
+
+使用这个NFA进行TOKEN的获取，
+通过TOKEN的种别码，得出其symbol (产生新的结构体 newStruct)。
+
+
+给出产生式表，得出该表的状态转换图。通过状态转换图对 newStructs 进行语法分析，构建语法树。

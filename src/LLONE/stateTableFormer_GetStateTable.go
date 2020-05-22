@@ -18,7 +18,7 @@ func (stf *StateTableFormer)GetStateTable() {
 
 }
 
-func (stf *StateTableFormer) ShowStateTable() string{
+func (stf *StateTableFormer) FormMarkDownStateTable() string{
 
 	tableBuffer := bytes.Buffer{}
 	tableBuffer.WriteString("非终结符")

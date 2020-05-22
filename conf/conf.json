@@ -1,8 +1,13 @@
 {
+
+  "IsMatchOfNFATestConf": {
+    "TestFilePath": "C:\\Users\\hasee\\Desktop\\Go_Practice\\编译器\\doc\\test\\isMatchOfNFA\\testTable.md",
+    "DelimiterOfPieces": "||"
+  },
   "GrammarConf": {
-    "FilePath": "C:\\Users\\hasee\\Desktop\\Go_Practice\\编译器\\conf\\1_grammar.md",
-    "PartDelimiter": "|",
-    "RegexpDelimiter": ",",
+    "SpecialCharTableFilePath": "C:\\Users\\hasee\\Desktop\\Go_Practice\\编译器\\conf\\1_grammar_test.md",
+    "DelimiterOfPieces":"|",
+    "DelimiterOfWords":",",
     "MatchMoreThanOnceSymbol": "@",
     "MatchMoreThanZeroTimesSymbol": "$"
   },

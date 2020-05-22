@@ -1,32 +1,34 @@
 package main
 
 import (
-	"LLONE"
 	"conf"
-	"file"
-	"fmt"
 	"grammar"
-	"lexical"
-	"testLay"
+	"machine"
 )
 
 const configureFilePath = `C:\Users\hasee\Desktop\Go_Practice\编译器\conf\conf.json`
-const llOneFilePath=`C:\Users\hasee\Desktop\Go_Practice\编译器\conf\LL1`
+const tempPath =`C:\Users\hasee\Desktop\Go_Practice\编译器\doc\gen\temp.md`
 func main() {
 	conf.Init(configureFilePath)
-	grammar.Init(&conf.GetConf().GrammarConf)
-	lexical.Init(&conf.GetConf().LexicalConf)
+	//testTable := test.NewIsMatchOfNFATestTable(
+	//	&conf.GetConf().IsMatchOfNFATestConf,&conf.GetConf().GrammarConf,
+	//)
+	//testTable.OpenTheOutputOfTestInformation()
+	//testTable.RepeatTest(1)
 
-	stf := LLONE.NewStateTableFormer(llOneFilePath)
-	fmt.Println(stf.ShowStateTable())
-
-	gt := LLONE.NewGrammarTree(stf,lexical.GetLexicalAnalyzer())
-	gt.Do(`C:\Users\hasee\Desktop\Go_Practice\编译器\conf\2_source.md`)
-
+	nfaBuilder := machine.NewNFABuilder(grammar.NewSpecialCharTable(&conf.GetConf().GrammarConf))
+	nfa := nfaBuilder.BuildNFAByWord("2")
+	if err := nfa.StoreMermaidGraphOfThisNFA(tempPath);err!=nil{
+		panic(err)
+	}
 
 }
 
 
+
+
+// result := nfaBuilder.BuildNFAByWord("2$").EliminateBlankStates().IsMatch("2")
+// 这个测试用例有问题
 
 
 
@@ -45,18 +47,18 @@ var testFilePaths = [...]string{
 	`C:\Users\hasee\Desktop\Go_Practice\编译器\doc\nfaTestFile\nfaGraphTest10.md`,
 }
 // 测试也要进行配置！
-func allTest() {
-	testManager := testLay.TestManager{}
-	for i := 0; i < len(testFilePaths); i++ {
-		fmt.Printf("----------------------------------- 第 %d 个测试文件 -----------------------------------\n", i+1)
-		//testManager.CloseTheOutputOfTestInformation()
-		testManager.OpenTheOutputOfTestInformation()
-		testManager.SetFileReader(file.NewFileReader(testFilePaths[i]))
-		testManager.SetTestObject(testLay.NewNFATestUnit())
-		if testManager.RepeatTest(1) == true{
-			fmt.Println("--------------------------------------  测试通过  ----------------------------------------")
-		}else{
-			fmt.Println("--------------------------------------  出现错误  ----------------------------------------")
-		}
-	}
-}
+//func allTest() {
+//	testManager := testLay.TestManager{}
+//	for i := 0; i < len(testFilePaths); i++ {
+//		fmt.Printf("----------------------------------- 第 %d 个测试文件 -----------------------------------\n", i+1)
+//		//testManager.CloseTheOutputOfTestInformation()
+//		testManager.OpenTheOutputOfTestInformation()
+//		testManager.SetFileReader(file.NewFileReader(testFilePaths[i]))
+//		testManager.SetTestObject(testLay.NewNFATestUnit())
+//		if testManager.RepeatTest(1) == true{
+//			fmt.Println("--------------------------------------  测试通过  ----------------------------------------")
+//		}else{
+//			fmt.Println("--------------------------------------  出现错误  ----------------------------------------")
+//		}
+//	}
+//}

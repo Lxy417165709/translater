@@ -23,7 +23,7 @@ func NewEmptyToken() *Token{
 		specialChar:0,
 		value: "",
 		kindCode:0,
-		_type:"",
+		_type:"END",
 	}
 }
 

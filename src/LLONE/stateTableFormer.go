@@ -58,3 +58,6 @@ func (stf *StateTableFormer) initSentenceToNonTerminator() {
 func (stf *StateTableFormer) GetSentence(nonTerminator,terminator string) *sentence{
 	return stf.StateTable[nonTerminator][terminator]
 }
+func (stf *StateTableFormer) HasSentence(nonTerminator,terminator string) bool{
+	return stf.StateTable[nonTerminator][terminator]!=nil
+}

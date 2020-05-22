@@ -4,11 +4,11 @@ import (
 	"fmt"
 	"strings"
 )
-// END 是结束符
+
+// 这个可以通过 正则层获取
 var terminators = [...]string{
 	"LEFT_PAR", "RIGHT_PAR", "IDE", "FDO", "ASO","END","ZS",
 }
-
 const blankSymbol = "BLA"
 const additionCharBeginChar = byte('a')
 

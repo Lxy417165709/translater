@@ -14,6 +14,7 @@ func Init(confFilePath string) {
 }
 
 type conf struct {
+	IsMatchOfNFATestConf IsMatchOfNFATestTableConf `json:"IsMatchOfNFATestConf"`
 	GrammarConf    GrammarConf `json:"GrammarConf"`
 	LexicalConf    LexicalConf `json:"LexicalConf"`
 }

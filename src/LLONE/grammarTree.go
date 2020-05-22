@@ -7,7 +7,6 @@ import (
 	"stateMachine"
 )
 
-const llOneFilePath = `C:\Users\hasee\Desktop\Go_Practice\编译器\conf\LL1`
 
 type GrammarTreeBuilder struct {
 	stateTable      *StateTableFormer
@@ -37,7 +36,7 @@ func (gt *GrammarTreeBuilder) readingIsNotOver()bool {
 	return gt.readingPosition != len(gt.tokens)
 }
 func (gt *GrammarTreeBuilder) getSymbolOfReadingToken() string{
-	return transfer(gt.tokens[gt.readingPosition].GetSpecialChar())
+	return gt.tokens[gt.readingPosition].GetType()
 }
 func (gt *GrammarTreeBuilder) getSymbolOfSymbolStackTop() string{
 	return gt.symbolsStack[len(gt.symbolsStack)-1]
@@ -57,7 +56,6 @@ func (gt *GrammarTreeBuilder) Do(path string) {
 }
 
 func (gt *GrammarTreeBuilder) handle(tokens []*stateMachine.Token) {
-
 	gt.initSymbolsStack()
 	gt.tokens = append(gt.tokens,tokens...)
 	gt.initTokens()
@@ -71,41 +69,27 @@ func (gt *GrammarTreeBuilder) handle(tokens []*stateMachine.Token) {
 		fmt.Println(gt.symbolsStack,showTokens(gt.tokens[gt.readingPosition:]))
 		if gt.getSymbolOfReadingToken() == gt.getSymbolOfSymbolStackTop(){
 			gt.popSymbolStackTop()
-			gt.readingPosition++
+			gt.readNextToken()
 		} else {
-			sentence := gt.stateTable.GetSentence(gt.getSymbolOfSymbolStackTop(),gt.getSymbolOfReadingToken())
-			if sentence==nil {
+			if !gt.stateTable.HasSentence(gt.getSymbolOfSymbolStackTop(),gt.getSymbolOfReadingToken()){
 				panic(fmt.Sprintf("出错，%s %s", gt.getSymbolOfSymbolStackTop(),gt.getSymbolOfReadingToken()))
 			}
+			sentence := gt.stateTable.GetSentence(gt.getSymbolOfSymbolStackTop(),gt.getSymbolOfReadingToken())
 			gt.popSymbolStackTop()
 			gt.ReversePushSentenceIntoSymbolStack(sentence)
 		}
 	}
 }
 
-func transfer(char byte) string {
-	switch char {
-	case 'I':
-		return "IDE"
-	case 'A':
-		return "ASO"
-	case 'F':
-		return "FDO"
-	case 'Y':
-		return "LEFT_PAR"
-	case 'U':
-		return "RIGHT_PAR"
-	case 'Z':
-		return "ZS"
-	case 0:
-		return "END"
-	}
-	panic("error!!!!!!!!!!")
+
+
+func (gt *GrammarTreeBuilder) readNextToken() {
+	gt.readingPosition++
 }
 func showTokens(tokens []*stateMachine.Token) string {
 	str := ""
 	for i := 0; i < len(tokens); i++ {
-		str += tokens[i].GetValue().(string) + " "
+		str += tokens[i].GetType() + " "
 	}
 	return str
 }
