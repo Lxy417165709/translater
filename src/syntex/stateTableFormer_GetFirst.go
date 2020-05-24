@@ -1,4 +1,4 @@
-package LLONE
+package syntex
 
 
 
@@ -21,8 +21,7 @@ func (stf *StateTableFormer) syncBufferOfFirst() bool {
 
 
 func (stf *StateTableFormer) GetFirst() {
-	stf.First = make(map[string][]string)
-	stf.bufferOfSet = make(map[string][]string)
+	stf.initGetFirst()
 	for  {
 		for stf.initHandlingProductionPosition(); stf.handlingProductionsIsNotOver(); stf.goToHandleNextProduction() {
 			for stf.initHandleProductionSentencePosition(); stf.handlingProductionSentenceIsNotOver(); stf.goToHandleNextProductionSentence() {
@@ -33,6 +32,11 @@ func (stf *StateTableFormer) GetFirst() {
 			break
 		}
 	}
+}
+
+func (stf *StateTableFormer) initGetFirst() {
+	stf.First = make(map[string][]string)
+	stf.bufferOfSet = make(map[string][]string)
 }
 func (stf *StateTableFormer) handleGettingFirst() {
 	handlingProduction := stf.productions[stf.positionOfHandlingProduction]
@@ -49,27 +53,48 @@ func (stf *StateTableFormer) handleGettingFirstOfSentenceIsBlank() {
 	stf.bufferOfSet[handlingProduction.leftNonTerminator] = append(stf.bufferOfSet[handlingProduction.leftNonTerminator], blankSymbol)
 }
 func (stf *StateTableFormer) handleGettingFirstOfSentenceIsNotBlank() {
-	handlingProduction := stf.productions[stf.positionOfHandlingProduction]
-	handlingSentence := handlingProduction.sentences[stf.positionOfHandlingProductionSentence]
-	for pIndex, symbol := range handlingSentence.symbols {
+	handlingSymbols := stf.getHandlingSymbols()
+	for index, symbol := range handlingSymbols {
 		firstSetOfSymbol := stf.First[symbol]
 		switch {
-		case isTerminator(symbol):
-			stf.bufferOfSet[handlingProduction.leftNonTerminator] = append(stf.bufferOfSet[handlingProduction.leftNonTerminator], symbol)
+		case stf.isTerminator(symbol):
+			stf.appendSymbolToBufferOfSet(symbol)
 			return
 		case !hasBlankSymbol(firstSetOfSymbol):
-			stf.bufferOfSet[handlingProduction.leftNonTerminator] = append(stf.bufferOfSet[handlingProduction.leftNonTerminator], removeBlankSymbol(firstSetOfSymbol)...)
+			stf.appendSymbolToBufferOfSet(removeBlankSymbol(firstSetOfSymbol)...)
 			return
 		case hasBlankSymbol(firstSetOfSymbol):
-			if pIndex == len(handlingSentence.symbols)-1 {
-				stf.bufferOfSet[handlingProduction.leftNonTerminator] = append(stf.bufferOfSet[handlingProduction.leftNonTerminator], firstSetOfSymbol...)
+			if index == len(handlingSymbols)-1 {
+				stf.appendSymbolToBufferOfSet(firstSetOfSymbol...)
 			} else {
-				stf.bufferOfSet[handlingProduction.leftNonTerminator] = append(stf.bufferOfSet[handlingProduction.leftNonTerminator],  removeBlankSymbol(firstSetOfSymbol)...)
+				stf.appendSymbolToBufferOfSet(removeBlankSymbol(firstSetOfSymbol)...)
 			}
 		default:
-			panic("存在没有考虑的情况")
+			stf.error()
 		}
 	}
+}
+
+
+
+func (stf *StateTableFormer)getHandlingSymbols() []string{
+	return stf.getHandlingSentence().symbols
+}
+func (stf *StateTableFormer)getHandlingSentence() *sentence{
+	handlingProduction := stf.productions[stf.positionOfHandlingProduction]
+	handlingSentence := handlingProduction.sentences[stf.positionOfHandlingProductionSentence]
+	return handlingSentence
+}
+
+
+func (stf *StateTableFormer)appendSymbolToBufferOfSet(symbols ...string) {
+	handlingProduction := stf.productions[stf.positionOfHandlingProduction]
+	stf.bufferOfSet[handlingProduction.leftNonTerminator] = append(stf.bufferOfSet[handlingProduction.leftNonTerminator], symbols...)
+}
+
+
+func (stf *StateTableFormer)error() {
+	panic("存在没有考虑的情况")
 }
 
 

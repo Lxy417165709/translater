@@ -1,14 +1,19 @@
-package LLONE
+package syntex
 
 import (
+	"conf"
 	"file"
 )
+
+const additionCharBeginChar = byte('a')
 
 type StateTableFormer struct {
 	filePath string
 
 	originProductions []*production // 可能有左递归
 	productions       []*production // 消除了左递归
+	terminators []string
+
 
 	First  map[string][]string
 	Follow map[string][]string
@@ -21,8 +26,10 @@ type StateTableFormer struct {
 	bufferOfSet                          map[string][]string // First,Follow 集合求取过程的缓存
 }
 
-func NewStateTableFormer(filePath string) *StateTableFormer {
-	stf := &StateTableFormer{filePath: filePath}
+// 这里的参数可以进行配置
+func NewStateTableFormer(cf *conf.Conf) *StateTableFormer {
+	stf := &StateTableFormer{filePath: cf.SyntaxConf.SyntaxFilePath}
+	stf.initTerminators()
 	stf.initOriginProductions()
 	stf.initProductions()
 	stf.initSentenceToNonTerminator()
@@ -31,6 +38,13 @@ func NewStateTableFormer(filePath string) *StateTableFormer {
 	stf.GetSelect()
 	stf.GetStateTable()
 	return stf
+}
+
+func (stf *StateTableFormer)initTerminators() {
+	// TODO: 这个可以进行获取，不用手动配置
+	stf.terminators = []string{
+		"LEFT_PAR", "RIGHT_PAR", "IDE", "ADD", "SUB","ZS","EQR","DIV","FAC",endSymbol,
+	}
 }
 
 func (stf *StateTableFormer) initOriginProductions() {
@@ -60,4 +74,13 @@ func (stf *StateTableFormer) GetSentence(nonTerminator,terminator string) *sente
 }
 func (stf *StateTableFormer) HasSentence(nonTerminator,terminator string) bool{
 	return stf.StateTable[nonTerminator][terminator]!=nil
+}
+
+func (stf *StateTableFormer)isTerminator(symbol string) bool {
+	for _,terminator := range stf.terminators{
+		if symbol == terminator{
+			return true
+		}
+	}
+	return false
 }

@@ -6,15 +6,6 @@
 0,1,2,3,4,5,6,7,8,9||35||0
 0,1,2,3,4,5,6,7,8,9||05||0
 0,1,2,3,4,5,6,7,8,9||05||0
-a,b,c,d,e,f,g,A,B,C||a||1
-a,b,c,d,e,f,g,A,B,C||B||1
-a,b,c,d,e,f,g,A,B,C||C||1
-a,b,c,d,e,f,g,A,B,C||g||1
-a,b,c,d,e,f,g,A,B,C||ab||0
-a,b,c,d,e,f,g,A,B,C||ac||0
-a,b,c,d,e,f,g,A,B,C||05||0
-a,b,c,d,e,f,g,A,B,C||05||0
-a,b,c,d,e,f,g,A,B,C||05||0
 ac$,bc$,kp@||acc||1
 ac$,bc$,kp@||bcc||1
 ac$,bc$,kp@||b||1
@@ -23,6 +14,10 @@ ac$,bc$,kp@||kppp||1
 ac$,bc$,kp@||acb||0
 ac$,bc$,kp@||bac||0
 ac$,bc$,kp@||bacwe||0
+kp@||k||0
+kp@||p||0
+kp@||kp||1
+c$,kp@||k||0
 ac$,bc$,kp@||k||0
 ac$,bc$,kp@||||0
 b$,c$||||1

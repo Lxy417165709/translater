@@ -1,11 +1,9 @@
 package machine
 
-import (
-	"grammar"
-)
+
 func (s *state) IsMatchFromHere(pattern string) bool {
 	// 空匹配
-	for _, nextState := range s.getNextStates(grammar.Eps) {
+	for _, nextState := range s.getNextStates(Eps) {
 		if nextState.IsMatchFromHere(pattern) {
 			return true
 		}
@@ -23,3 +21,5 @@ func (s *state) IsMatchFromHere(pattern string) bool {
 	}
 	return false
 }
+
+

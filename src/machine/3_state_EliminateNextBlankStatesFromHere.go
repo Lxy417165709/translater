@@ -1,9 +1,5 @@
 package machine
 
-import (
-	"grammar"
-)
-
 
 
 func (s *state) EliminateNextBlankStatesFromHere(hasVisited map[*state]bool) {
@@ -37,10 +33,10 @@ func (s *state) haveBlankStates() bool {
 	return len(s.getNextBlankStates()) != 0
 }
 func (s *state) getNextBlankStates() []*state {
-	return s.getNextStates(grammar.Eps)
+	return s.getNextStates(Eps)
 }
 func (s *state) isNextBlankStatesHaveEndState() bool {
-	return s.isNextStatesHaveEndState(grammar.Eps)
+	return s.isNextStatesHaveEndState(Eps)
 }
 func (s *state) isNextStatesHaveEndState(char byte) bool {
 	for _, state := range s.next[char] {
@@ -52,7 +48,7 @@ func (s *state) isNextStatesHaveEndState(char byte) bool {
 }
 
 func (s *state) cleanBlankStates() {
-	s.cleanNextStates(grammar.Eps)
+	s.cleanNextStates(Eps)
 }
 func (s *state) cleanNextStates(char byte) {
 	delete(s.next, char)

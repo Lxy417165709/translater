@@ -1,9 +1,5 @@
 package machine
 
-import (
-	"grammar"
-)
-
 type state struct {
 	isEnd             bool
 	next         map[byte][]*state
@@ -14,7 +10,7 @@ func NewState(isEnd bool) *state{
 	return &state{
 		isEnd:isEnd,
 		next:make(map[byte][]*state),
-		specialChar:grammar.Eps,
+		specialChar:Eps,
 	}
 }
 
@@ -22,17 +18,8 @@ func (s *state) linkByOrdinaryChar(ordinaryChar byte,aimState *state) {
 	s.next[ordinaryChar] = append(s.next[ordinaryChar],aimState)
 }
 func (s *state) linkByEpsChar(aimState *state) {
-	s.next[grammar.Eps] = append(s.next[grammar.Eps],aimState)
+	s.next[Eps] = append(s.next[Eps],aimState)
 }
-
-func (s *state) getAllNextStates() []*state {
-	result := make([]*state, 0)
-	for char := range s.next {
-		result = append(result, s.getNextStates(char)...)
-	}
-	return result
-}
-
 
 
 

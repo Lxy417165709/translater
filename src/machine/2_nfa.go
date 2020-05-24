@@ -4,7 +4,6 @@ type NFA struct {
 	// 构建NFA相关的成员变量
 	startState            *state
 	endState              *state
-	specialChar byte
 }
 
 func NewNFA(ordinaryChar byte) *NFA {
@@ -21,11 +20,6 @@ func NewEmptyNFA() *NFA{
 		startState:NewState(false),
 		endState:NewState(true),
 	}
-}
-
-
-func (nfa *NFA) setSpecialChar(specialChar byte){
-
 }
 
 

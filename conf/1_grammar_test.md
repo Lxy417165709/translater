@@ -7,3 +7,6 @@ D||-1|A@
 E||-1|A$
 F||-1|C@
 G||-1|C$
+I||-1|BC$
+W||-1|if,while,for,int,else,end,begin
+X||-1|D.D

@@ -1,16 +1,11 @@
-package LLONE
+package syntex
 
 import (
 	"fmt"
 	"strings"
 )
 
-// 这个可以通过 正则层获取
-var terminators = [...]string{
-	"LEFT_PAR", "RIGHT_PAR", "IDE", "FDO", "ASO","END","ZS",
-}
-const blankSymbol = "BLA"
-const additionCharBeginChar = byte('a')
+
 
 
 func (u *production) Parse(line string) {
@@ -26,14 +21,14 @@ func (u *production) Parse(line string) {
 		u.sentences = append(u.sentences,sentence)
 	}
 }
-func (u *production) nthSentenceFirstSymbolIsTerminator(index int) bool {
-	for i := 0; i < len(terminators); i++ {
-		if u.getNthSentenceFirstSymbol(index) == terminators[i] {
-			return true
-		}
-	}
-	return false
-}
+//func (u *production) nthSentenceFirstSymbolIsTerminator(index int) bool {
+//	for i := 0; i < len(terminators); i++ {
+//		if u.getNthSentenceFirstSymbol(index) == terminators[i] {
+//			return true
+//		}
+//	}
+//	return false
+//}
 func (u *production) nthSentenceFirstSymbolIsBlank(index int) bool {
 	return len(u.getNthSentenceFirstSymbol(index)) == 1 && u.getNthSentenceFirstSymbol(index) == blankSymbol
 }
@@ -125,14 +120,7 @@ func hasBlankSymbol(sentence []string) bool {
 	}
 	return false
 }
-func isTerminator(symbol string) bool {
-	for _,terminator := range terminators{
-		if symbol == terminator{
-			return true
-		}
-	}
-	return false
-}
+
 
 type production struct {
 	leftNonTerminator string

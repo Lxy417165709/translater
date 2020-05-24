@@ -16,9 +16,9 @@
     char 包括
         特殊字符 specialChar (能匹配多种、多个字符)
                 包括 fixedChar 代表 关键字、操作符...的字符
-                variableChar 代表 整数、标识符...的字符
+                     variableChar 代表 整数、标识符...的字符
         普通字符 ordinaryChar (只能匹配一个字符)
-        附加字符 additionChar (与特殊字符、普通字符配合使用) 如 + 匹配一或多次，* 匹配零或多次
+        附加字符 additionalChar (与特殊字符、普通字符配合使用) 如 + 匹配一或多次，* 匹配零或多次
 特殊字符表 specialCharTable
          特殊字符表项 specialCharItem
                 特殊字符 specialChar

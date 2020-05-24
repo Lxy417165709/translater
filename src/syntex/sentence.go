@@ -1,4 +1,4 @@
-package LLONE
+package syntex
 
 import "strings"
 
@@ -23,11 +23,4 @@ func (s *sentence)Parse(line string) {
 
 func(s *sentence)isBlank() bool{
 	return len(s.symbols)==1 && s.symbols[0]==blankSymbol
-}
-
-func (s *sentence)firstSymbolIsTerminator()bool {
-	return isTerminator(s.symbols[0])
-}
-func (s *sentence)firstSymbolIsNotTerminator()bool {
-	return !isTerminator(s.symbols[0])
 }

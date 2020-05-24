@@ -1,4 +1,4 @@
-package LLONE
+package syntex
 
 func (stf *StateTableFormer) flushBufferOfSet() {
 	stf.bufferOfSet = map[string][]string{}

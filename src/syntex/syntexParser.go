@@ -1,0 +1,128 @@
+package syntex
+
+import (
+	"conf"
+	"fmt"
+	"lex"
+)
+
+const (
+	endSymbol = "END"
+	blankSymbol = "BLA"
+	startSymbol = "EXP"		// 假设是EXP开始
+)
+
+type SyntaxParser struct {
+	lexicalAnalyzer *lex.LexicalAnalyzer
+	stateTable *StateTableFormer
+	symbolsStack []string
+	terminatorPairs []*lex.TerminatorPair
+	readingPosition int
+}
+
+func NewSyntaxParser(cf *conf.Conf) *SyntaxParser{
+	sp := &SyntaxParser{
+		lexicalAnalyzer:lex.NewLexicalAnalyzer(cf),
+		stateTable:NewStateTableFormer(cf),
+	}
+	return sp
+}
+func (sp *SyntaxParser)GetSyntaxTree(text []byte) {
+	sp.initGetSyntaxTree(text)
+	for sp.readingIsNotOver(){
+		sp.execGetSyntaxTree()
+	}
+}
+func (sp *SyntaxParser)initGetSyntaxTree(text []byte){
+	sp.readingPosition = 0
+	sp.symbolsStack = nil
+	sp.terminatorPairs = sp.lexicalAnalyzer.GetTerminatorPairs(text)
+	sp.terminatorPairs = append(sp.terminatorPairs,lex.NewNotValuePair(endSymbol))
+	sp.symbolsStack = append(sp.symbolsStack, endSymbol)
+	sp.symbolsStack = append(sp.symbolsStack, startSymbol)
+}
+func (sp *SyntaxParser)readingIsNotOver() bool{
+	return sp.readingPosition!=len(sp.terminatorPairs)
+}
+func (sp *SyntaxParser)execGetSyntaxTree() {
+	sp.showParsingMiddleWares()
+	switch  {
+	case sp.symbolOfStackTopIsBlank():
+		sp.symbolStackPop()
+	case sp.canOffset():
+		sp.offset()
+	case sp.canContinueParsing():
+		sp.continueParsing()
+	default:
+		sp.error()
+	}
+}
+
+
+func (sp *SyntaxParser)showParsingMiddleWares() {
+	fmt.Println(sp.symbolsStack,"|",terminatorPairsToString(sp.getNotReadSymbolPairs()))
+}
+func (sp *SyntaxParser)canOffset() bool{
+	stackTopSymbol := sp.getSymbolOfSymbolStack()
+	readingSymbol := sp.getSymbolOfReadingSymbolPair()
+	return stackTopSymbol == readingSymbol
+}
+func (sp *SyntaxParser)offset() {
+	sp.symbolStackPop()
+	sp.readNextSymbolPair()
+}
+func(sp *SyntaxParser)canContinueParsing() bool{
+	stackTopSymbol := sp.getSymbolOfSymbolStack()
+	readingSymbol := sp.getSymbolOfReadingSymbolPair()
+	return sp.stateTable.HasSentence(stackTopSymbol,readingSymbol)
+}
+func (sp *SyntaxParser)continueParsing() {
+	stackTopSymbol := sp.getSymbolOfSymbolStack()
+	readingSymbol := sp.getSymbolOfReadingSymbolPair()
+	sentence := sp.stateTable.GetSentence(stackTopSymbol,readingSymbol)
+	sp.symbolStackPop()
+	sp.ReversePushTheSymbolOfSentenceIntoSymbolStack(sentence)
+}
+func (sp *SyntaxParser)error() {
+	stackTopSymbol := sp.getSymbolOfSymbolStack()
+	readingSymbol := sp.getSymbolOfReadingSymbolPair()
+	panic(fmt.Sprintf("出错，%s %s", stackTopSymbol ,readingSymbol))
+}
+
+
+
+func (sp *SyntaxParser)getNotReadSymbolPairs() []*lex.TerminatorPair{
+	return sp.terminatorPairs[sp.readingPosition:]
+}
+func (sp *SyntaxParser)readNextSymbolPair() {
+	sp.readingPosition++
+}
+func (sp *SyntaxParser)symbolStackIsEmpty() bool{
+	return len(sp.symbolsStack)==0
+}
+func (sp *SyntaxParser) getSymbolOfReadingSymbolPair() string{
+	return sp.terminatorPairs[sp.readingPosition].GetSymbol()
+}
+func (sp *SyntaxParser) symbolStackPop() {
+	sp.symbolsStack = sp.symbolsStack[:len(sp.symbolsStack)-1]
+}
+func (sp *SyntaxParser) getSymbolOfSymbolStack() string{
+	return sp.symbolsStack[len(sp.symbolsStack)-1]
+}
+func (sp *SyntaxParser) symbolOfStackTopIsBlank() bool{
+	return sp.getSymbolOfSymbolStack()==blankSymbol
+}
+func (sp *SyntaxParser)ReversePushTheSymbolOfSentenceIntoSymbolStack(sentence *sentence) {
+	for i:=len(sentence.symbols)-1;i>=0;i-- {
+		sp.symbolsStack = append(sp.symbolsStack,sentence.symbols[i])
+	}
+}
+
+
+func terminatorPairsToString(terminatorPairs []*lex.TerminatorPair) string {
+	result := ""
+	for i := 0; i < len(terminatorPairs); i++ {
+		result += terminatorPairs[i].GetSymbol() + " "
+	}
+	return result
+}
