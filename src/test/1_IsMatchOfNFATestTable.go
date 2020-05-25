@@ -1,24 +1,17 @@
 package test
 
 import (
-	"conf"
 	"file"
 	"fmt"
-	"machine"
 )
 
 type IsMatchOfNFATestTable struct {
-	cf *conf.Conf
-	isMatchOfNFATestConf *conf.IsMatchOfNFATestTableConf
-	grammarConf *conf.GrammarConf
 	isMatchOfNFATestItems []*isMatchOfNFATestItem
 	isNeedToShowTheOutputOfTestInformation bool
 }
 
-func NewIsMatchOfNFATestTable(cf *conf.Conf) *IsMatchOfNFATestTable{
-	return &IsMatchOfNFATestTable{
-		cf:cf,
-	}
+func NewIsMatchOfNFATestTable() *IsMatchOfNFATestTable{
+	return &IsMatchOfNFATestTable{}
 }
 
 func (tm *IsMatchOfNFATestTable)SetTestFile(filePath string) {
@@ -28,15 +21,8 @@ func (tm *IsMatchOfNFATestTable)SetTestFile(filePath string) {
 }
 
 func (tm *IsMatchOfNFATestTable)Parse(contents []string) {
-
-	nfaBuilder := machine.NewNFABuilder(tm.cf)
 	for _,content := range contents{
-		item := NewIsMatchOfNFATestItem(
-			nfaBuilder ,
-			tm.isMatchOfNFATestConf.DelimiterOfPieces,
-			tm.grammarConf.DelimiterOfWords,
-			content,
-		)
+		item := NewIsMatchOfNFATestItem(content)
 		tm.isMatchOfNFATestItems = append(tm.isMatchOfNFATestItems,item)
 	}
 }

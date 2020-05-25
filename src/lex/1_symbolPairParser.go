@@ -2,7 +2,7 @@ package lex
 
 import (
 	"fmt"
-	"machine"
+	"grammar/machine"
 )
 
 type SymbolPairParser struct {

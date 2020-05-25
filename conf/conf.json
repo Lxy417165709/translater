@@ -11,7 +11,14 @@
     "MatchMoreThanZeroTimesSymbol": "$"
   },
   "SyntaxConf": {
-    "SyntaxFilePath": "C:\\Users\\hasee\\Desktop\\Go_Practice\\编译器\\conf\\LL1"
+    "SyntaxFilePath": "C:\\Users\\hasee\\Desktop\\Go_Practice\\编译器\\conf\\LL1",
+    "EndSymbol": "END",
+    "BlankSymbol": "BLA",
+    "StartSymbol": "EXP",
+    "AdditionCharBeginChar": "a",
+    "DelimiterOfSyntaxPieces": "->",
+    "DelimiterOfSentences": "|",
+    "DelimiterOfSymbols": " "
   },
   "LexicalConf": {
     "SourceFilePath": "C:\\Users\\hasee\\Desktop\\Go_Practice\\编译器\\conf\\2_source.md",

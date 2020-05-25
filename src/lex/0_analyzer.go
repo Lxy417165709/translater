@@ -1,8 +1,7 @@
 package lex
 
 import (
-	"conf"
-	"machine"
+	"grammar/machine"
 )
 
 type LexicalAnalyzer struct {
@@ -10,10 +9,9 @@ type LexicalAnalyzer struct {
 	symbolPairParser *SymbolPairParser
 }
 
-func NewLexicalAnalyzer(cf *conf.Conf)*LexicalAnalyzer {
+func NewLexicalAnalyzer()*LexicalAnalyzer {
 	return &LexicalAnalyzer{
-		// (cf *conf.Conf)
-		tokenParser:machine.NewTokenParser(cf),
+		tokenParser:machine.NewTokenParser(),
 		symbolPairParser:NewSymbolPairParser(),
 	}
 }
@@ -27,8 +25,21 @@ func (la *LexicalAnalyzer)GetTerminatorPairs(text []byte) []*TerminatorPair{
 	}
 	return result
 }
+
+func (la *LexicalAnalyzer)GetAllTerminators() []string{
+	terminators := make([]string,0)
+	for _,terminator := range la.symbolPairParser.kindCodeToTerminators{
+		terminators = append(terminators,terminator)
+	}
+	return terminators
+}
+
+
+
+
+
 func (la *LexicalAnalyzer)getTextTokens(text []byte) []*machine.Token {
 	la.tokenParser.SetText(text)
-	la.tokenParser.ParseTextToTokens()
+	la.tokenParser.ParseTextToFinalTokens()
 	return la.tokenParser.GetTokens()
 }

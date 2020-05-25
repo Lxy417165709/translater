@@ -1,22 +1,22 @@
-package grammar
+package char
 
 import (
+	"conf"
 	"fmt"
 	"strings"
 )
 
 type Regexp struct{
 	words []string
-	delimiterOfWords string
 }
-func NewRegexp(RegexpLine string,delimiterOfWords string) *Regexp{
-	r := &Regexp{delimiterOfWords:delimiterOfWords}
+func NewRegexp(RegexpLine string) *Regexp{
+	r := &Regexp{}
 	r.Parse(RegexpLine)
 	return r
 }
 func(r *Regexp) Parse(content string) {
 	content = strings.TrimSpace(content)
-	words := strings.Split(content,r.delimiterOfWords)
+	words := strings.Split(content,conf.GetConf().GrammarConf.DelimiterOfWords)
 	for _,word := range words{
 		word = strings.TrimSpace(word)
 		r.words =append(r.words,word)

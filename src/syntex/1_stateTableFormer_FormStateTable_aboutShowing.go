@@ -7,17 +7,6 @@ import (
 
 
 
-func (stf *StateTableFormer)GetStateTable() {
-	stf.StateTable = make(map[string]map[string]*sentence)
-	for sentenc,terminators := range stf.Select{
-		for _,terminator := range terminators{
-			if stf.StateTable[stf.SentenceToNonTerminator[sentenc]]==nil{
-				stf.StateTable[stf.SentenceToNonTerminator[sentenc]] = make(map[string]*sentence)
-			}
-			stf.StateTable[stf.SentenceToNonTerminator[sentenc]][terminator]=sentenc
-		}
-	}
-}
 func (stf *StateTableFormer)Show(){
 	lines := stf.getStateTableLines()
 	for _,line := range lines{
@@ -45,19 +34,19 @@ func (stf *StateTableFormer)getStateTableFirstLine() string{
 }
 func (stf *StateTableFormer)getStateTableOtherLines() []string{
 	result := make([]string,0)
-	for index := range stf.GetNonTerminators(){
+	for index := range stf.getNonTerminators(){
 		result = append(result,stf.getNthNonTerminatorLines(index))
 	}
 	return result
 }
-func (stf *StateTableFormer) getNthNonTerminatorLines(nth int) string{
+func (stf *StateTableFormer) getNthNonTerminatorLines(index int) string{
 	lineBuffer := bytes.Buffer{}
-	nonTerminator := stf.GetNonTerminators()[nth]
+	nonTerminator := stf.getNonTerminators()[index]
 	lineBuffer.WriteString(nonTerminator)
 	for _,terminator := range stf.terminators{
 		lineBuffer.WriteString("|")
-		if stf.StateTable[nonTerminator]!=nil && stf.StateTable[nonTerminator][terminator]!=nil{
-			lineBuffer.WriteString(fmt.Sprintf("%v",*stf.StateTable[nonTerminator][terminator]))
+		if stf.stateTable[nonTerminator]!=nil && stf.stateTable[nonTerminator][terminator]!=nil{
+			lineBuffer.WriteString(fmt.Sprintf("%v",*stf.stateTable[nonTerminator][terminator]))
 		}
 	}
 	lineBuffer.WriteString("\n")
@@ -65,10 +54,3 @@ func (stf *StateTableFormer) getNthNonTerminatorLines(nth int) string{
 }
 
 
-func (stf *StateTableFormer)GetNonTerminators() []string{
-	result := make([]string,0)
-	for _,production := range stf.productions{
-		result = append(result,production.leftNonTerminator)
-	}
-	return result
-}

@@ -1,33 +1,9 @@
-package grammar
+package char
 
 import (
-	"conf"
 	"file"
 	"strings"
 )
-
-type SpecialCharTable struct {
-	specialCharItems  []*specialCharItem
-	delimiterOfPieces string
-	delimiterOfWords  string
-
-	specialCharToRegexp map[byte]*Regexp
-	specialCharToType map[byte]string
-	fixedWordToCode map[string]int
-	variableCharToCode map[byte]int
-}
-
-func NewSpecialCharTable(cf *conf.Conf) *SpecialCharTable {
-	sct := &SpecialCharTable{
-		delimiterOfPieces: cf.GrammarConf.DelimiterOfPieces,
-		delimiterOfWords:  cf.GrammarConf.DelimiterOfWords,
-	}
-	sct.initSpecialCharItems(cf.GrammarConf.SpecialCharTableFilePath)
-	sct.initSpecialCharToRegexp()
-	sct.initSpecialCharToType()
-	sct.initFixedWordCodeAndVariableCharToCode()
-	return sct
-}
 
 
 func (sct *SpecialCharTable) initSpecialCharItems(filePath string) {
@@ -35,7 +11,6 @@ func (sct *SpecialCharTable) initSpecialCharItems(filePath string) {
 	itemContents := lines[2:]
 	sct.parse(itemContents)
 }
-
 func (sct *SpecialCharTable)initSpecialCharToRegexp() {
 	sct.specialCharToRegexp = make(map[byte]*Regexp)
 	for _,item := range sct.specialCharItems{
@@ -66,14 +41,12 @@ func (sct *SpecialCharTable) initFixedWordCodeAndVariableCharToCode() {
 	}
 }
 
+
 func (sct *SpecialCharTable) parse(itemContents []string) {
 	for _, itemContent := range itemContents {
 		sct.specialCharItems = append(
 			sct.specialCharItems,
-			NewSpecialCharItem(strings.TrimSpace(itemContent), sct.delimiterOfPieces, sct.delimiterOfWords),
+			NewSpecialCharItem(strings.TrimSpace(itemContent)),
 		)
 	}
 }
-
-
-

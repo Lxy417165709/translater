@@ -5,21 +5,18 @@ import (
 	"file"
 )
 
-const additionCharBeginChar = byte('a')
+
 
 type StateTableFormer struct {
-	filePath string
-
 	originProductions []*production // 可能有左递归
 	productions       []*production // 消除了左递归
 	terminators []string
 
-
-	First  map[string][]string
-	Follow map[string][]string
-	Select map[*sentence][]string
-	StateTable map[string]map[string]*sentence
-	SentenceToNonTerminator map[*sentence]string
+	first  map[string][]string
+	follow map[string][]string
+	_select map[*sentence][]string
+	stateTable map[string]map[string]*sentence
+	sentenceToNonTerminator map[*sentence]string
 
 	positionOfHandlingProduction         int
 	positionOfHandlingProductionSentence int
@@ -27,30 +24,26 @@ type StateTableFormer struct {
 }
 
 // 这里的参数可以进行配置
-func NewStateTableFormer(cf *conf.Conf) *StateTableFormer {
-	stf := &StateTableFormer{filePath: cf.SyntaxConf.SyntaxFilePath}
-	stf.initTerminators()
+func NewStateTableFormer(terminators []string) *StateTableFormer {
+	stf := &StateTableFormer{
+		terminators:terminators,
+	}
 	stf.initOriginProductions()
 	stf.initProductions()
 	stf.initSentenceToNonTerminator()
-	stf.GetFirst()
-	stf.GetFollow()
-	stf.GetSelect()
-	stf.GetStateTable()
+	stf.FormFirst()
+	stf.FormFollow()
+	stf.FormSelect()
+	stf.FormStateTable()
+
 	return stf
 }
 
-func (stf *StateTableFormer)initTerminators() {
-	// TODO: 这个可以进行获取，不用手动配置
-	stf.terminators = []string{
-		"LEFT_PAR", "RIGHT_PAR", "IDE", "ADD", "SUB","ZS","EQR","DIV","FAC",endSymbol,
-	}
-}
 
 func (stf *StateTableFormer) initOriginProductions() {
-	lines := file.NewFileReader(stf.filePath).GetFileLines()
+	lines := file.NewFileReader(conf.GetConf().SyntaxConf.SyntaxFilePath).GetFileLines()
 	for _, line := range lines {
-		production := &production{}
+		production := NewProduction("",nil)
 		production.Parse(line)
 		stf.originProductions = append(stf.originProductions, production)
 	}
@@ -60,20 +53,21 @@ func (stf *StateTableFormer) initProductions() {
 		stf.productions = append(stf.productions, originProduction.ChangeToNonLeftRecursionProductions()...)
 	}
 }
+
 func (stf *StateTableFormer) initSentenceToNonTerminator() {
-	stf.SentenceToNonTerminator = make(map[*sentence]string)
+	stf.sentenceToNonTerminator = make(map[*sentence]string)
 	for _, production := range stf.productions {
 		for _,sentence := range production.sentences{
-			stf.SentenceToNonTerminator[sentence] = production.leftNonTerminator
+			stf.sentenceToNonTerminator[sentence] = production.leftNonTerminator
 		}
 	}
 }
 
 func (stf *StateTableFormer) GetSentence(nonTerminator,terminator string) *sentence{
-	return stf.StateTable[nonTerminator][terminator]
+	return stf.stateTable[nonTerminator][terminator]
 }
 func (stf *StateTableFormer) HasSentence(nonTerminator,terminator string) bool{
-	return stf.StateTable[nonTerminator][terminator]!=nil
+	return stf.stateTable[nonTerminator][terminator]!=nil
 }
 
 func (stf *StateTableFormer)isTerminator(symbol string) bool {

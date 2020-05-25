@@ -1,4 +1,4 @@
-package grammar
+package char
 
 func (sct *SpecialCharTable) CharIsSpecial(char byte) bool {
 	return sct.specialCharToRegexp[char] != nil

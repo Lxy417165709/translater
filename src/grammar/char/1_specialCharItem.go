@@ -1,6 +1,7 @@
-package grammar
+package char
 
 import (
+	"conf"
 	"fmt"
 	"strconv"
 	"strings"
@@ -11,15 +12,10 @@ type specialCharItem struct {
 	_type             string
 	kindCodeFlag      int
 	regexp            *Regexp
-	delimiterOfPieces string
-	delimiterOfWords  string
 }
 
-func NewSpecialCharItem(specialCharItemLine, delimiterOfPieces, delimiterOfWords string) *specialCharItem {
-	sc := &specialCharItem{
-		delimiterOfPieces: delimiterOfPieces,
-		delimiterOfWords:  delimiterOfWords,
-	}
+func NewSpecialCharItem(specialCharItemLine string) *specialCharItem {
+	sc := &specialCharItem{}
 	sc.Parse(specialCharItemLine)
 	return sc
 }
@@ -27,7 +23,7 @@ func NewSpecialCharItem(specialCharItemLine, delimiterOfPieces, delimiterOfWords
 func (sc *specialCharItem) Parse(content string) {
 	content = strings.TrimSpace(content)
 
-	pieces := strings.Split(strings.TrimSpace(content), sc.delimiterOfPieces)
+	pieces := strings.Split(strings.TrimSpace(content), conf.GetConf().GrammarConf.DelimiterOfPieces)
 	if len(pieces) != 4 {
 		panic(fmt.Sprintf("分割测试单元：%v 失败，分割后的字段数不等于4", pieces))
 	}
@@ -39,7 +35,7 @@ func (sc *specialCharItem) Parse(content string) {
 		panic(err)
 	}
 
-	sc.regexp = NewRegexp(pieces[3], sc.delimiterOfWords)
+	sc.regexp = NewRegexp(pieces[3])
 }
 
 func (sc *specialCharItem) Show() {

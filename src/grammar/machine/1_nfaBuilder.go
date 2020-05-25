@@ -2,19 +2,24 @@ package machine
 
 import (
 	"conf"
-	"grammar"
+	"grammar/char"
 )
 
 // TODO: 这个也需要配置
 
 
 type NFABuilder struct {
-	specialCharTable *grammar.SpecialCharTable
+	specialCharTable *char.SpecialCharTable
+	additionChars []byte
 }
 
-func NewNFABuilder(cf *conf.Conf) *NFABuilder {
+func NewNFABuilder() *NFABuilder {
 	return &NFABuilder{
-		specialCharTable: grammar.NewSpecialCharTable(cf),
+		specialCharTable: char.NewSpecialCharTable(),
+		additionChars:[]byte{
+			conf.GetConf().GrammarConf.MatchMoreThanOnceSymbol[0],
+			conf.GetConf().GrammarConf.MatchMoreThanZeroTimesSymbol[0],
+		},
 	}
 }
 func (nb *NFABuilder) BuildNFABySpecialChars(specialChars []byte) *NFA {
@@ -30,7 +35,7 @@ func (nb *NFABuilder) BuildNFABySpecialChars(specialChars []byte) *NFA {
 func (nb *NFABuilder) BuildNFAByWord(word string) *NFA {
 	return nb.getWordNFA(word)
 }
-func (nb *NFABuilder) BuildNFAByRegexp(regexp *grammar.Regexp) *NFA {
+func (nb *NFABuilder) BuildNFAByRegexp(regexp *char.Regexp) *NFA {
 	return nb.getRegexpNFA(regexp)
 }
 
@@ -39,12 +44,12 @@ func (nb *NFABuilder) getWordNFA(word string) *NFA {
 	nfas := make([]*NFA, 0)
 	for readingPosition != len(word) {
 		readingChar := word[readingPosition]
-		nextChar := endChar
+		nextChar := byte(0)
 		nextPosition := readingPosition + 1
 		if nextPosition != len(word) {
 			nextChar = word[nextPosition]
 		}
-		if isAdditionalChar(nextChar) {
+		if nb.isAdditionalChar(nextChar) {
 			nfas = append(nfas, nb.getAdditionCharNFA(readingChar, nextChar))
 			readingPosition += 2
 		} else {
@@ -59,9 +64,9 @@ func (nb *NFABuilder) getAdditionCharNFA(char, additionalChar byte) *NFA {
 
 	// TODO: 这有错误
 	switch additionalChar {
-	case additionalCharOfMatchingOnceAtLess:
+	case conf.GetConf().GrammarConf.MatchMoreThanOnceSymbol[0]:
 		nfa.endState.linkByEpsChar(nfa.startState)
-	case additionalCharOfMatchingZeroTimesAtLess:
+	case conf.GetConf().GrammarConf.MatchMoreThanZeroTimesSymbol[0]:
 		newEnd := NewState(true)
 		nfa.endState.linkByEpsChar(nfa.startState)
 		nfa.startState.linkByEpsChar(newEnd)
@@ -82,7 +87,7 @@ func (nb *NFABuilder) getSpecialCharNFA(specialChar byte) *NFA {
 	regexp := nb.specialCharTable.GetRegexp(specialChar)
 	return nb.getRegexpNFA(regexp)
 }
-func (nb *NFABuilder) getRegexpNFA(regexp *grammar.Regexp) *NFA {
+func (nb *NFABuilder) getRegexpNFA(regexp *char.Regexp) *NFA {
 
 	nfas := make([]*NFA, 0)
 
@@ -92,8 +97,8 @@ func (nb *NFABuilder) getRegexpNFA(regexp *grammar.Regexp) *NFA {
 	return combineNFAsUsingParallel(nfas)
 }
 
-func isAdditionalChar(char byte) bool {
-	for _, additionChar := range additionalChars {
+func (nb *NFABuilder)isAdditionalChar(char byte) bool {
+	for _, additionChar := range nb.additionChars {
 		if additionChar == char {
 			return true
 		}

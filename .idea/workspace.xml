@@ -2,82 +2,56 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="e007b749-02cc-46c6-a4eb-854657eb5e17" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/conf/1_grammar_a.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/conf/SyntaxConf.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/grammar/specialCharTable_init.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/grammar/specialCharTable_visit.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/lex/analyzer.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/lex/symbolPairParser.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/machine/0_tokenParser.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/machine/0_tokenParser_aboutParsing.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/machine/0_tokenParser_aboutShowing.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/machine/2_nfa_outer.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/machine/3_state_GetAllWordStatePairFromHere.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/machine/3_state_MarkSpecialCharFromHere.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/machine/token.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/machine/utils.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/machine/wordPair.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/syntex/stateTableFormer_GetSelect.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/syntex/stateTableFormer_GetStateTable.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/syntex/syntexParser.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/doc/Other/record.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/grammar/char/0_specialCharTable.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/syntex/0_syntexParser.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/syntex/1_stateTableFormer_FormFollow.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/syntex/1_stateTableFormer_FormStateTable.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/syntex/3_sentence.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/conf/1_grammar_test.md" beforeDir="false" afterPath="$PROJECT_DIR$/conf/1_grammar_test.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/conf/1_grammar.md" beforeDir="false" afterPath="$PROJECT_DIR$/doc/unusedFile/1_grammar.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/conf/1_grammar_test.md" beforeDir="false" afterPath="$PROJECT_DIR$/doc/unusedFile/1_grammar_test.md" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/conf/2_source.md" beforeDir="false" afterPath="$PROJECT_DIR$/conf/2_source.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/conf/LL1" beforeDir="false" afterPath="$PROJECT_DIR$/conf/LL1" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/conf/LL1Table" beforeDir="false" afterPath="$PROJECT_DIR$/doc/unusedFile/LL1Table" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/conf/conf.json" beforeDir="false" afterPath="$PROJECT_DIR$/conf/conf.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/doc/Other/draft" beforeDir="false" afterPath="$PROJECT_DIR$/doc/Other/draft" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/doc/Other/record" beforeDir="false" afterPath="$PROJECT_DIR$/doc/Other/record" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/doc/gen/temp.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/doc/nfaTestFile/nfagraphTest1.md" beforeDir="false" afterPath="$PROJECT_DIR$/doc/nfaTestFile/nfagraphTest1.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/doc/nfaTestFile/nfagraphTest10.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/doc/nfaTestFile/nfagraphTest2.md" beforeDir="false" afterPath="$PROJECT_DIR$/doc/nfaTestFile/nfagraphTest2.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/doc/nfaTestFile/nfagraphTest3.md" beforeDir="false" afterPath="$PROJECT_DIR$/doc/nfaTestFile/nfagraphTest3.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/doc/nfaTestFile/nfagraphTest4.md" beforeDir="false" afterPath="$PROJECT_DIR$/doc/nfaTestFile/nfagraphTest4.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/doc/nfaTestFile/nfagraphTest9.md" beforeDir="false" afterPath="$PROJECT_DIR$/doc/nfaTestFile/nfagraphTest9.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/doc/Other/record" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/doc/Other/词法分析器.doc" beforeDir="false" afterPath="$PROJECT_DIR$/doc/Other/词法分析器.doc" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main.go" beforeDir="false" afterPath="$PROJECT_DIR$/main.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/LLONE/grammarTree.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/LLONE/production.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/syntex/production.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/LLONE/sentence.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/syntex/sentence.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/LLONE/stateTableFormer.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/syntex/stateTableFormer.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/LLONE/stateTableFormer_GetFirst.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/syntex/stateTableFormer_GetFirst.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/LLONE/stateTableFormer_GetFollow.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/syntex/stateTableFormer_GetFollow.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/LLONE/stateTableFormer_GetSelect.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/LLONE/stateTableFormer_GetStateTable.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/LLONE/stateTableFormer_utils.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/syntex/stateTableFormer_utils.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/conf/LexicalConf.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/conf/LexicalConf.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/conf/conf.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/conf/conf.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/conf/grammarConf.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/conf/grammarConf.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/grammar/1_regexpsManager.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/grammar/1_regexpsManager_Init.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/grammar/grammarUnit.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/grammar/specialCharTable.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/grammar/specialCharTable.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/grammar/utils.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/grammar/utils.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/lexical/1_analyzer.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/lexical/1_analyzer_Form.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/lexical/1_analyzer_Init.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/lexical/documentGenerator.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/machine/1_nfaBuilder.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/machine/1_nfaBuilder.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/machine/2_nfa.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/machine/2_nfa.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/machine/2_nfa_EliminateBlankStates.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/machine/2_nfa_IsMatch.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/machine/2_nfa_StoreMermaidGraphOfThisNFA.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/machine/3_state.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/machine/3_state.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/machine/3_state_EliminateNextBlankStatesFromHere.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/machine/3_state_EliminateNextBlankStatesFromHere.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/machine/3_state_IsMatchFromHere.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/machine/3_state_IsMatchFromHere.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/machine/3_state_utils.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/machine/3_state_utils.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/stateMachine/1_nfaBuilder.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/stateMachine/2_nfa.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/stateMachine/2_nfa_GetAllFiltratedTokens.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/stateMachine/2_nfa_IsMatch.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/stateMachine/2_nfa_aboutBuilding.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/stateMachine/2_nfa_aboutShowing.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/stateMachine/2_nfa_parseToken.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/stateMachine/3_state.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/stateMachine/3_state_EliminateNextBlankStatesFromHere.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/stateMachine/3_state_GetAllWordStatePairFromHere.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/stateMachine/3_state_GetShowDataFromHere.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/stateMachine/3_state_IsMatch.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/stateMachine/token.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/conf/SyntaxConf.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/conf/SyntaxConf.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/grammar/regexp.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/grammar/char/2_regexp.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/grammar/specialCharItem.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/grammar/char/1_specialCharItem.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/grammar/specialCharTable.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/grammar/char/0_specialCharTable_show.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/grammar/specialCharTable_init.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/grammar/char/0_specialCharTable_init.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/grammar/specialCharTable_visit.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/grammar/char/0_specialCharTable_visit.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/grammar/utils.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/lex/analyzer.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/lex/0_analyzer.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/lex/symbolPairParser.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/lex/1_symbolPairParser.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/machine/0_tokenParser.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/grammar/machine/0_tokenParser.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/machine/0_tokenParser_aboutParsing.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/grammar/machine/0_tokenParser_aboutParsing.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/machine/0_tokenParser_aboutShowing.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/grammar/machine/0_tokenParser_aboutShowing.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/machine/1_nfaBuilder.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/grammar/machine/1_nfaBuilder.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/machine/2_nfa.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/grammar/machine/2_nfa.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/machine/2_nfa_outer.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/grammar/machine/2_nfa_outer.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/machine/3_state.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/grammar/machine/3_state.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/machine/3_state_EliminateNextBlankStatesFromHere.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/grammar/machine/3_state_EliminateNextBlankStatesFromHere.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/machine/3_state_GetAllWordStatePairFromHere.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/grammar/machine/3_state_GetAllWordStatePairFromHere.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/machine/3_state_GetLineOfLinkInformationFromHere.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/grammar/machine/3_state_GetLineOfLinkInformationFromHere.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/machine/3_state_IsMatchFromHere.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/grammar/machine/3_state_IsMatchFromHere.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/machine/3_state_MarkSpecialCharFromHere.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/grammar/machine/3_state_MarkSpecialCharFromHere.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/machine/3_state_utils.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/grammar/machine/3_state_utils.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/machine/token.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/grammar/machine/token.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/machine/utils.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/machine/wordPair.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/grammar/machine/wordPair.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/syntex/production.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/syntex/2_production.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/syntex/sentence.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/syntex/stateTableFormer.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/syntex/1_stateTableFormer.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/syntex/stateTableFormer_GetFirst.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/syntex/1_stateTableFormer_FormFirst.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/syntex/stateTableFormer_GetFollow.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/syntex/stateTableFormer_GetSelect.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/syntex/1_stateTableFormer_FormSelect.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/syntex/stateTableFormer_GetStateTable.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/syntex/1_stateTableFormer_FormStateTable_aboutShowing.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/syntex/stateTableFormer_utils.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/syntex/1_stateTableFormer_utils.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/syntex/syntexParser.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/syntex/0_syntexParser_GetSyntaxTree.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/1_IsMatchOfNFATestTable.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/1_IsMatchOfNFATestTable.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/2_NFATestUnit.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/2_NFATestUnit.go" afterDir="false" />
     </list>
@@ -104,6 +78,79 @@
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/syntex/1_stateTableFormer_FormFirst.go">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="33">
+              <caret line="44" column="91" lean-forward="true" selection-start-line="44" selection-start-column="65" selection-end-line="44" selection-end-column="91" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/test/2_NFATestUnit.go">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="48">
+              <caret line="39" column="59" selection-start-line="39" selection-start-column="59" selection-end-line="39" selection-end-column="59" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/syntex/1_stateTableFormer_FormSelect.go">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="212">
+              <caret line="10" column="47" selection-start-line="10" selection-start-column="47" selection-end-line="10" selection-end-column="47" />
+              <folding>
+                <element signature="e#16#41#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/main.go">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="297">
+              <caret line="15" column="41" selection-start-line="15" selection-start-column="41" selection-end-line="15" selection-end-column="41" />
+              <folding>
+                <element signature="e#455#1217#0" />
+                <element signature="n#!!block;n#allTest#0" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/syntex/1_stateTableFormer_FormFollow.go">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="703">
+              <caret line="85" column="5" lean-forward="true" selection-start-line="85" selection-start-column="5" selection-end-line="85" selection-end-column="5" />
+              <folding>
+                <element signature="n#!!block;n#FormFollow#0" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/syntex/1_stateTableFormer.go">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="473">
+              <caret line="45" column="7" lean-forward="true" selection-start-line="35" selection-start-column="6" selection-end-line="45" selection-end-column="7" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/conf/LL1">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="33">
+              <caret line="1" selection-start-line="1" selection-end-line="1" selection-end-column="25" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/conf/2_source.md">
           <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
             <state split_layout="SPLIT">
@@ -116,86 +163,19 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/syntex/syntexParser.go">
+        <entry file="file://$PROJECT_DIR$/src/syntex/2_production.go">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="369">
-              <caret line="25" column="32" selection-start-line="25" selection-start-column="32" selection-end-line="25" selection-end-column="32" />
-              <folding>
-                <element signature="n#!!block;n#symbolStackPop#0" />
-                <element signature="n#!!block;n#getSymbolOfSymbolStack#0" />
-                <element signature="n#!!block;n#symbolOfStackTopIsBlank#0" />
-                <element signature="n#!!block;n#ReversePushTheSymbolOfSentenceIntoSymbolStack#0" />
-              </folding>
+            <state relative-caret-position="-2475">
+              <caret line="10" column="4" selection-start-line="10" selection-start-column="4" selection-end-line="10" selection-end-column="4" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/conf/LL1Table">
-          <provider selected="true" editor-type-id="text-editor" />
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/doc/Other/draft">
-          <provider selected="true" editor-type-id="text-editor" />
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/main.go">
+        <entry file="file://$PROJECT_DIR$/conf/conf.json">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="726">
-              <caret line="28" column="40" selection-start-line="28" selection-start-column="40" selection-end-line="28" selection-end-column="40" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/doc/Other/record">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="429">
-              <caret line="13" lean-forward="true" selection-start-line="13" selection-end-line="13" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/test/1_IsMatchOfNFATestTable.go">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-1122">
-              <caret line="15" column="1" lean-forward="true" selection-start-line="15" selection-start-column="1" selection-end-line="15" selection-end-column="1" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/test/2_NFATestUnit.go">
-          <provider selected="true" editor-type-id="text-editor">
-            <state>
-              <folding>
-                <element signature="e#104#249#0" />
-                <element signature="n#!!block;n#NewIsMatchOfNFATestItem#0" />
-                <element signature="n#!!block;n#Test#0" />
-                <element signature="n#!!block;n#Parse#0" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/syntex/stateTableFormer.go">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="34">
-              <caret line="30" column="67" selection-start-line="30" selection-start-column="67" selection-end-line="30" selection-end-column="67" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/conf/1_grammar_test.md">
-          <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
-            <state split_layout="SPLIT">
-              <first_editor />
-              <second_editor />
+            <state relative-caret-position="660">
+              <caret line="20" column="29" selection-start-line="20" selection-start-column="29" selection-end-line="20" selection-end-column="29" />
             </state>
           </provider>
         </entry>
@@ -211,9 +191,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>token.GetType()</find>
-      <find>global</find>
-      <find>||</find>
       <find>LLONE</find>
       <find>LLOne</find>
       <find>moveToNextUnit</find>
@@ -241,10 +218,11 @@
       <find>fmt</find>
       <find>isTerminator</find>
       <find>symbolsPairs</find>
+      <find>grammar</find>
+      <find>blankSymbol</find>
+      <find>First</find>
     </findStrings>
     <replaceStrings>
-      <replace>aboutLexicalAnalyzer</replace>
-      <replace>regexpsManager.Eps</replace>
       <replace>mdo.lexicalConf</replace>
       <replace>lexicalDocumentGenerator</replace>
       <replace>single</replace>
@@ -273,6 +251,8 @@
       <replace>TokenParser</replace>
       <replace>stf.isTerminator</replace>
       <replace>terminatorPairs</replace>
+      <replace>char</replace>
+      <replace>first</replace>
     </replaceStrings>
   </component>
   <component name="GOROOT" path="C:\Language\Go" />
@@ -289,63 +269,63 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/src/machine/3_state_IsMatchFromHere.go" />
-        <option value="$PROJECT_DIR$/src/machine/3_state_MarkSpecialCharFromHere.go" />
-        <option value="$PROJECT_DIR$/src/machine/3_state.go" />
-        <option value="$PROJECT_DIR$/src/machine/3_state_utils.go" />
-        <option value="$PROJECT_DIR$/conf/1_grammar.md" />
-        <option value="$PROJECT_DIR$/src/machine/tokenParser.go" />
-        <option value="$PROJECT_DIR$/src/lexical/1_analyzer.go" />
-        <option value="$PROJECT_DIR$/src/lexical/1_analyzer_Form.go" />
-        <option value="$PROJECT_DIR$/src/machine/2_nfa.go" />
-        <option value="$PROJECT_DIR$/src/machine/wordPair.go" />
-        <option value="$PROJECT_DIR$/src/grammar/specialCharTable_visit.go" />
-        <option value="$PROJECT_DIR$/src/machine/3_state_GetAllWordStatePairFromHere.go" />
-        <option value="$PROJECT_DIR$/src/LLONE/stateTableFormer_GetStateTable.go" />
-        <option value="$PROJECT_DIR$/src/machine/2_nfa_MarkSpecialChar.go" />
-        <option value="$PROJECT_DIR$/src/machine/2_nfa_GetTokens.go" />
-        <option value="$PROJECT_DIR$/src/machine/2_nfa_IsMatch.go" />
-        <option value="$PROJECT_DIR$/src/machine/2_nfa_EliminateBlankStates.go" />
-        <option value="$PROJECT_DIR$/src/machine/2_nfa_StoreMermaidGraphOfThisNFA.go" />
-        <option value="$PROJECT_DIR$/src/machine/2_nfa_outer.go" />
-        <option value="$PROJECT_DIR$/src/machine/utils.go" />
-        <option value="$PROJECT_DIR$/src/machine/0_tokenParser_aboutShowing.go" />
-        <option value="$PROJECT_DIR$/src/machine/0_tokenParser_aboutParsing.go" />
-        <option value="$PROJECT_DIR$/conf/1_grammar_a.md" />
-        <option value="$PROJECT_DIR$/src/grammar/utils.go" />
-        <option value="$PROJECT_DIR$/src/machine/token.go" />
-        <option value="$PROJECT_DIR$/src/LLONE/grammarTree.go" />
-        <option value="$PROJECT_DIR$/src/syntex/symtexParser.go" />
-        <option value="$PROJECT_DIR$/conf/2_source.md" />
-        <option value="$PROJECT_DIR$/src/syntex/stateTableFormer_GetFirst.go" />
-        <option value="$PROJECT_DIR$/src/syntex/stateTableFormer_GetFollow.go" />
-        <option value="$PROJECT_DIR$/src/syntex/production.go" />
-        <option value="$PROJECT_DIR$/src/syntex/stateTableFormer_GetSelect.go" />
-        <option value="$PROJECT_DIR$/src/syntex/sentence.go" />
-        <option value="$PROJECT_DIR$/src/syntex/stateTableFormer_GetStateTable.go" />
-        <option value="$PROJECT_DIR$/conf/LL1" />
-        <option value="$PROJECT_DIR$/src/lex/symbolPairParser.go" />
-        <option value="$PROJECT_DIR$/src/conf/stateTableConf.go" />
-        <option value="$PROJECT_DIR$/src/conf/conf.go" />
-        <option value="$PROJECT_DIR$/src/conf/SyntaxConf.go" />
-        <option value="$PROJECT_DIR$/src/lex/analyzer.go" />
-        <option value="$PROJECT_DIR$/src/grammar/specialCharTable_init.go" />
-        <option value="$PROJECT_DIR$/src/machine/1_nfaBuilder.go" />
-        <option value="$PROJECT_DIR$/src/machine/0_tokenParser.go" />
-        <option value="$PROJECT_DIR$/main.go" />
-        <option value="$PROJECT_DIR$/src/conf/grammarConf.go" />
+        <option value="$PROJECT_DIR$/src/grammar/machine/0_tokenParser_aboutParsing.go" />
+        <option value="$PROJECT_DIR$/src/grammar/machine/0_tokenParser_aboutShowing.go" />
         <option value="$PROJECT_DIR$/src/conf/LexicalConf.go" />
-        <option value="$PROJECT_DIR$/conf/conf.json" />
-        <option value="$PROJECT_DIR$/src/syntex/syntexParser.go" />
+        <option value="$PROJECT_DIR$/src/syntex/stateTableFormer_GetFollow.go" />
+        <option value="$PROJECT_DIR$/src/syntex/stateTableFormer_GetSelect.go" />
+        <option value="$PROJECT_DIR$/src/syntex/stateTableFormer_GetStateTable.go" />
+        <option value="$PROJECT_DIR$/src/syntex/stateTableFormer_GetStateTable_aboutShowing.go" />
         <option value="$PROJECT_DIR$/src/syntex/stateTableFormer.go" />
-        <option value="$PROJECT_DIR$/src/test/1_IsMatchOfNFATestTable.go" />
+        <option value="$PROJECT_DIR$/src/syntex/stateTableFormer_GetFirst.go" />
+        <option value="$PROJECT_DIR$/src/syntex/stateTableFormer_FormFollow.go" />
+        <option value="$PROJECT_DIR$/src/syntex/stateTableFormer_FormStateTable.go" />
+        <option value="$PROJECT_DIR$/conf/conf.json" />
+        <option value="$PROJECT_DIR$/src/conf/SyntaxConf.go" />
+        <option value="$PROJECT_DIR$/src/syntex/production.go" />
+        <option value="$PROJECT_DIR$/src/grammar/char/regexp.go" />
+        <option value="$PROJECT_DIR$/src/grammar/char/specialCharItem.go" />
+        <option value="$PROJECT_DIR$/src/grammar/char/specialCharTable_init.go" />
         <option value="$PROJECT_DIR$/doc/Other/record" />
+        <option value="$PROJECT_DIR$/src/syntex/stateTableFormer_utils.go" />
+        <option value="$PROJECT_DIR$/src/syntex/sentence.go" />
+        <option value="$PROJECT_DIR$/src/syntex/stateTableFormer_FormSelect.go" />
+        <option value="$PROJECT_DIR$/src/syntex/symbolPairParser.go" />
+        <option value="$PROJECT_DIR$/src/syntex/syntexParser_GetSyntaxTree.go" />
+        <option value="$PROJECT_DIR$/src/syntex/syntexParser.go" />
+        <option value="$PROJECT_DIR$/src/lex/analyzer.go" />
+        <option value="$PROJECT_DIR$/src/grammar/char/utils.go" />
+        <option value="$PROJECT_DIR$/doc/Other/draft" />
+        <option value="$PROJECT_DIR$/doc/Other/record.md" />
+        <option value="$PROJECT_DIR$/src/syntex/1_stateTableFormer_utils.go" />
+        <option value="$PROJECT_DIR$/src/syntex/1_stateTableFormer_FormStateTable.go" />
+        <option value="$PROJECT_DIR$/src/syntex/1_stateTableFormer_FormStateTable_aboutShowing.go" />
+        <option value="$PROJECT_DIR$/src/syntex/3_sentence.go" />
+        <option value="$PROJECT_DIR$/src/grammar/char/0_specialCharTable.go" />
+        <option value="$PROJECT_DIR$/src/grammar/char/0_specialCharTable_init.go" />
+        <option value="$PROJECT_DIR$/src/grammar/machine/0_tokenParser.go" />
+        <option value="$PROJECT_DIR$/src/grammar/machine/1_nfaBuilder.go" />
+        <option value="$PROJECT_DIR$/src/test/1_IsMatchOfNFATestTable.go" />
+        <option value="$PROJECT_DIR$/src/lex/0_analyzer.go" />
+        <option value="$PROJECT_DIR$/src/grammar/char/2_regexp.go" />
+        <option value="$PROJECT_DIR$/src/syntex/1_stateTableFormer_FormFirst.go" />
+        <option value="$PROJECT_DIR$/src/syntex/1_stateTableFormer_FormFollow.go" />
+        <option value="$PROJECT_DIR$/src/syntex/2_production.go" />
+        <option value="$PROJECT_DIR$/src/grammar/char/1_specialCharItem.go" />
+        <option value="$PROJECT_DIR$/src/syntex/0_syntexParser.go" />
+        <option value="$PROJECT_DIR$/src/syntex/0_syntexParser_GetSyntaxTree.go" />
+        <option value="$PROJECT_DIR$/src/test/2_NFATestUnit.go" />
+        <option value="$PROJECT_DIR$/conf/LL1" />
+        <option value="$PROJECT_DIR$/conf/2_source.md" />
+        <option value="$PROJECT_DIR$/main.go" />
+        <option value="$PROJECT_DIR$/src/syntex/1_stateTableFormer_FormSelect.go" />
+        <option value="$PROJECT_DIR$/src/syntex/1_stateTableFormer.go" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="418" />
-    <option name="y" value="73" />
+    <option name="x" value="396" />
+    <option name="y" value="26" />
     <option name="width" value="1754" />
     <option name="height" value="961" />
   </component>
@@ -393,12 +373,6 @@
               <item name="编译器" type="b2602c69:ProjectViewProjectNode" />
               <item name="编译器" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="conf" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="编译器" type="b2602c69:ProjectViewProjectNode" />
-              <item name="编译器" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="syntex" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
@@ -433,18 +407,18 @@
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\hasee\Desktop\Go_Practice\编译器\src\grammar\char" />
+      <recent name="C:\Users\hasee\Desktop\Go_Practice\编译器\src\syntex" />
       <recent name="C:\Users\hasee\Desktop\Go_Practice\编译器\src\machine" />
       <recent name="C:\Users\hasee\Desktop\Go_Practice\编译器\conf" />
       <recent name="C:\Users\hasee\Desktop\Go_Practice\编译器\src\grammar" />
-      <recent name="C:\Users\hasee\Desktop\Go_Practice\编译器\src\conf" />
-      <recent name="C:\Users\hasee\Desktop\Go_Practice\编译器\src\test" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Users\hasee\Desktop\Go_Practice\编译器\src\syntex" />
-      <recent name="C:\Users\hasee\Desktop\Go_Practice\编译器\doc\nfaTestFile" />
-      <recent name="C:\Users\hasee\Desktop\Go_Practice\编译器\src\machine" />
-      <recent name="C:\Users\hasee\Desktop\Go_Practice\编译器\src\LLONE" />
-      <recent name="C:\Users\hasee\Desktop\Go_Practice\编译器\src\grammarTree" />
+      <recent name="C:\Users\hasee\Desktop\Go_Practice\编译器\src\syntex\table" />
+      <recent name="C:\Users\hasee\Desktop\Go_Practice\编译器\src\grammar\char" />
+      <recent name="C:\Users\hasee\Desktop\Go_Practice\编译器\src\grammar\specialCharTable" />
+      <recent name="C:\Users\hasee\Desktop\Go_Practice\编译器\src\grammar" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -499,8 +473,8 @@
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.7494577" visible="true" weight="0.2468017" />
-      <window_info id="Structure" order="1" sideWeight="0.2505423" side_tool="true" visible="true" weight="0.2468017" />
+      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.9154013" visible="true" weight="0.22121535" />
+      <window_info id="Structure" order="1" sideWeight="0.0845987" side_tool="true" visible="true" weight="0.22121535" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.329718" />
@@ -512,8 +486,8 @@
       <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
       <window_info anchor="bottom" id="Database Changes" order="8" />
       <window_info anchor="bottom" id="Version Control" order="9" sideWeight="0.49946696" weight="0.329718" />
-      <window_info anchor="bottom" id="Event Log" order="10" sideWeight="0.3283582" side_tool="true" weight="0.87635577" />
-      <window_info anchor="bottom" id="Terminal" order="11" sideWeight="0.67164177" weight="0.44360086" />
+      <window_info anchor="bottom" id="Event Log" order="10" sideWeight="0.32995737" side_tool="true" weight="0.44360086" />
+      <window_info anchor="bottom" id="Terminal" order="11" sideWeight="0.67004263" weight="0.8004338" />
       <window_info anchor="bottom" id="Python Console" order="12" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
@@ -547,60 +521,78 @@
     <option name="version" value="1" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/machine/3_state_GetAllWordStatePairFromHere.go">
+    <entry file="file://$PROJECT_DIR$/src/conf/isMatchOfNFATestTable.go">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/grammar/machine/3_state_GetLineOfLinkInformationFromHere.go">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/grammar/machine/3_state_GetAllWordStatePairFromHere.go">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/grammar/machine/utils.go" />
+    <entry file="file://$PROJECT_DIR$/src/grammar/machine/2_nfa_outer.go">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/conf/grammarConf.go">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="429">
-          <caret line="13" column="5" selection-start-line="13" selection-start-column="5" selection-end-line="13" selection-end-column="5" />
+        <state relative-caret-position="231">
+          <caret line="7" column="77" selection-start-line="7" selection-start-column="77" selection-end-line="7" selection-end-column="77" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/machine/3_state_GetLineOfLinkInformationFromHere.go">
+    <entry file="file://$PROJECT_DIR$/src/grammar/char/utils.go" />
+    <entry file="file://$PROJECT_DIR$/conf/1_grammar_a.md">
+      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
+        <state split_layout="SPLIT">
+          <first_editor relative-caret-position="231">
+            <caret line="7" column="14" selection-start-line="7" selection-start-column="14" selection-end-line="7" selection-end-column="14" />
+          </first_editor>
+          <second_editor />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/doc/Other/draft">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="363">
-          <caret line="57" selection-start-line="57" selection-end-line="57" />
+        <state relative-caret-position="3465">
+          <caret line="105" column="51" selection-start-line="105" selection-start-column="51" selection-end-line="105" selection-end-column="51" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/doc/Other/record.md">
+      <provider editor-type-id="text-editor">
+        <state relative-caret-position="665">
+          <caret line="43" column="19" lean-forward="true" selection-start-line="43" selection-start-column="19" selection-end-line="43" selection-end-column="19" />
+        </state>
+      </provider>
+      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
+        <state split_layout="SPLIT">
+          <first_editor relative-caret-position="758">
+            <caret line="79" column="13" lean-forward="true" selection-start-line="79" selection-start-column="13" selection-end-line="79" selection-end-column="13" />
+          </first_editor>
+          <second_editor />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/grammar/char/0_specialCharTable_visit.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="660">
+          <caret line="26" selection-start-line="26" selection-end-line="26" />
           <folding>
-            <element signature="n#!!block;n#GetLineOfLinkInformationFromHere#0" />
-            <element signature="n#!!block;n#getEndMark#0" />
-            <element signature="n#!!block;n#formMermaidLine#0" />
-            <element signature="n#!!block;n#handleToSuitMermaid#0" />
+            <element signature="n#!!block;n#CharIsSpecial#0" />
+            <element signature="n#!!block;n#GetRegexp#0" />
+            <element signature="n#!!block;n#GetType#0" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/machine/3_state_MarkSpecialCharFromHere.go">
+    <entry file="file://$PROJECT_DIR$/src/grammar/machine/0_tokenParser_aboutParsing.go">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="297">
-          <caret line="9" selection-start-line="9" selection-end-line="9" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/machine/utils.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="495">
-          <caret line="15" selection-start-line="15" selection-end-line="15" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/lexical/1_analyzer.go" />
-    <entry file="file://$PROJECT_DIR$/src/lexical/1_analyzer_Form.go" />
-    <entry file="file://$PROJECT_DIR$/src/lexical/documentGenerator.go" />
-    <entry file="file://$PROJECT_DIR$/src/lexical/1_analyzer_Init.go" />
-    <entry file="file://$PROJECT_DIR$/src/grammar/utils.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="132">
-          <caret line="4" column="17" selection-start-line="4" selection-start-column="17" selection-end-line="4" selection-end-column="17" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/machine/0_tokenParser_aboutParsing.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="660">
-          <caret line="22" column="43" selection-start-line="22" selection-start-column="43" selection-end-line="22" selection-end-column="43" />
+        <state relative-caret-position="1716">
+          <caret line="97" column="13" lean-forward="true" selection-start-line="97" selection-start-column="13" selection-end-line="97" selection-end-column="13" />
           <folding>
             <element signature="e#17#43#0" expanded="true" />
             <element signature="n#!!block;n#SetText#0" />
-            <element signature="n#!!block;n#GetTokens#0" />
-            <element signature="n#!!block;n#getTokenInit#0" />
             <element signature="n#!!block;n#readingIsNotOver#0" />
             <element signature="n#!!block;n#updateFirstEndState#0" />
             <element signature="n#!!block;n#expandStateQueue#0" />
@@ -613,76 +605,19 @@
             <element signature="n#!!block;n#preEndStateIsNil#0" />
             <element signature="n#!!block;n#readingCharIsNotBlank#0" />
             <element signature="n#!!block;n#reParse#0" />
-            <element signature="n#!!block;n#generateToken#0" />
             <element signature="n#!!block;n#getFirstEndState#0" />
             <element signature="n#!!block;n#isBlank#0" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/machine/token.go">
+    <entry file="file://$PROJECT_DIR$/src/grammar/machine/0_tokenParser_aboutShowing.go">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="199">
-          <caret line="26" column="22" selection-start-line="26" selection-start-column="22" selection-end-line="26" selection-end-column="22" />
-          <folding>
-            <element signature="e#17#45#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/machine/3_state_utils.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="165">
-          <caret line="13" selection-start-line="13" selection-end-line="13" />
-          <folding>
-            <element signature="n#!!block;n#getNextStates#0" />
-            <element signature="n#!!block;n#getAllNextStates#0" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/LLONE/grammarTree.go" />
-    <entry file="file://$PROJECT_DIR$/src/machine/3_state.go">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/grammar/specialCharTable_visit.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="660">
-          <caret line="26" selection-start-line="26" selection-end-line="26" />
-          <folding>
-            <element signature="n#!!block;n#CharIsSpecial#0" />
-            <element signature="n#!!block;n#GetRegexp#0" />
-            <element signature="n#!!block;n#GetType#0" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/grammar/specialCharTable.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="132">
-          <caret line="4" column="32" selection-start-line="4" selection-start-column="32" selection-end-line="4" selection-end-column="32" />
-          <folding>
-            <element signature="n#!!block;n#Show#0" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/grammar/specialCharItem.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-495" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/grammar/regexp.go">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/machine/0_tokenParser_aboutShowing.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="297">
-          <caret line="41" selection-start-line="41" selection-end-line="60" selection-end-column="1" />
+        <state relative-caret-position="429">
+          <caret line="37" column="16" lean-forward="true" selection-start-line="37" selection-start-column="16" selection-end-line="37" selection-end-column="16" />
           <folding>
             <element signature="n#!!block;n#FormTheMarkdownFileOfTokens#0" />
             <element signature="n#!!block;n#ShowTheMarkdownFileOfTokens#0" />
-            <element signature="n#!!block;n#changeTokensToFileLines#0" />
             <element signature="n#!!block;n#ShowTheMarkdownFileOfAllTokens#0" />
             <element signature="n#!!block;n#getKindCodeLines#0" />
             <element signature="n#!!block;n#wordPairToToken#0" />
@@ -692,107 +627,13 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/syntex/stateTableFormer_GetFollow.go">
+    <entry file="file://$PROJECT_DIR$/src/grammar/machine/1_nfaBuilder.go">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-443">
-          <caret line="46" column="17" lean-forward="true" selection-start-line="46" selection-start-column="17" selection-end-line="46" selection-end-column="17" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/syntex/stateTableFormer_GetSelect.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="377">
-          <caret line="24" selection-start-line="24" selection-end-line="26" selection-end-column="1" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/syntex/stateTableFormer_GetStateTable.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-872">
-          <caret line="24" column="5" selection-start-line="24" selection-start-column="5" selection-end-line="24" selection-end-column="5" />
+        <state relative-caret-position="2145">
+          <caret line="72" column="29" lean-forward="true" selection-start-line="72" selection-start-column="29" selection-end-line="72" selection-end-column="29" />
           <folding>
-            <element signature="n#!!block;n#GetStateTable#0" />
-            <element signature="n#!!block;n#getStateTableFirstLine#0" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/conf/LL1">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="165">
-          <caret line="5" lean-forward="true" selection-start-line="5" selection-end-line="5" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/syntex/stateTableFormer_utils.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="792">
-          <caret line="24" lean-forward="true" selection-start-line="24" selection-end-line="24" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/lex/symbolPairParser.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-316">
-          <caret line="29" selection-start-line="29" selection-end-line="29" />
-          <folding>
-            <element signature="e#13#41#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/machine/wordPair.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="231">
-          <caret line="7" selection-start-line="7" selection-end-line="7" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/conf/SyntaxConf.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="198">
-          <caret line="6" lean-forward="true" selection-start-line="6" selection-end-line="6" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/lex/analyzer.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="389">
-          <caret line="15" column="36" selection-start-line="15" selection-start-column="36" selection-end-line="15" selection-end-column="36" />
-          <folding>
-            <element signature="e#13#42#0" expanded="true" />
-            <element signature="n#!!block;n#getTextTokens#0" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/grammar/specialCharTable_init.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="47">
-          <caret line="23" column="5" lean-forward="true" selection-start-line="23" selection-start-column="5" selection-end-line="23" selection-end-column="5" />
-          <folding>
-            <element signature="n#!!block;n#initSpecialCharItems#0" />
-            <element signature="n#!!block;n#initSpecialCharToRegexp#0" />
-            <element signature="n#!!block;n#initSpecialCharToType#0" />
-            <element signature="n#!!block;n#initFixedWordCodeAndVariableCharToCode#0" />
-            <element signature="n#!!block;n#parse#0" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/machine/1_nfaBuilder.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="298">
-          <caret line="14" column="47" selection-start-line="14" selection-start-column="47" selection-end-line="14" selection-end-column="47" />
-          <folding>
-            <element signature="n#!!block;n#BuildNFABySpecialChars#0" />
             <element signature="n#!!block;n#BuildNFAByWord#0" />
             <element signature="n#!!block;n#BuildNFAByRegexp#0" />
-            <element signature="n#!!block;n#getWordNFA#0" />
-            <element signature="n#!!block;n#getAdditionCharNFA#0" />
-            <element signature="n#!!block;n#getCharNFA#0" />
-            <element signature="n#!!block;n#getOrdinaryCharNFA#0" />
-            <element signature="n#!!block;n#getSpecialCharNFA#0" />
             <element signature="n#!!block;n#getRegexpNFA#0" />
             <element signature="n#!!block;n#isAdditionalChar#0" />
             <element signature="n#!!block;n#combineNFAsUsingParallel#0" />
@@ -803,57 +644,50 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/machine/0_tokenParser.go">
+    <entry file="file://$PROJECT_DIR$/src/grammar/machine/2_nfa.go">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/grammar/machine/3_state_EliminateNextBlankStatesFromHere.go">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="227">
-          <caret line="24" column="61" selection-start-line="24" selection-start-column="61" selection-end-line="24" selection-end-column="61" />
+        <state relative-caret-position="594">
+          <caret line="18" selection-start-line="18" selection-end-line="18" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/syntex/production.go">
+    <entry file="file://$PROJECT_DIR$/src/grammar/machine/3_state_IsMatchFromHere.go">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="500">
-          <caret line="126" column="22" lean-forward="true" selection-start-line="126" selection-start-column="22" selection-end-line="126" selection-end-column="22" />
+        <state relative-caret-position="330">
+          <caret line="10" column="22" selection-start-line="10" selection-start-column="22" selection-end-line="10" selection-end-column="22" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/grammar/machine/3_state_MarkSpecialCharFromHere.go">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/grammar/machine/3_state_utils.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="165">
+          <caret line="13" selection-start-line="13" selection-end-line="13" />
           <folding>
-            <element signature="e#16#44#0" expanded="true" />
+            <element signature="n#!!block;n#getNextStates#0" />
+            <element signature="n#!!block;n#getAllNextStates#0" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/syntex/sentence.go">
+    <entry file="file://$PROJECT_DIR$/src/grammar/machine/token.go">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="132">
-          <caret line="4" column="5" selection-start-line="4" selection-start-column="5" selection-end-line="4" selection-end-column="5" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/syntex/stateTableFormer_GetFirst.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="830">
-          <caret line="58" column="16" lean-forward="true" selection-start-line="58" selection-start-column="16" selection-end-line="58" selection-end-column="16" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/conf/grammarConf.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="231">
-          <caret line="7" column="77" selection-start-line="7" selection-start-column="77" selection-end-line="7" selection-end-column="77" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/conf/isMatchOfNFATestTable.go">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/conf/LexicalConf.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="231">
-          <caret line="7" selection-start-line="7" selection-end-line="7" />
+        <state relative-caret-position="858">
+          <caret line="26" column="22" selection-start-line="26" selection-start-column="22" selection-end-line="26" selection-end-column="22" />
+          <folding>
+            <element signature="e#17#45#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/conf/conf.go">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="113">
+        <state relative-caret-position="137">
           <caret line="19" column="25" selection-start-line="19" selection-start-column="25" selection-end-line="19" selection-end-column="25" />
           <folding>
             <element signature="e#14#54#0" expanded="true" />
@@ -861,36 +695,216 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/conf/1_grammar.md">
-      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
-        <state split_layout="SPLIT">
-          <first_editor />
-          <second_editor />
+    <entry file="file://$PROJECT_DIR$/src/conf/LexicalConf.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="198">
+          <caret line="6" lean-forward="true" selection-start-line="6" selection-end-line="6" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/conf/1_grammar_a.md">
-      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
-        <state split_layout="SPLIT">
-          <first_editor relative-caret-position="363">
-            <caret line="11" column="9" selection-start-line="11" selection-start-column="9" selection-end-line="11" selection-end-column="9" />
-          </first_editor>
-          <second_editor />
+    <entry file="file://$PROJECT_DIR$/src/test/1_IsMatchOfNFATestTable.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="476">
+          <caret line="28" lean-forward="true" selection-start-line="28" selection-end-line="28" />
+          <folding>
+            <element signature="n#!!block;n#SetTestFile#0" />
+            <element signature="n#!!block;n#RepeatTest#0" />
+          </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/conf/conf.json">
+    <entry file="file://$PROJECT_DIR$/src/grammar/machine/wordPair.go">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="231">
-          <caret line="7" column="28" lean-forward="true" selection-start-line="7" selection-start-column="28" selection-end-line="7" selection-end-column="28" />
+          <caret line="7" selection-start-line="7" selection-end-line="7" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/conf/1_grammar_test.md">
-      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
-        <state split_layout="SPLIT">
-          <first_editor />
-          <second_editor />
+    <entry file="file://$PROJECT_DIR$/src/grammar/machine/3_state.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="66">
+          <caret line="2" column="19" selection-start-line="2" selection-start-column="19" selection-end-line="2" selection-end-column="19" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/grammar/char/0_specialCharTable_init.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="561">
+          <caret line="50" column="5" lean-forward="true" selection-start-line="50" selection-start-column="5" selection-end-line="50" selection-end-column="5" />
+          <folding>
+            <element signature="n#!!block;n#initSpecialCharItems#0" />
+            <element signature="n#!!block;n#initSpecialCharToRegexp#0" />
+            <element signature="n#!!block;n#initSpecialCharToType#0" />
+            <element signature="n#!!block;n#initFixedWordCodeAndVariableCharToCode#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/grammar/char/0_specialCharTable_show.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="132">
+          <caret line="4" column="32" selection-start-line="4" selection-start-column="32" selection-end-line="4" selection-end-column="32" />
+          <folding>
+            <element signature="n#!!block;n#Show#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/grammar/char/0_specialCharTable.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="594">
+          <caret line="20" column="1" lean-forward="true" selection-start-line="20" selection-start-column="1" selection-end-line="20" selection-end-column="1" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/grammar/char/2_regexp.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="443">
+          <caret line="20" column="38" lean-forward="true" selection-start-line="20" selection-start-column="38" selection-end-line="20" selection-end-column="38" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/file/fileReader.go">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/conf/SyntaxConf.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="429">
+          <caret line="13" lean-forward="true" selection-start-line="13" selection-end-line="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/grammar/machine/0_tokenParser.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="594">
+          <caret line="28" column="34" selection-start-line="28" selection-start-column="34" selection-end-line="28" selection-end-column="34" />
+          <folding>
+            <element signature="e#17#60#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/lex/0_analyzer.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="264">
+          <caret line="10" lean-forward="true" selection-start-line="10" selection-end-line="10" />
+          <folding>
+            <element signature="n#!!block;n#getTextTokens#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/lex/1_symbolPairParser.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="462">
+          <caret line="17" column="26" selection-start-line="17" selection-start-column="26" selection-end-line="17" selection-end-column="26" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/syntex/1_stateTableFormer_FormStateTable.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="66">
+          <caret line="2" selection-start-line="2" selection-end-line="2" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/syntex/1_stateTableFormer_FormStateTable_aboutShowing.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="443">
+          <caret line="49" column="9" selection-start-line="49" selection-start-column="9" selection-end-line="49" selection-end-column="9" />
+          <folding>
+            <element signature="n#!!block;n#Show#0" />
+            <element signature="n#!!block;n#getStateTableLines#0" />
+            <element signature="n#!!block;n#getStateTableFirstLine#0" />
+            <element signature="n#!!block;n#getStateTableOtherLines#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/syntex/1_stateTableFormer_utils.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1221">
+          <caret column="14" lean-forward="true" selection-start-column="14" selection-end-column="14" />
+          <folding>
+            <element signature="n#!!block;n#TemplateFunctionOfForming#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/syntex/3_sentence.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-19">
+          <caret line="2" column="8" lean-forward="true" selection-start-line="2" selection-start-column="8" selection-end-line="2" selection-end-column="8" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/grammar/char/1_specialCharItem.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="330">
+          <caret line="39" lean-forward="true" selection-start-line="39" selection-end-line="39" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/syntex/0_syntexParser.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="627">
+          <caret line="21" column="76" selection-start-line="21" selection-start-column="76" selection-end-line="21" selection-end-column="76" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/syntex/0_syntexParser_GetSyntaxTree.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="365">
+          <caret line="91" column="78" selection-start-line="91" selection-start-column="78" selection-end-line="91" selection-end-column="78" />
+          <folding>
+            <element signature="n#!!block;n#GetSyntaxTree#0" />
+            <element signature="n#!!block;n#readingIsNotOver#0" />
+            <element signature="n#!!block;n#execGetSyntaxTree#0" />
+            <element signature="n#!!block;n#showParsingMiddleWares#0" />
+            <element signature="n#!!block;n#canOffset#0" />
+            <element signature="n#!!block;n#offset#0" />
+            <element signature="n#!!block;n#canContinueParsing#0" />
+            <element signature="n#!!block;n#continueParsing#0" />
+            <element signature="n#!!block;n#error#0" />
+            <element signature="n#!!block;n#getNotReadSymbolPairs#0" />
+            <element signature="n#!!block;n#readNextSymbolPair#0" />
+            <element signature="n#!!block;n#symbolStackIsEmpty#0" />
+            <element signature="n#!!block;n#symbolStackPop#0" />
+            <element signature="n#!!block;n#getSymbolOfSymbolStack#0" />
+            <element signature="n#!!block;n#ReversePushTheSymbolOfSentenceIntoSymbolStack#0" />
+            <element signature="n#!!block;n#terminatorPairsToString#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/syntex/1_stateTableFormer_FormFollow.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="703">
+          <caret line="85" column="5" lean-forward="true" selection-start-line="85" selection-start-column="5" selection-end-line="85" selection-end-column="5" />
+          <folding>
+            <element signature="n#!!block;n#FormFollow#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/syntex/1_stateTableFormer_FormFirst.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="33">
+          <caret line="44" column="91" lean-forward="true" selection-start-line="44" selection-start-column="65" selection-end-line="44" selection-end-column="91" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/2_NFATestUnit.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="48">
+          <caret line="39" column="59" selection-start-line="39" selection-start-column="59" selection-end-line="39" selection-end-column="59" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/conf/LL1">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="33">
+          <caret line="1" selection-start-line="1" selection-end-line="1" selection-end-column="25" />
         </state>
       </provider>
     </entry>
@@ -904,62 +918,45 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/conf/LL1Table">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/doc/Other/draft">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/syntex/syntexParser.go">
+    <entry file="file://$PROJECT_DIR$/conf/conf.json">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="369">
-          <caret line="25" column="32" selection-start-line="25" selection-start-column="32" selection-end-line="25" selection-end-column="32" />
-          <folding>
-            <element signature="n#!!block;n#symbolStackPop#0" />
-            <element signature="n#!!block;n#getSymbolOfSymbolStack#0" />
-            <element signature="n#!!block;n#symbolOfStackTopIsBlank#0" />
-            <element signature="n#!!block;n#ReversePushTheSymbolOfSentenceIntoSymbolStack#0" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/syntex/stateTableFormer.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="34">
-          <caret line="30" column="67" selection-start-line="30" selection-start-column="67" selection-end-line="30" selection-end-column="67" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/1_IsMatchOfNFATestTable.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1122">
-          <caret line="15" column="1" lean-forward="true" selection-start-line="15" selection-start-column="1" selection-end-line="15" selection-end-column="1" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/2_NFATestUnit.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <folding>
-            <element signature="e#104#249#0" />
-            <element signature="n#!!block;n#NewIsMatchOfNFATestItem#0" />
-            <element signature="n#!!block;n#Test#0" />
-            <element signature="n#!!block;n#Parse#0" />
-          </folding>
+        <state relative-caret-position="660">
+          <caret line="20" column="29" selection-start-line="20" selection-start-column="29" selection-end-line="20" selection-end-column="29" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/main.go">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="726">
-          <caret line="28" column="40" selection-start-line="28" selection-start-column="40" selection-end-line="28" selection-end-column="40" />
+        <state relative-caret-position="297">
+          <caret line="15" column="41" selection-start-line="15" selection-start-column="41" selection-end-line="15" selection-end-column="41" />
+          <folding>
+            <element signature="e#455#1217#0" />
+            <element signature="n#!!block;n#allTest#0" />
+          </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/doc/Other/record">
+    <entry file="file://$PROJECT_DIR$/src/syntex/1_stateTableFormer_FormSelect.go">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="429">
-          <caret line="13" lean-forward="true" selection-start-line="13" selection-end-line="13" />
+        <state relative-caret-position="212">
+          <caret line="10" column="47" selection-start-line="10" selection-start-column="47" selection-end-line="10" selection-end-column="47" />
+          <folding>
+            <element signature="e#16#41#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/syntex/2_production.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-2475">
+          <caret line="10" column="4" selection-start-line="10" selection-start-column="4" selection-end-line="10" selection-end-column="4" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/syntex/1_stateTableFormer.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="473">
+          <caret line="45" column="7" lean-forward="true" selection-start-line="35" selection-start-column="6" selection-end-line="45" selection-end-column="7" />
         </state>
       </provider>
     </entry>

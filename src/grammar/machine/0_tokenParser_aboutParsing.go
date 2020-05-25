@@ -8,8 +8,8 @@ import (
 func (tp *TokenParser) SetText(textNeedToHandle []byte) {
 	tp.text = textNeedToHandle
 }
-func (tp *TokenParser) ParseTextToTokens()  {
-	tp.getTokenInit()
+func (tp *TokenParser) ParseTextToFinalTokens()  {
+	tp.getFinalTokensInit()
 	for tp.readingIsNotOver() {
 		tp.updateFirstEndState()
 		tp.expandStateQueue()
@@ -21,19 +21,18 @@ func (tp *TokenParser) ParseTextToTokens()  {
 	}
 }
 func (tp *TokenParser) GetTokens() []*Token{
-	return tp.tokens
+	return tp.finalTokens
 }
 
-func (tp *TokenParser) getTokenInit() {
-	tp.text = append(tp.text, endChar)
+func (tp *TokenParser) getFinalTokensInit() {
 	tp.bufferOfChars = bytes.Buffer{}
-	tp.tokens = make([]*Token, 0)
+	tp.finalTokens = make([]*Token, 0)
 	tp.stateQueue = make([]*state, 0)
 	tp.stateQueue = append(tp.stateQueue, tp.finalNFA.startState)
 	tp.readingPosition = 0
 }
 func (tp *TokenParser) readingIsNotOver() bool {
-	return tp.text[tp.readingPosition] != endChar
+	return tp.readingPosition != len(tp.text)
 }
 func (tp *TokenParser) updateFirstEndState() {
 	tp.preEndState = getFirstEndState(tp.stateQueue)
@@ -92,7 +91,7 @@ func (tp *TokenParser) generateToken() {
 	word := tp.bufferOfChars.String()
 	_type := tp.specialCharTable.GetType(specialChar)
 	kindCode := tp.specialCharTable.GetCode(specialChar, word)
-	tp.tokens = append(tp.tokens, &Token{
+	tp.finalTokens = append(tp.finalTokens, &Token{
 		specialChar,
 		kindCode,
 		_type,

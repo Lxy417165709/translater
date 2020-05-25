@@ -3,11 +3,11 @@ package machine
 import (
 	"bytes"
 	"conf"
-	"grammar"
+	"grammar/char"
 )
 
 type TokenParser struct {
-	specialCharTable *grammar.SpecialCharTable
+	specialCharTable *char.SpecialCharTable
 	specialChars     []byte
 	finalNFA         *NFA
 
@@ -16,17 +16,17 @@ type TokenParser struct {
 	stateQueue      []*state
 	bufferOfChars   bytes.Buffer
 	readingPosition int
-	tokens          []*Token
+	finalTokens          []*Token
 }
 
 
 // TODO: specialChars可以加入配置
-func NewTokenParser(cf *conf.Conf) *TokenParser {
-	specialChars := []byte(cf.LexicalConf.SpecialCharsOfNFAs)
+func NewTokenParser() *TokenParser {
+	specialChars := []byte(conf.GetConf().LexicalConf.SpecialCharsOfNFAs)
 	return &TokenParser{
 		specialChars:     specialChars,
-		specialCharTable: grammar.NewSpecialCharTable(cf),
-		finalNFA:         NewNFABuilder(cf).BuildNFABySpecialChars(specialChars).EliminateBlankStates(),
+		specialCharTable: char.NewSpecialCharTable(),
+		finalNFA:         NewNFABuilder().BuildNFABySpecialChars(specialChars).EliminateBlankStates(),
 	}
 }
 

@@ -32,7 +32,7 @@ func (tp *TokenParser) changeTokensToFileLines() []string{
 	lines := make([]string,0)
 	lines = append(lines,"索引|值|类型|种别码\n")
 	lines = append(lines,"--|--|--|--\n")
-	for index, token := range tp.tokens {
+	for index, token := range tp.finalTokens {
 		lines = append(lines, token.toLine(index))
 	}
 	return lines

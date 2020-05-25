@@ -1,5 +1,8 @@
 package machine
 
+const Eps = byte(0)
+
+
 type state struct {
 	isEnd             bool
 	next         map[byte][]*state

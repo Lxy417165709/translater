@@ -6,40 +6,21 @@ import (
 	"lex"
 )
 
-const (
-	endSymbol = "END"
-	blankSymbol = "BLA"
-	startSymbol = "EXP"		// 假设是EXP开始
-)
 
-type SyntaxParser struct {
-	lexicalAnalyzer *lex.LexicalAnalyzer
-	stateTable *StateTableFormer
-	symbolsStack []string
-	terminatorPairs []*lex.TerminatorPair
-	readingPosition int
-}
-
-func NewSyntaxParser(cf *conf.Conf) *SyntaxParser{
-	sp := &SyntaxParser{
-		lexicalAnalyzer:lex.NewLexicalAnalyzer(cf),
-		stateTable:NewStateTableFormer(cf),
-	}
-	return sp
-}
 func (sp *SyntaxParser)GetSyntaxTree(text []byte) {
 	sp.initGetSyntaxTree(text)
 	for sp.readingIsNotOver(){
 		sp.execGetSyntaxTree()
 	}
 }
+
 func (sp *SyntaxParser)initGetSyntaxTree(text []byte){
 	sp.readingPosition = 0
 	sp.symbolsStack = nil
 	sp.terminatorPairs = sp.lexicalAnalyzer.GetTerminatorPairs(text)
-	sp.terminatorPairs = append(sp.terminatorPairs,lex.NewNotValuePair(endSymbol))
-	sp.symbolsStack = append(sp.symbolsStack, endSymbol)
-	sp.symbolsStack = append(sp.symbolsStack, startSymbol)
+	sp.terminatorPairs = append(sp.terminatorPairs,lex.NewNotValuePair(conf.GetConf().SyntaxConf.EndSymbol))
+	sp.symbolsStack = append(sp.symbolsStack, conf.GetConf().SyntaxConf.EndSymbol)
+	sp.symbolsStack = append(sp.symbolsStack, conf.GetConf().SyntaxConf.StartSymbol)
 }
 func (sp *SyntaxParser)readingIsNotOver() bool{
 	return sp.readingPosition!=len(sp.terminatorPairs)
@@ -89,8 +70,6 @@ func (sp *SyntaxParser)error() {
 	panic(fmt.Sprintf("出错，%s %s", stackTopSymbol ,readingSymbol))
 }
 
-
-
 func (sp *SyntaxParser)getNotReadSymbolPairs() []*lex.TerminatorPair{
 	return sp.terminatorPairs[sp.readingPosition:]
 }
@@ -110,14 +89,13 @@ func (sp *SyntaxParser) getSymbolOfSymbolStack() string{
 	return sp.symbolsStack[len(sp.symbolsStack)-1]
 }
 func (sp *SyntaxParser) symbolOfStackTopIsBlank() bool{
-	return sp.getSymbolOfSymbolStack()==blankSymbol
+	return sp.getSymbolOfSymbolStack()== conf.GetConf().SyntaxConf.BlankSymbol
 }
 func (sp *SyntaxParser)ReversePushTheSymbolOfSentenceIntoSymbolStack(sentence *sentence) {
 	for i:=len(sentence.symbols)-1;i>=0;i-- {
 		sp.symbolsStack = append(sp.symbolsStack,sentence.symbols[i])
 	}
 }
-
 
 func terminatorPairsToString(terminatorPairs []*lex.TerminatorPair) string {
 	result := ""
@@ -126,3 +104,8 @@ func terminatorPairsToString(terminatorPairs []*lex.TerminatorPair) string {
 	}
 	return result
 }
+
+
+
+
+

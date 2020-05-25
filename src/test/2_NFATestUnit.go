@@ -1,9 +1,10 @@
 package test
 
 import (
+	"conf"
 	"fmt"
-	"grammar"
-	"machine"
+	"grammar/char"
+	"grammar/machine"
 	"strconv"
 	"strings"
 )
@@ -14,27 +15,23 @@ type isMatchOfNFATestItem struct {
 	pattern string
 	isMatch bool
 	nfaBuilder *machine.NFABuilder
-	delimiterOfWords string
-	delimiterOfPieces string
 }
 
-func NewIsMatchOfNFATestItem(nfaBuilder *machine.NFABuilder,delimiterOfPieces string,delimiterOfWords string,content string) *isMatchOfNFATestItem{
+func NewIsMatchOfNFATestItem(content string) *isMatchOfNFATestItem{
 	item := &isMatchOfNFATestItem{
-		nfaBuilder:nfaBuilder,
-		delimiterOfWords:delimiterOfWords,
-		delimiterOfPieces:delimiterOfPieces,
+		nfaBuilder:machine.NewNFABuilder(),
 	}
 	item.Parse(content)
 	return item
 }
 
 func (imn *isMatchOfNFATestItem) Test() bool{
-	regexp := grammar.NewRegexp(imn.regexpContent,imn.delimiterOfWords)
+	regexp := char.NewRegexp(imn.regexpContent)
 	nfa := imn.nfaBuilder.BuildNFAByRegexp(regexp).EliminateBlankStates()
 	return nfa.IsMatch(imn.pattern) == imn.isMatch
 }
 func (imn *isMatchOfNFATestItem) Parse(line string) {
-	parts := strings.Split(strings.TrimSpace(line), imn.delimiterOfPieces)
+	parts := strings.Split(strings.TrimSpace(line), conf.GetConf().GrammarConf.DelimiterOfPieces)
 	if len(parts) != 3 {
 		panic(fmt.Sprintf("分割测试单元：%v 失败，分割后的字段数不等于3", parts))
 	}
