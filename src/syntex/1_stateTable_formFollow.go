@@ -3,23 +3,26 @@ package syntex
 import "conf"
 
 // 用到了模板方法模式
-func (stf *StateTableFormer) FormFollow() {
-	stf.TemplateFunctionOfForming(
+func (stf *StateTable) formFollow() {
+
+	stf.templateFunctionOfForming(
 		stf.initGetFollow,
 		stf.handleGettingFollow,
 		stf.syncBufferOfFollow,
 	)
 }
 
-func (stf *StateTableFormer) initGetFollow() {
+func (stf *StateTable) initGetFollow() {
+	stf.formFirst()
 	stf.follow = make(map[string][]string)
 	stf.bufferOfSet = make(map[string][]string)
 	stf.follow[conf.GetConf().SyntaxConf.StartSymbol] = append(
 		stf.follow[conf.GetConf().SyntaxConf.StartSymbol],
 		conf.GetConf().SyntaxConf.EndSymbol,
 	) // 添加终止符
+
 }
-func (stf *StateTableFormer) handleGettingFollow() {
+func (stf *StateTable) handleGettingFollow() {
 	handlingProduction := stf.productions[stf.positionOfHandlingProduction]
 	handlingProductionSentence := handlingProduction.sentences[stf.positionOfHandlingProductionSentence]
 
@@ -36,7 +39,7 @@ func (stf *StateTableFormer) handleGettingFollow() {
 			stf.appendToBufferOfSet(nowSymbol, stf.follow[handlingProduction.leftNonTerminator]...)
 		case isHandlingLastTwoSymbol:
 			nextSymbol := handlingProductionSentence.symbols[i+1]
-			if stf.hasBlankSymbol(stf.first[nextSymbol]) {
+			if hasBlankSymbol(stf.first[nextSymbol]) {
 				stf.appendToBufferOfSet(nowSymbol, stf.follow[handlingProduction.leftNonTerminator]...)
 			}
 			fallthrough
@@ -46,12 +49,12 @@ func (stf *StateTableFormer) handleGettingFollow() {
 				stf.appendToBufferOfSet(nowSymbol, nextSymbol)
 				continue
 			}
-			symbolsOfNotBlankSymbol := stf.removeBlankSymbol(stf.first[nextSymbol])
+			symbolsOfNotBlankSymbol := removeBlankSymbol(stf.first[nextSymbol])
 			stf.appendToBufferOfSet(nowSymbol, symbolsOfNotBlankSymbol...)
 		}
 	}
 }
-func (stf *StateTableFormer) syncBufferOfFollow() bool {
+func (stf *StateTable) syncBufferOfFollow() bool {
 	followSetHasBeenUpdated := false
 	for leftNonTerminator, sentence := range stf.bufferOfSet {
 		for _, symbol := range sentence {
@@ -65,24 +68,7 @@ func (stf *StateTableFormer) syncBufferOfFollow() bool {
 	return followSetHasBeenUpdated
 }
 
-func (stf *StateTableFormer) terminatorIsLivingInFollow(leftNonTerminator string, terminator string) bool {
+func (stf *StateTable) terminatorIsLivingInFollow(leftNonTerminator string, terminator string) bool {
 	return arrayHasTerminator(stf.follow[leftNonTerminator], terminator)
 }
-func (stf *StateTableFormer) removeBlankSymbol(symbols []string) []string {
-	result := make([]string, 0)
-	for _, symbol := range symbols {
-		if symbol == conf.GetConf().SyntaxConf.BlankSymbol {
-			continue
-		}
-		result = append(result, symbol)
-	}
-	return result
-}
-func (stf *StateTableFormer) hasBlankSymbol(symbols []string) bool {
-	for _, symbol := range symbols {
-		if symbol == conf.GetConf().SyntaxConf.BlankSymbol {
-			return true
-		}
-	}
-	return false
-}
+

@@ -7,19 +7,19 @@ import (
 
 
 
-func (stf *StateTableFormer)Show(){
+func (stf *StateTable)Show(){
 	lines := stf.getStateTableLines()
 	for _,line := range lines{
 		fmt.Print(line)
 	}
 }
-func (stf *StateTableFormer) getStateTableLines() []string{
+func (stf *StateTable) getStateTableLines() []string{
 	result := make([]string,0)
 	result = append(result,stf.getStateTableFirstLine())
 	result = append(result,stf.getStateTableOtherLines()...)
 	return result
 }
-func (stf *StateTableFormer)getStateTableFirstLine() string{
+func (stf *StateTable)getStateTableFirstLine() string{
 	firstLineBuffer := bytes.Buffer{}
 	firstLineBuffer.WriteString("非终结符")
 	for _,terminator := range stf.terminators{
@@ -32,21 +32,21 @@ func (stf *StateTableFormer)getStateTableFirstLine() string{
 	firstLineBuffer.WriteString("\n")
 	return firstLineBuffer.String()
 }
-func (stf *StateTableFormer)getStateTableOtherLines() []string{
+func (stf *StateTable)getStateTableOtherLines() []string{
 	result := make([]string,0)
 	for index := range stf.getNonTerminators(){
 		result = append(result,stf.getNthNonTerminatorLines(index))
 	}
 	return result
 }
-func (stf *StateTableFormer) getNthNonTerminatorLines(index int) string{
+func (stf *StateTable) getNthNonTerminatorLines(index int) string{
 	lineBuffer := bytes.Buffer{}
 	nonTerminator := stf.getNonTerminators()[index]
 	lineBuffer.WriteString(nonTerminator)
 	for _,terminator := range stf.terminators{
 		lineBuffer.WriteString("|")
-		if stf.stateTable[nonTerminator]!=nil && stf.stateTable[nonTerminator][terminator]!=nil{
-			lineBuffer.WriteString(fmt.Sprintf("%v",*stf.stateTable[nonTerminator][terminator]))
+		if stf.table[nonTerminator]!=nil && stf.table[nonTerminator][terminator]!=nil{
+			lineBuffer.WriteString(fmt.Sprintf("%v",*stf.table[nonTerminator][terminator]))
 		}
 	}
 	lineBuffer.WriteString("\n")

@@ -13,7 +13,6 @@ const sourceFilePath = `C:\Users\hasee\Desktop\Go_Practice\编译器\conf\2_sour
 
 func main() {
 	conf.Init(configureFilePath)
-	fmt.Println(conf.GetConf().SyntaxConf)
 	text := file.NewFileReader(sourceFilePath).GetFileBytes()
 	syntaxParser := syntex.NewSyntaxParser()
 	syntaxParser.GetSyntaxTree(text)

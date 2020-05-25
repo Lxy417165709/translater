@@ -32,6 +32,21 @@ func (u *production) Parse(line string) {
 		u.sentences = append(u.sentences,sentence)
 	}
 }
+func (u *production) ChangeToNonLeftRecursionProductions() []*production {
+	result := make([]*production, 0)
+	if !u.hasLeftRecursionSentence() {
+		result = append(result, u)
+		return result
+	}
+	leftRecursionSentences := u.getLeftRecursionSentence()
+	additionChar := conf.GetConf().SyntaxConf.AdditionCharBeginChar[0]
+	for _, sentence := range leftRecursionSentences {
+		result = append(result, u.formNonLeftRecursionProductions(sentence, additionChar)...)
+		additionChar++
+	}
+	return result
+}
+
 
 func (u *production) getNthSentenceFirstSymbol(index int) string {
 	return u.sentences[index].symbols[0]
@@ -65,22 +80,6 @@ func (u *production) nthSentenceIsLeftRecursion(sentenceIndex int) bool {
 	return u.sentences[sentenceIndex].symbols[0] == u.leftNonTerminator
 }
 
-
-
-func (u *production) ChangeToNonLeftRecursionProductions() []*production {
-	result := make([]*production, 0)
-	if !u.hasLeftRecursionSentence() {
-		result = append(result, u)
-		return result
-	}
-	leftRecursionSentences := u.getLeftRecursionSentence()
-	additionChar := conf.GetConf().SyntaxConf.AdditionCharBeginChar[0]
-	for _, sentence := range leftRecursionSentences {
-		result = append(result, u.formNonLeftRecursionProductions(sentence, additionChar)...)
-		additionChar++
-	}
-	return result
-}
 func (u *production) formLeftNonTerminator(additionChar byte) string {
 	return fmt.Sprintf("%s%s", u.leftNonTerminator, string(additionChar))
 }

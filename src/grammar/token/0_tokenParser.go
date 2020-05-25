@@ -1,19 +1,19 @@
-package machine
+package token
 
 import (
 	"bytes"
 	"conf"
 	"grammar/char"
+	"grammar/machine"
 )
 
 type TokenParser struct {
 	specialCharTable *char.SpecialCharTable
-	specialChars     []byte
-	finalNFA         *NFA
+	finalNFA         *machine.NFA
 
 	text            []byte
-	preEndState     *state
-	stateQueue      []*state
+	preEndState     *machine.State
+	stateQueue      []*machine.State
 	bufferOfChars   bytes.Buffer
 	readingPosition int
 	finalTokens          []*Token
@@ -24,9 +24,8 @@ type TokenParser struct {
 func NewTokenParser() *TokenParser {
 	specialChars := []byte(conf.GetConf().LexicalConf.SpecialCharsOfNFAs)
 	return &TokenParser{
-		specialChars:     specialChars,
 		specialCharTable: char.NewSpecialCharTable(),
-		finalNFA:         NewNFABuilder().BuildNFABySpecialChars(specialChars).EliminateBlankStates(),
+		finalNFA:         machine.NewNFABuilder().BuildNFABySpecialChars(specialChars).EliminateBlankStates(),
 	}
 }
 

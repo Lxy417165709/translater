@@ -2,7 +2,7 @@ package machine
 
 
 
-func (s *state) EliminateNextBlankStatesFromHere(hasVisited map[*state]bool) {
+func (s *State) EliminateNextBlankStatesFromHere(hasVisited map[*State]bool) {
 	if hasVisited[s] {
 		return
 	}
@@ -25,36 +25,36 @@ func (s *state) EliminateNextBlankStatesFromHere(hasVisited map[*state]bool) {
 	return
 }
 
-func (s *state) formMapOfReachableStateOfBlankStates() map[byte][]*state {
+func (s *State) formMapOfReachableStateOfBlankStates() map[byte][]*State {
 	blankStates := s.getNextBlankStates()
 	return getStatesToNext(blankStates)
 }
-func (s *state) haveBlankStates() bool {
+func (s *State) haveBlankStates() bool {
 	return len(s.getNextBlankStates()) != 0
 }
-func (s *state) getNextBlankStates() []*state {
+func (s *State) getNextBlankStates() []*State {
 	return s.getNextStates(Eps)
 }
-func (s *state) isNextBlankStatesHaveEndState() bool {
+func (s *State) isNextBlankStatesHaveEndState() bool {
 	return s.isNextStatesHaveEndState(Eps)
 }
-func (s *state) isNextStatesHaveEndState(char byte) bool {
-	for _, state := range s.next[char] {
-		if state.isEnd == true {
+func (s *State) isNextStatesHaveEndState(char byte) bool {
+	for _, State := range s.next[char] {
+		if State.isEnd == true {
 			return true
 		}
 	}
 	return false
 }
 
-func (s *state) cleanBlankStates() {
+func (s *State) cleanBlankStates() {
 	s.cleanNextStates(Eps)
 }
-func (s *state) cleanNextStates(char byte) {
+func (s *State) cleanNextStates(char byte) {
 	delete(s.next, char)
 }
-func (s *state) addNextStates(addedMap map[byte][]*state) {
-	for char, states := range addedMap {
-		s.next[char] = append(s.next[char], states...)
+func (s *State) addNextStates(addedMap map[byte][]*State) {
+	for char, States := range addedMap {
+		s.next[char] = append(s.next[char], States...)
 	}
 }

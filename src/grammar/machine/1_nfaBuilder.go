@@ -129,15 +129,15 @@ func combineNFAsUsingSeries(nfas []*NFA) *NFA {
 	nfas[0].endState = nfas[len(nfas)-1].endState
 	return nfas[0]
 }
-func getStartStates(nfas []*NFA) []*state {
-	startStates := make([]*state, 0)
+func getStartStates(nfas []*NFA) []*State {
+	startStates := make([]*State, 0)
 	for _, nfa := range nfas {
 		startStates = append(startStates, nfa.startState)
 	}
 	return startStates
 }
-func getEndStates(nfas []*NFA) []*state {
-	endStates := make([]*state, 0)
+func getEndStates(nfas []*NFA) []*State {
+	endStates := make([]*State, 0)
 	for _, nfa := range nfas {
 		endStates = append(endStates, nfa.endState)
 	}

@@ -1,14 +1,19 @@
-package machine
+package token
 
 import (
 	"bytes"
 	"fmt"
+	"grammar/machine"
 )
 
-func (tp *TokenParser) SetText(textNeedToHandle []byte) {
-	tp.text = textNeedToHandle
+
+
+func (tp *TokenParser) GetTokens(text []byte) []*Token{
+	tp.text = text
+	tp.parseTextToFinalTokens()
+	return tp.finalTokens
 }
-func (tp *TokenParser) ParseTextToFinalTokens()  {
+func (tp *TokenParser) parseTextToFinalTokens()  {
 	tp.getFinalTokensInit()
 	for tp.readingIsNotOver() {
 		tp.updateFirstEndState()
@@ -20,15 +25,13 @@ func (tp *TokenParser) ParseTextToFinalTokens()  {
 		}
 	}
 }
-func (tp *TokenParser) GetTokens() []*Token{
-	return tp.finalTokens
-}
+
 
 func (tp *TokenParser) getFinalTokensInit() {
 	tp.bufferOfChars = bytes.Buffer{}
 	tp.finalTokens = make([]*Token, 0)
-	tp.stateQueue = make([]*state, 0)
-	tp.stateQueue = append(tp.stateQueue, tp.finalNFA.startState)
+	tp.stateQueue = make([]*machine.State, 0)
+	tp.stateQueue = append(tp.stateQueue, tp.finalNFA.GetStartState())
 	tp.readingPosition = 0
 }
 func (tp *TokenParser) readingIsNotOver() bool {
@@ -39,10 +42,10 @@ func (tp *TokenParser) updateFirstEndState() {
 }
 func (tp *TokenParser) expandStateQueue() {
 	readingChar := tp.text[tp.readingPosition]
-	tmpQueue := make([]*state, 0)
+	tmpQueue := make([]*machine.State, 0)
 	for i := 0; i < len(tp.stateQueue); i++ {
-		if tp.stateQueue[i].next[readingChar] != nil {
-			tmpQueue = append(tmpQueue, tp.stateQueue[i].next[readingChar]...)
+		if tp.stateQueue[i].GetNext()[readingChar] != nil {
+			tmpQueue = append(tmpQueue, tp.stateQueue[i].GetNext()[readingChar]...)
 		}
 	}
 	tp.stateQueue = tmpQueue
@@ -61,7 +64,7 @@ func (tp *TokenParser) readNextOne() {
 	tp.readingPosition++
 }
 func (tp *TokenParser) handleParseBoundary() {
-	if tp.preEndStateIsNil() {
+	if tp.preEndStateNotExist() {
 		if tp.readingCharIsNotBlank() {
 			tp.promptError()
 			return
@@ -75,7 +78,7 @@ func (tp *TokenParser) handleParseBoundary() {
 func (tp *TokenParser) promptError() {
 	panic(fmt.Sprintf("非法字符: %s, 索引位置为: %d", string(tp.text[tp.readingPosition]), tp.readingPosition))
 }
-func (tp *TokenParser) preEndStateIsNil() bool {
+func (tp *TokenParser) preEndStateNotExist() bool {
 	return tp.preEndState == nil
 }
 func (tp *TokenParser) readingCharIsNotBlank() bool {
@@ -84,10 +87,10 @@ func (tp *TokenParser) readingCharIsNotBlank() bool {
 func (tp *TokenParser) reParse() {
 	tp.bufferOfChars = bytes.Buffer{}
 	tp.stateQueue = nil
-	tp.stateQueue = append(tp.stateQueue, tp.finalNFA.startState)
+	tp.stateQueue = append(tp.stateQueue, tp.finalNFA.GetStartState())
 }
 func (tp *TokenParser) generateToken() {
-	specialChar := tp.preEndState.specialChar
+	specialChar := tp.preEndState.GetSpecialChar()
 	word := tp.bufferOfChars.String()
 	_type := tp.specialCharTable.GetType(specialChar)
 	kindCode := tp.specialCharTable.GetCode(specialChar, word)
@@ -98,9 +101,9 @@ func (tp *TokenParser) generateToken() {
 		word,
 	})
 }
-func getFirstEndState(states []*state) *state {
+func getFirstEndState(states []*machine.State) *machine.State {
 	for _, state := range states {
-		if state.isEnd {
+		if state.GetIsEnd() {
 			return state
 		}
 	}

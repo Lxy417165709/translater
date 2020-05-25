@@ -6,18 +6,18 @@ func (nfa *NFA) IsMatch(pattern string) bool {
 	return nfa.startState.IsMatchFromHere(pattern)
 }
 
-func (nfa *NFA) GetAllWordPairs() []*wordPair {
-	return nfa.startState.GetAllWordPairsFromHere("", make(map[*state]bool))
+func (nfa *NFA) GetAllWordPairs() []*WordPair {
+	return nfa.startState.GetAllWordPairsFromHere("", make(map[*State]bool))
 }
 
 func (nfa *NFA) EliminateBlankStates() *NFA {
-	hasVisited := make(map[*state]bool)
+	hasVisited := make(map[*State]bool)
 	nfa.startState.EliminateNextBlankStatesFromHere(hasVisited)
 	return nfa
 }
 
 func (nfa *NFA) MarkSpecialChar(specialChar byte) {
-	nfa.startState.MarkSpecialCharFromHere(specialChar, make(map[*state]bool))
+	nfa.startState.MarkSpecialCharFromHere(specialChar, make(map[*State]bool))
 }
 
 func (nfa *NFA) StoreMermaidGraphOfThisNFA(filePath string) error {
@@ -42,5 +42,5 @@ func (nfa *NFA) getMermaidLines() []string {
 	return lines
 }
 func (nfa *NFA) getMetaMermaidData() []string {
-	return nfa.startState.GetLineOfLinkInformationFromHere(0, make(map[*state]int), make(map[*state]bool))
+	return nfa.startState.GetLineOfLinkInformationFromHere(0, make(map[*State]int), make(map[*State]bool))
 }

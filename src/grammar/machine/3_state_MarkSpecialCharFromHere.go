@@ -1,7 +1,7 @@
 package machine
 
 
-func (s *state) MarkSpecialCharFromHere(specialChar byte, hasVisited map[*state]bool) {
+func (s *State) MarkSpecialCharFromHere(specialChar byte, hasVisited map[*State]bool) {
 	if hasVisited[s] {
 		return
 	}

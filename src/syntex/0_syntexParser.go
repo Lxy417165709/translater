@@ -7,10 +7,8 @@ import (
 
 type SyntaxParser struct {
 	lexicalAnalyzer *lex.LexicalAnalyzer
-
-	stateTable *StateTableFormer
+	stateTable *StateTable
 	symbolsStack []string
-
 	terminatorPairs []*lex.TerminatorPair
 	readingPosition int
 }
@@ -19,7 +17,7 @@ func NewSyntaxParser() *SyntaxParser{
 	lexicalAnalyzer := lex.NewLexicalAnalyzer()
 	sp := &SyntaxParser{
 		lexicalAnalyzer:lexicalAnalyzer,
-		stateTable:NewStateTableFormer(lexicalAnalyzer.GetAllTerminators()),
+		stateTable:NewStateTable(lexicalAnalyzer.GetAllTerminators()),
 	}
 	return sp
 }

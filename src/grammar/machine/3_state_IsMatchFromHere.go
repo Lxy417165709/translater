@@ -1,7 +1,7 @@
 package machine
 
 
-func (s *state) IsMatchFromHere(pattern string) bool {
+func (s *State) IsMatchFromHere(pattern string) bool {
 	// 空匹配
 	for _, nextState := range s.getNextStates(Eps) {
 		if nextState.IsMatchFromHere(pattern) {

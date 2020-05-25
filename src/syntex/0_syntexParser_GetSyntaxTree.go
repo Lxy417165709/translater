@@ -7,6 +7,7 @@ import (
 )
 
 
+// TODO: 这里只完成了语法分析，还没获得语法树
 func (sp *SyntaxParser)GetSyntaxTree(text []byte) {
 	sp.initGetSyntaxTree(text)
 	for sp.readingIsNotOver(){
@@ -18,7 +19,7 @@ func (sp *SyntaxParser)initGetSyntaxTree(text []byte){
 	sp.readingPosition = 0
 	sp.symbolsStack = nil
 	sp.terminatorPairs = sp.lexicalAnalyzer.GetTerminatorPairs(text)
-	sp.terminatorPairs = append(sp.terminatorPairs,lex.NewNotValuePair(conf.GetConf().SyntaxConf.EndSymbol))
+	sp.terminatorPairs = append(sp.terminatorPairs,lex.NewTerminatorPair(conf.GetConf().SyntaxConf.EndSymbol,nil))
 	sp.symbolsStack = append(sp.symbolsStack, conf.GetConf().SyntaxConf.EndSymbol)
 	sp.symbolsStack = append(sp.symbolsStack, conf.GetConf().SyntaxConf.StartSymbol)
 }
@@ -62,7 +63,7 @@ func (sp *SyntaxParser)continueParsing() {
 	readingSymbol := sp.getSymbolOfReadingSymbolPair()
 	sentence := sp.stateTable.GetSentence(stackTopSymbol,readingSymbol)
 	sp.symbolStackPop()
-	sp.ReversePushTheSymbolOfSentenceIntoSymbolStack(sentence)
+	sp.reversePushTheSymbolOfSentenceIntoSymbolStack(sentence)
 }
 func (sp *SyntaxParser)error() {
 	stackTopSymbol := sp.getSymbolOfSymbolStack()
@@ -91,7 +92,7 @@ func (sp *SyntaxParser) getSymbolOfSymbolStack() string{
 func (sp *SyntaxParser) symbolOfStackTopIsBlank() bool{
 	return sp.getSymbolOfSymbolStack()== conf.GetConf().SyntaxConf.BlankSymbol
 }
-func (sp *SyntaxParser)ReversePushTheSymbolOfSentenceIntoSymbolStack(sentence *sentence) {
+func (sp *SyntaxParser)reversePushTheSymbolOfSentenceIntoSymbolStack(sentence *sentence) {
 	for i:=len(sentence.symbols)-1;i>=0;i-- {
 		sp.symbolsStack = append(sp.symbolsStack,sentence.symbols[i])
 	}

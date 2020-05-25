@@ -1,9 +1,8 @@
 package machine
 
 type NFA struct {
-	// 构建NFA相关的成员变量
-	startState            *state
-	endState              *state
+	startState            *State
+	endState              *State
 }
 
 func NewNFA(ordinaryChar byte) *NFA {
@@ -22,6 +21,9 @@ func NewEmptyNFA() *NFA{
 	}
 }
 
+func (nfa *NFA)GetStartState() *State{
+	return nfa.startState
+}
 
 
 

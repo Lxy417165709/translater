@@ -1,4 +1,4 @@
-package machine
+package token
 
 import (
 	"fmt"
@@ -12,7 +12,7 @@ type Token struct {
 	value string
 }
 
-func (t *Token)toLine(lineIndex int) string{
+func (t *Token)ToLine(lineIndex int) string{
 	return fmt.Sprintf(
 		"%d|`%s`|`%s`|`%d`\n",
 		lineIndex+1,

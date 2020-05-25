@@ -1,11 +1,11 @@
 package machine
 
 
-func (s *state) getNextStates(char byte) []*state {
+func (s *State) getNextStates(char byte) []*State {
 	return s.next[char]
 }
-func (s *state) getAllNextStates() []*state {
-	result := make([]*state, 0)
+func (s *State) getAllNextStates() []*State {
+	result := make([]*State, 0)
 	for char := range s.next {
 		result = append(result, s.getNextStates(char)...)
 	}

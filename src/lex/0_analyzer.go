@@ -1,23 +1,23 @@
 package lex
 
 import (
-	"grammar/machine"
+	"grammar/token"
 )
 
 type LexicalAnalyzer struct {
-	tokenParser *machine.TokenParser
+	tokenParser *token.TokenParser
 	symbolPairParser *SymbolPairParser
 }
 
 func NewLexicalAnalyzer()*LexicalAnalyzer {
 	return &LexicalAnalyzer{
-		tokenParser:machine.NewTokenParser(),
+		tokenParser:token.NewTokenParser(),
 		symbolPairParser:NewSymbolPairParser(),
 	}
 }
 
 func (la *LexicalAnalyzer)GetTerminatorPairs(text []byte) []*TerminatorPair{
-	tokens := la.getTextTokens(text)
+	tokens := la.tokenParser.GetTokens(text)
 	result := make([]*TerminatorPair,0)
 	for _,token := range tokens{
 		terminatorPair := la.symbolPairParser.changeTokenToTerminatorPair(token)
@@ -34,12 +34,3 @@ func (la *LexicalAnalyzer)GetAllTerminators() []string{
 	return terminators
 }
 
-
-
-
-
-func (la *LexicalAnalyzer)getTextTokens(text []byte) []*machine.Token {
-	la.tokenParser.SetText(text)
-	la.tokenParser.ParseTextToFinalTokens()
-	return la.tokenParser.GetTokens()
-}

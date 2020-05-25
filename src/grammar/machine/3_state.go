@@ -1,40 +1,51 @@
 package machine
 
+
 const Eps = byte(0)
 
-
-type state struct {
+type State struct {
 	isEnd             bool
-	next         map[byte][]*state
+	next         map[byte][]*State
 	specialChar byte
 }
 
-func NewState(isEnd bool) *state{
-	return &state{
+
+
+func NewState(isEnd bool) *State{
+	return &State{
 		isEnd:isEnd,
-		next:make(map[byte][]*state),
+		next:make(map[byte][]*State),
 		specialChar:Eps,
 	}
 }
+func (s *State) GetSpecialChar() byte{
+	return s.specialChar
+}
+func (s *State) GetIsEnd() bool{
+	return s.isEnd
+}
+func (s *State) GetNext() map[byte][]*State{
+	return s.next
+}
 
-func (s *state) linkByOrdinaryChar(ordinaryChar byte,aimState *state) {
+func (s *State) linkByOrdinaryChar(ordinaryChar byte,aimState *State) {
 	s.next[ordinaryChar] = append(s.next[ordinaryChar],aimState)
 }
-func (s *state) linkByEpsChar(aimState *state) {
+func (s *State) linkByEpsChar(aimState *State) {
 	s.next[Eps] = append(s.next[Eps],aimState)
 }
 
 
 
 
-func getStatesToNext(states []*state) map[byte][]*state {
-	result := make(map[byte][]*state)
-	hasExist := make(map[byte]map[*state]bool)
-	for _, stat := range states {
+func getStatesToNext(States []*State) map[byte][]*State {
+	result := make(map[byte][]*State)
+	hasExist := make(map[byte]map[*State]bool)
+	for _, stat := range States {
 		for char, nextStates := range stat.next {
 			for _, nextState := range nextStates {
 				if hasExist[char] == nil {
-					hasExist[char] = make(map[*state]bool)
+					hasExist[char] = make(map[*State]bool)
 				}
 				if hasExist[char][nextState] {
 					continue
