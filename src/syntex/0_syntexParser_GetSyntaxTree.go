@@ -27,7 +27,7 @@ func (sp *SyntaxParser)readingIsNotOver() bool{
 	return sp.readingPosition!=len(sp.terminatorPairs)
 }
 func (sp *SyntaxParser)execGetSyntaxTree() {
-	sp.showParsingMiddleWares()
+	//sp.showParsingMiddleWares()
 	switch  {
 	case sp.symbolOfStackTopIsBlank():
 		sp.symbolStackPop()
@@ -101,7 +101,7 @@ func (sp *SyntaxParser)reversePushTheSymbolOfSentenceIntoSymbolStack(sentence *s
 func terminatorPairsToString(terminatorPairs []*lex.TerminatorPair) string {
 	result := ""
 	for i := 0; i < len(terminatorPairs); i++ {
-		result += terminatorPairs[i].GetSymbol() + " "
+		result += fmt.Sprintf("%v ",terminatorPairs[i].GetValue())
 	}
 	return result
 }

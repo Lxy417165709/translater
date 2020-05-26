@@ -7,6 +7,9 @@ type State struct {
 	isEnd             bool
 	next         map[byte][]*State
 	specialChar byte
+
+
+
 }
 
 

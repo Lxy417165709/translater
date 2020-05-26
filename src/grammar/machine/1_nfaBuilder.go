@@ -38,7 +38,6 @@ func (nb *NFABuilder) BuildNFAByWord(word string) *NFA {
 func (nb *NFABuilder) BuildNFAByRegexp(regexp *char.Regexp) *NFA {
 	return nb.getRegexpNFA(regexp)
 }
-
 func (nb *NFABuilder) getWordNFA(word string) *NFA {
 	readingPosition := 0
 	nfas := make([]*NFA, 0)

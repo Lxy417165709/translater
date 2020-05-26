@@ -80,3 +80,19 @@
             }
     
         ```
+13. 职责分派很重要，需要进行思考，否则就会出现职责不明确、过多流浪数据的问题。
+    编码时要注意迪米特法则
+    
+14. ```go
+        func (tp *TokenParser) wordPairToToken(wordPair *machine.WordPair) *Token{
+        	token := &Token{
+        		wordPair.GetSpecialChar(),
+        		tp.specialCharTable.GetCode(wordPair.GetSpecialChar(),wordPair.GetWord()),
+        		tp.specialCharTable.GetType(wordPair.GetSpecialChar()),
+        		wordPair.GetWord(),
+        	}
+        	return token
+        }
+    ```
+    逻辑单元的转换，要放在上层
+    如这，wordPairToToken，应该放在token蹭，而不应该放在machine层

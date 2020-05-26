@@ -1,8 +1,17 @@
 package machine
 
+import "bytes"
+
 type NFA struct {
 	startState            *State
 	endState              *State
+
+	text            []byte
+	preEndState     *State
+	stateQueue      []*State
+	bufferOfChars   bytes.Buffer
+	readingPosition int
+	finalWordPairs     []*WordPair
 }
 
 func NewNFA(ordinaryChar byte) *NFA {

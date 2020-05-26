@@ -31,7 +31,7 @@ func (imn *isMatchOfNFATestItem) Test() bool{
 	return nfa.IsMatch(imn.pattern) == imn.isMatch
 }
 func (imn *isMatchOfNFATestItem) Parse(line string) {
-	parts := strings.Split(strings.TrimSpace(line), conf.GetConf().GrammarConf.DelimiterOfPieces)
+	parts := strings.Split(strings.TrimSpace(line), conf.GetConf().IsMatchOfNFATestConf.DelimiterOfPieces)
 	if len(parts) != 3 {
 		panic(fmt.Sprintf("分割测试单元：%v 失败，分割后的字段数不等于3", parts))
 	}

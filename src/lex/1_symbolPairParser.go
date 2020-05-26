@@ -2,21 +2,21 @@ package lex
 
 import (
 	"fmt"
-	"grammar/token"
+	"lex/token"
 )
 
-type SymbolPairParser struct {
+type TerminatorPairParser struct {
 	kindCodeToTerminators map[int] string
 }
 
-func  NewSymbolPairParser() *SymbolPairParser{
-	spp := &SymbolPairParser{}
+func  NewSymbolPairParser() *TerminatorPairParser{
+	spp := &TerminatorPairParser{}
 	spp.initKindCodeToSymbol()
 	return spp
 }
 
 // 这个也可以进行配置
-func (spp *SymbolPairParser)initKindCodeToSymbol() {
+func (spp *TerminatorPairParser)initKindCodeToSymbol() {
 	spp.kindCodeToTerminators = make(map[int]string)
 	spp.kindCodeToTerminators[101]="ADD"
 	spp.kindCodeToTerminators[102]="SUB"
@@ -30,7 +30,7 @@ func (spp *SymbolPairParser)initKindCodeToSymbol() {
 }
 
 
-func (spp *SymbolPairParser) changeTokenToTerminatorPair(token *token.Token) *TerminatorPair{
+func (spp *TerminatorPairParser) changeTokenToTerminatorPair(token *token.Token) *TerminatorPair{
 	symbol := spp.kindCodeToTerminators[token.GetKindCode()]
 	if symbol==""{
 		panic(fmt.Sprintf("种别码: %d 没有对应symbol",token.GetKindCode()))

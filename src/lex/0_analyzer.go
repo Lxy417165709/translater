@@ -1,12 +1,12 @@
 package lex
 
 import (
-	"grammar/token"
+	"lex/token"
 )
 
 type LexicalAnalyzer struct {
 	tokenParser *token.TokenParser
-	symbolPairParser *SymbolPairParser
+	symbolPairParser *TerminatorPairParser
 }
 
 func NewLexicalAnalyzer()*LexicalAnalyzer {

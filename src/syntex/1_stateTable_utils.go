@@ -50,8 +50,14 @@ func(stf *StateTable)appendToBufferOfSet(key string,symbols ...string) {
 
 func (stf *StateTable)getNonTerminators() []string{
 	result := make([]string,0)
+	hasAdded := make(map[string]bool)
 	for _,production := range stf.productions{
-		result = append(result,production.leftNonTerminator)
+		nonTerminator := production.leftNonTerminator
+		if hasAdded[nonTerminator]{
+			continue
+		}
+		hasAdded[nonTerminator] = true
+		result = append(result,nonTerminator)
 	}
 	return result
 }

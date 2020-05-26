@@ -1,10 +1,12 @@
 package syntex
 
-import "conf"
+import (
+	"conf"
+)
 
 // 用到了模板方法模式
 func (stf *StateTable) formFollow() {
-
+	stf.formFirst()
 	stf.templateFunctionOfForming(
 		stf.initGetFollow,
 		stf.handleGettingFollow,
@@ -13,7 +15,6 @@ func (stf *StateTable) formFollow() {
 }
 
 func (stf *StateTable) initGetFollow() {
-	stf.formFirst()
 	stf.follow = make(map[string][]string)
 	stf.bufferOfSet = make(map[string][]string)
 	stf.follow[conf.GetConf().SyntaxConf.StartSymbol] = append(
@@ -49,8 +50,7 @@ func (stf *StateTable) handleGettingFollow() {
 				stf.appendToBufferOfSet(nowSymbol, nextSymbol)
 				continue
 			}
-			symbolsOfNotBlankSymbol := removeBlankSymbol(stf.first[nextSymbol])
-			stf.appendToBufferOfSet(nowSymbol, symbolsOfNotBlankSymbol...)
+			stf.appendToBufferOfSet(nowSymbol, removeBlankSymbol(stf.first[nextSymbol])...)
 		}
 	}
 }

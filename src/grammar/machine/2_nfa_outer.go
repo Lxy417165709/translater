@@ -5,21 +5,17 @@ import "os"
 func (nfa *NFA) IsMatch(pattern string) bool {
 	return nfa.startState.IsMatchFromHere(pattern)
 }
-
 func (nfa *NFA) GetAllWordPairs() []*WordPair {
 	return nfa.startState.GetAllWordPairsFromHere("", make(map[*State]bool))
 }
-
 func (nfa *NFA) EliminateBlankStates() *NFA {
 	hasVisited := make(map[*State]bool)
 	nfa.startState.EliminateNextBlankStatesFromHere(hasVisited)
 	return nfa
 }
-
 func (nfa *NFA) MarkSpecialChar(specialChar byte) {
 	nfa.startState.MarkSpecialCharFromHere(specialChar, make(map[*State]bool))
 }
-
 func (nfa *NFA) StoreMermaidGraphOfThisNFA(filePath string) error {
 	var file *os.File
 	var err error

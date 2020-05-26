@@ -7,14 +7,14 @@ import (
 	"sort"
 )
 
-func (tp *TokenParser) FormTheMarkdownFileOfTokens(filePath string)error {
+func (tp *TokenParser) FormTheMarkdownFileOfTokens(text []byte,filePath string)error {
 	var file *os.File
 	var err error
 	if file, err = os.Create(filePath); err != nil{
 		return err
 	}
 	defer file.Close()
-	lines := tp.changeTokensToFileLines()
+	lines := tp.changeTokensToFileLines(text)
 	for _,line  := range lines {
 		if _,err = file.WriteString(line);err!=nil{
 			return err
@@ -22,8 +22,8 @@ func (tp *TokenParser) FormTheMarkdownFileOfTokens(filePath string)error {
 	}
 	return nil
 }
-func (tp *TokenParser) ShowTheMarkdownFileOfTokens() {
-	lines := tp.changeTokensToFileLines()
+func (tp *TokenParser) ShowTheMarkdownFileOfTokens(text []byte) {
+	lines := tp.changeTokensToFileLines(text)
 	for i:=0;i<len(lines);i++{
 		fmt.Print(lines[i])
 	}
@@ -36,11 +36,11 @@ func (tp *TokenParser) ShowTheMarkdownFileOfAllTokens() {
 	}
 }
 
-func (tp *TokenParser) changeTokensToFileLines() []string{
+func (tp *TokenParser) changeTokensToFileLines(text []byte) []string{
 	lines := make([]string,0)
 	lines = append(lines,"索引|值|类型|种别码\n")
 	lines = append(lines,"--|--|--|--\n")
-	for index, token := range tp.finalTokens {
+	for index, token := range tp.GetTokens(text) {
 		lines = append(lines, token.ToLine(index))
 	}
 	return lines
@@ -58,15 +58,6 @@ func (tp *TokenParser) getKindCodeLines() []string{
 		lines = append(lines,token.ToLine(index))
 	}
 	return lines
-}
-func (tp *TokenParser) wordPairToToken(wordPair *machine.WordPair) *Token{
-	token := &Token{
-		wordPair.GetSpecialChar(),
-		tp.specialCharTable.GetCode(wordPair.GetSpecialChar(),wordPair.GetWord()),
-		tp.specialCharTable.GetType(wordPair.GetSpecialChar()),
-		wordPair.GetWord(),
-	}
-	return token
 }
 func (tp *TokenParser) removeDuplicateWordPairs(wordPairs []*machine.WordPair) []*machine.WordPair{
 	result := make([]*machine.WordPair,0)
@@ -91,7 +82,6 @@ func (tp *TokenParser) sortWordPairs(wordPairs []*machine.WordPair) {
 		return iCode < jCode
 	})
 }
-
 
 
 

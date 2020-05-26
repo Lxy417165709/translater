@@ -104,3 +104,42 @@ NFABuilder 构建W I Z 的自动机，最后进行并联
 
 
 给出产生式表，得出该表的状态转换图。通过状态转换图对 newStructs 进行语法分析，构建语法树。
+
+
+
+
+
+
+
+
+配置层 conf  (统领全局)
+
+测试层 test
+    -> 对 NFA 的测试
+    -> 对 xxx 的测试
+语法层 syntax
+    -> 语法分析器
+    -> 状态表
+词法层 lex
+    -> token解析器        LU: token Token(实现将 wordPair->token)   (所以这一层可以不要...)
+    -> 词法分析器 LU: terminatorPair
+    -> terminatorPair解析器 LU: terminatorPair (实现将token->terminatorPair)
+正则层 grammar
+    -> 自动机             LU: wordPair WordPair
+    -> 特殊字符表         LU: specialChar byte
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

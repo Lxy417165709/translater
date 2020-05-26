@@ -14,4 +14,7 @@ func NewTerminatorPair(terminator string,value interface{}) *TerminatorPair {
 func (tp *TerminatorPair) GetSymbol() string{
 	return tp.terminator
 }
+func (tp *TerminatorPair) GetValue() interface{}{
+	return tp.value
+}
 

@@ -1,6 +1,8 @@
 package syntex
 
-import "conf"
+import (
+	"conf"
+)
 
 func (stf *StateTable) formFirst() {
 	stf.templateFunctionOfForming(
@@ -10,11 +12,7 @@ func (stf *StateTable) formFirst() {
 	)
 }
 
-func (stf *StateTable) initProductions()  {
-	for _, originProduction := range getProductions(conf.GetConf().SyntaxConf.SyntaxFilePath) {
-		stf.productions = append(stf.productions, originProduction.ChangeToNonLeftRecursionProductions()...)
-	}
-}
+
 
 
 func (stf *StateTable) initGetFirst() {
@@ -22,6 +20,22 @@ func (stf *StateTable) initGetFirst() {
 	stf.bufferOfSet = make(map[string][]string)
 	stf.initProductions()
 }
+func (stf *StateTable) initProductions()  {
+	for _, originProduction := range getProductions(conf.GetConf().SyntaxConf.SyntaxFilePath) {
+		stf.productions = append(stf.productions, originProduction.ChangeToNonLeftRecursionProductions()...)
+	}
+	//fmt.Println(`C:\Users\hasee\Desktop\Go_Practice\编译器\src\syntex\1_stateTable_formFirst.go`)
+	//for i:=0;i<len(stf.productions);i++{
+	//	fmt.Printf("%v\n",stf.productions[i].leftNonTerminator)
+	//	for t:=0;t<len(stf.productions[i].sentences);t++{
+	//		fmt.Printf("		%v\n",stf.productions[i].sentences[t])
+	//	}
+	//}
+
+
+}
+
+
 func (stf *StateTable) handleGettingFirst() {
 	handlingProduction := stf.productions[stf.positionOfHandlingProduction]
 	handlingSentence := handlingProduction.sentences[stf.positionOfHandlingProductionSentence]
@@ -44,9 +58,6 @@ func (stf *StateTable) syncBufferOfFirst() bool {
 	stf.flushBufferOfSet()
 	return firstSetHasBeenUpdated
 }
-
-
-
 
 func (stf *StateTable) handleGettingFirstOfSentenceIsBlank() {
 	handlingProduction := stf.productions[stf.positionOfHandlingProduction]
