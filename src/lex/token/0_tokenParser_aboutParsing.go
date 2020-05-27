@@ -1,7 +1,5 @@
 package token
 
-
-
 func (tp *TokenParser) GetTokens(text []byte) []*Token{
 	wordPairs := tp.finalNFA.GetWordPairs(text)
 	tokens := make([]*Token,0)

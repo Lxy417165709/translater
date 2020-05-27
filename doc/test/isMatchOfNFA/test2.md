@@ -2,7 +2,7 @@ a||||0
 a$||a||1
 a$||aaaa||1  
 a@||aaaa||1 
-a@b@||aaaa||0  
+a@b@||aaaa||0
 a@b@||aaaab||1  
 a@b@||aaaabd||0  
 ab@||aaaabd||0

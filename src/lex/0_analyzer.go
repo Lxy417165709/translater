@@ -19,8 +19,8 @@ func NewLexicalAnalyzer()*LexicalAnalyzer {
 func (la *LexicalAnalyzer)GetTerminatorPairs(text []byte) []*TerminatorPair{
 	tokens := la.tokenParser.GetTokens(text)
 	result := make([]*TerminatorPair,0)
-	for _,token := range tokens{
-		terminatorPair := la.symbolPairParser.changeTokenToTerminatorPair(token)
+	for _,tk := range tokens{
+		terminatorPair := la.symbolPairParser.changeTokenToTerminatorPair(tk)
 		result = append(result,terminatorPair)
 	}
 	return result

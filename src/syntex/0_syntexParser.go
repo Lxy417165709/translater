@@ -20,8 +20,5 @@ func NewSyntaxParser() *SyntaxParser{
 		lexicalAnalyzer:lexicalAnalyzer,
 		stateTable:NewStateTable(lexicalAnalyzer.GetAllTerminators()),
 	}
-	//fmt.Println("-----")
-	//sp.stateTable.Show()
-	//fmt.Println("-----")
 	return sp
 }

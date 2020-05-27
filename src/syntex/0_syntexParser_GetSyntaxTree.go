@@ -7,6 +7,15 @@ import (
 )
 
 
+func (sp *SyntaxParser)IsValid(text []byte) (result bool){
+	defer func() {
+		result = recover()==nil
+	}()
+
+	sp.GetSyntaxTree(text)
+	return
+}
+
 // TODO: 这里只完成了语法分析，还没获得语法树
 func (sp *SyntaxParser)GetSyntaxTree(text []byte) {
 	sp.initGetSyntaxTree(text)
@@ -19,6 +28,7 @@ func (sp *SyntaxParser)initGetSyntaxTree(text []byte){
 	sp.readingPosition = 0
 	sp.symbolsStack = nil
 	sp.terminatorPairs = sp.lexicalAnalyzer.GetTerminatorPairs(text)
+
 	sp.terminatorPairs = append(sp.terminatorPairs,lex.NewTerminatorPair(conf.GetConf().SyntaxConf.EndSymbol,nil))
 	sp.symbolsStack = append(sp.symbolsStack, conf.GetConf().SyntaxConf.EndSymbol)
 	sp.symbolsStack = append(sp.symbolsStack, conf.GetConf().SyntaxConf.StartSymbol)

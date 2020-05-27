@@ -30,6 +30,7 @@ func (nfa *NFA) getFinalWordPairsInit() {
 	nfa.stateQueue = make([]*State, 0)
 	nfa.stateQueue = append(nfa.stateQueue, nfa.GetStartState())
 	nfa.readingPosition = 0
+	nfa.text=append(nfa.text,' ')	// a+b 这种情况，最后的字符无法识别，所以这里添加一个空白符，辅助分析
 }
 func (nfa *NFA) readingIsNotOver() bool {
 	return nfa.readingPosition != len(nfa.text)

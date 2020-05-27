@@ -27,6 +27,7 @@ func (spp *TerminatorPairParser)initKindCodeToSymbol() {
 	spp.kindCodeToTerminators[203]="RIGHT_PAR"
 	spp.kindCodeToTerminators[10001]="IDE"
 	spp.kindCodeToTerminators[10002]="ZS"
+	spp.kindCodeToTerminators[10003]="XS"
 }
 
 

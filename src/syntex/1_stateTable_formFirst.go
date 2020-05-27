@@ -24,14 +24,6 @@ func (stf *StateTable) initProductions()  {
 	for _, originProduction := range getProductions(conf.GetConf().SyntaxConf.SyntaxFilePath) {
 		stf.productions = append(stf.productions, originProduction.ChangeToNonLeftRecursionProductions()...)
 	}
-	//fmt.Println(`C:\Users\hasee\Desktop\Go_Practice\编译器\src\syntex\1_stateTable_formFirst.go`)
-	//for i:=0;i<len(stf.productions);i++{
-	//	fmt.Printf("%v\n",stf.productions[i].leftNonTerminator)
-	//	for t:=0;t<len(stf.productions[i].sentences);t++{
-	//		fmt.Printf("		%v\n",stf.productions[i].sentences[t])
-	//	}
-	//}
-
 
 }
 

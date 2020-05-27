@@ -1,6 +1,10 @@
 {
   "IsMatchOfNFATestConf": {
-    "TestFilePath": "C:\\Users\\hasee\\Desktop\\Go_Practice\\编译器\\doc\\test\\isMatchOfNFA\\testTable.md",
+    "TestFilePath": "C:\\Users\\hasee\\Desktop\\Go_Practice\\编译器\\doc\\test\\isMatchOfNFA",
+    "DelimiterOfPieces": "||"
+  },
+  "SyntaxAnalyzerTestConf": {
+    "TestFilePath": "C:\\Users\\hasee\\Desktop\\Go_Practice\\编译器\\doc\\test\\syntaxAnalyzerTestFile",
     "DelimiterOfPieces": "||"
   },
   "GrammarConf": {
