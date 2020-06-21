@@ -96,4 +96,99 @@
     ```
     逻辑单元的转换，要放在上层
     如这，wordPairToToken，应该放在token蹭，而不应该放在machine层
-15. 测试层当前做得不好..
+
+16. 遇到长名称时，可以在降低语义的情况下，选择短名称
+    如下:
+    ```go
+        leftNonTerminator := handlingProduction.leftNonTerminator
+    ```
+    之后用 leftNonTerminator 指代 handlingProduction.leftNonTerminator 就可以了
+    
+17.  不要用position代替index,(因为index语义更准确，且长度更短)
+18. 不要出现中文！！！
+19. 测试配置尽量独立出来
+    可以创建一个新的配置文件，在测试的时候，用该配置文件初始化
+    ```go
+        // 在main中: conf.Init(configureFilePath)
+        // 在测试中: conf.Init(testConfigureFilePath)
+    ```
+20. 全局配置嵌入会导致复用性变差...
+21. sentenceIsBlank() 这个函数需要一个blankSymbol的变量，这样写时，上层
+    的对象可以不用把blankSymbol传入sentence对象，而sentence.IsBlank(),此时
+    sentence没有blankSymbol,那是应该把blankSymbol作为全局变量，还是把它作为成员字段
+    还是将blankSymbol传入IsBlankSymbol呢？
+    ```go
+        // 简单描述: 
+        // production拥有一个sentence字段，现在我们需要判断sentence是否为空，
+        // 这个判断涉及到了一个blankSymbol。
+        // 下面列出了 4 种写法..
+        // 请问哪种写法好
+    
+        // 第一种情况,
+        // blankSymbol 作为 production 的成员字段
+        type production struct{
+    	    sentence *sentence    
+	        blankSymbol string
+        }
+        type sentence struct{
+            symbols []string
+        }
+
+        func (p *production) sentenceIsBlank() bool{   
+                return sentence.symbols[0]==p.blankSymbol
+        }
+
+        
+        // 第二种情况
+        // blankSymbol 作为 production 的成员字段
+        // 调用时，将blankSymbol作为参数传入
+         type production struct{
+            sentence *sentence    
+            blankSymbol string
+        }
+        type sentence struct{
+            symbols []string
+        }
+        
+        // 参数版
+        // p调用时，采用 p.sentence.IsBlank(p.blankSymbol)
+        func (s *sentence) IsBlank(blankSymbol string) bool{
+    	        return s.symbols[0]==blankSymbol    
+        }
+        
+
+        // 第三种情况
+        // 将 blankSymbol 作为 sentence 的成员字段
+        type production struct{
+            sentence *sentence    
+        }
+        type sentence struct{
+            symbols []string
+            blankSymbol string
+        }
+        
+        func (s *sentence) IsBlank() bool{
+                return s.symbols[0]==s.blankSymbol
+        }
+
+
+
+        // 第四种情况
+        // 将 blankSymbol 作为 全局常量。
+        const global_blankSymbol = "XXX"
+        type production struct{
+            sentence *sentence    
+        }
+        type sentence struct{
+            symbols []string
+        }
+        func (s *sentence) IsBlank() bool{
+                return s.symbols[0]==global_blankSymbol
+        }
+    ``` 
+    最终与光文哥的探讨下，我选择了第四种，因为production和sentence 应该是共享同一个blankSymbol。
+    这样符合逻辑，虽然可能会带来复用性下降的问题。
+    
+22. 种别码不应自动编码...因为之后还用到种别码生成Symbol
+    
+

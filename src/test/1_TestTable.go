@@ -5,57 +5,51 @@ import (
 	"fmt"
 )
 
-// TODO: 重构，这个名字命得不好，成员变量可以进行提取
-// TODO: 非常烂的代码
-type TestTable struct {
+type TestableTable struct {
 	filePath  string
 	testItems []Testable
-	testType TestName
+	testType TypeOfTest
 }
 
-func NewTestTable(filePath string, testType TestName) *TestTable {
-	return &TestTable{filePath: filePath, testType: testType}
+func NewTestableTable(filePath string, testType TypeOfTest) *TestableTable {
+	return &TestableTable{filePath: filePath, testType: testType}
 }
 
-func (tm *TestTable) Test() bool {
+func (tm *TestableTable) Test() bool {
 	tm.testInit()
-	for _, isMatchOfNFATestItem := range tm.testItems {
-		if isMatchOfNFATestItem.Test() == false {
+	for _, item := range tm.testItems {
+		if item.Test() == false {
 			return false
 		}
 	}
 	return true
 }
 
-func (tm *TestTable) GetErrMsg() string {
-	for index, isMatchOfNFATestItem := range tm.testItems {
-		if isMatchOfNFATestItem.Test() == false {
+func (tm *TestableTable) GetErrMsg() string {
+	for index, item := range tm.testItems {
+		if item.Test() == false {
 			return fmt.Sprintf(
 				"[第 %d 个测试样例]存在错误\n	%s",
 				index+1,
-				isMatchOfNFATestItem.GetErrMsg(),
+				item.GetErrMsg(),
 			)
 		}
 	}
 	panic("测试无错误，这的代码不应该执行")
 }
 
-func (tm *TestTable) testInit() {
+func (tm *TestableTable) testInit() {
 	itemContents := file.NewFileReader(tm.filePath).GetFileLines()
 	tm.parse(itemContents)
 }
 
-func (tm *TestTable) parse(contents []string) {
-	if tm.testType == NFATest {
-		for _, content := range contents {
-			item := NewNFATestItem(content)
-			tm.testItems = append(tm.testItems, item)
-		}
+func (tm *TestableTable) parse(contents []string) {
+	if !globalFactory.NewFunctionIsExist(tm.testType) {
+		panic(fmt.Sprintf("不存在 %s 的测试类型",tm.testType))
 	}
-	if tm.testType == SyntaxTest {
-		for _, content := range contents {
-			item := NewSyntaxAnalyzerTestItem(content)
-			tm.testItems = append(tm.testItems, item)
-		}
+	for _, content := range contents {
+		newFunction := globalFactory.GetCreateFunction(tm.testType)
+		item := newFunction(content)
+		tm.testItems = append(tm.testItems, item)
 	}
 }

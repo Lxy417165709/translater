@@ -1,4 +1,4 @@
-package syntex
+package table
 
 import (
 	"conf"
@@ -7,13 +7,13 @@ import (
 )
 
 type production struct {
-	leftNonTerminator string
-	sentences []*sentence
+	nonTerminator string
+	sentences []*Sentence
 }
 
-func NewProduction(leftNonTerminator string,sentences []*sentence)*production {
+func NewProduction(nonTerminator string,sentences []*Sentence)*production {
 	return &production{
-		leftNonTerminator:leftNonTerminator,
+		nonTerminator:nonTerminator,
 		sentences:sentences,
 	}
 }
@@ -25,7 +25,7 @@ func (u *production) Parse(line string) {
 	if len(parts) != 2 {
 		panic("分割production发生错误，分割后的长度不为2")
 	}
-	u.leftNonTerminator = strings.TrimSpace(parts[0])
+	u.nonTerminator = strings.TrimSpace(parts[0])
 	for _, sentenceString := range strings.Split(parts[1], conf.GetConf().SyntaxConf.DelimiterOfSentences) {
 		sentence := NewSentence(nil)
 		sentence.Parse(sentenceString)
@@ -51,18 +51,18 @@ func (u *production) ChangeToNonLeftRecursionProductions() []*production {
 func (u *production) getNthSentenceFirstSymbol(index int) string {
 	return u.sentences[index].symbols[0]
 }
-func (u *production) getLeftRecursionSentence() []*sentence {
-	result := make([]*sentence, 0)
+func (u *production) getLeftRecursionSentence() []*Sentence {
+	result := make([]*Sentence, 0)
 	for _, sentence := range u.sentences {
-		if u.leftNonTerminator == sentence.symbols[0] {
+		if u.nonTerminator == sentence.symbols[0] {
 			result = append(result, sentence)
 		}
 	}
 	return result
 }
-func (u *production) getFirstNotLeftRecursionSentence() *sentence {
+func (u *production) getFirstNotLeftRecursionSentence() *Sentence {
 	for _, sentence := range u.sentences {
-		if u.leftNonTerminator != sentence.symbols[0] {
+		if u.nonTerminator != sentence.symbols[0] {
 			return sentence
 		}
 	}
@@ -77,21 +77,24 @@ func (u *production) hasLeftRecursionSentence() bool {
 	return false
 }
 func (u *production) nthSentenceIsLeftRecursion(sentenceIndex int) bool {
-	return u.sentences[sentenceIndex].symbols[0] == u.leftNonTerminator
+	return u.sentences[sentenceIndex].symbols[0] == u.nonTerminator
 }
 
 func (u *production) formLeftNonTerminator(additionChar byte) string {
-	return fmt.Sprintf("%s%s", u.leftNonTerminator, string(additionChar))
+	return fmt.Sprintf("%s%s", u.nonTerminator, string(additionChar))
 }
-func (u *production) formNonLeftRecursionProductions(stc *sentence, additionChar byte) []*production {
+
+
+// TODO： 这个也依赖了全局
+func (u *production) formNonLeftRecursionProductions(stc *Sentence, additionChar byte) []*production {
 	result := make([]*production, 0)
 	newLeftNonTerminator := u.formLeftNonTerminator(additionChar)
 	notLeftRecursionSentence := u.getFirstNotLeftRecursionSentence()
-	production1 := NewProduction(newLeftNonTerminator,[]*sentence{
+	production1 := NewProduction(newLeftNonTerminator,[]*Sentence{
 		NewSentence(append(stc.symbols[1:], newLeftNonTerminator)),
 		NewSentence([]string{conf.GetConf().SyntaxConf.BlankSymbol}),
 	})
-	production2 := NewProduction(u.leftNonTerminator,[]*sentence{
+	production2 := NewProduction(u.nonTerminator,[]*Sentence{
 		NewSentence(append(notLeftRecursionSentence.symbols,newLeftNonTerminator)),
 	})
 	result = append(result,production1,production2)

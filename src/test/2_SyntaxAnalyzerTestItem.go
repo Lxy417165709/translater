@@ -14,7 +14,7 @@ type SyntaxAnalyzerTestItem struct {
 	syntaxParser *syntex.SyntaxParser
 }
 
-func NewSyntaxAnalyzerTestItem(content string) *SyntaxAnalyzerTestItem{
+func NewSyntaxAnalyzerTestItem(content string) Testable{
 	item := &SyntaxAnalyzerTestItem{
 		syntaxParser:syntex.NewSyntaxParser(),
 	}
@@ -37,6 +37,7 @@ func (sa *SyntaxAnalyzerTestItem) GetErrMsg() string{
 
 // TODO: 这用到了全局配置
 func (sa *SyntaxAnalyzerTestItem)parse(line string) {
+	// TODO: 这里用到了全局配置，依赖性提高了..
 	parts := strings.Split(strings.TrimSpace(line), conf.GetConf().SyntaxAnalyzerTestConf.DelimiterOfPieces)
 	if len(parts) != 2 {
 		panic(fmt.Sprintf("分割测试单元：%v 失败，分割后的字段数不等于2", parts))

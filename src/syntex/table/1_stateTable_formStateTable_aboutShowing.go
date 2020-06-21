@@ -1,4 +1,4 @@
-package syntex
+package table
 
 import (
 	"bytes"

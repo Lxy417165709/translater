@@ -4,7 +4,7 @@ import (
 	"grammar/machine"
 )
 
-func (tp *TokenParser) wordPairToToken(wordPair *machine.WordPair) *Token{
+func (tp *Parser) wordPairToToken(wordPair *machine.WordPair) *Token{
 	token := &Token{
 		wordPair.GetSpecialChar(),
 		tp.specialCharTable.GetCode(wordPair.GetSpecialChar(),wordPair.GetWord()),

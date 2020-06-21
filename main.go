@@ -2,26 +2,30 @@ package main
 
 import (
 	"conf"
+	"fmt"
+	"syntex"
 	"test"
 )
 
-const configureFilePath = `C:\Users\hasee\Desktop\Go_Practice\编译器\conf\conf.json`
-const sourceFilePath = `C:\Users\hasee\Desktop\Go_Practice\编译器\conf\2_source.md`
+const configureFilePath = `C:\Users\hasee\Desktop\Go_Practice\translater\conf\conf.json`
+const testConfigureFilePath = `C:\Users\hasee\Desktop\Go_Practice\translater\conf\conf.json`
+const sourceFilePath = `C:\Users\hasee\Desktop\Go_Practice\translater\conf\2_source.md`
 
 func main() {
 	conf.Init(configureFilePath)
-	//syntaxParser := syntex.NewSyntaxParser()
-	//syntaxParser.GetSyntaxTree([]byte("jkjk+1274+oowie127789+898.457+wekksad/(577)+koaowo12898-jcweq"))
-	allTest()
+	p :=syntex.NewSyntaxParser()
+	p.GetSyntaxTree([]byte("8*1-5+10/5*5"))
+	p.ShowSyntaxTree()
+	fmt.Println(p.GetSyntaxTreeResult())
 }
 
 
 func allTest() {
-	// TODO: 这个可以单独进行配置
-	testObj1 := test.NewTestDir(conf.GetConf().IsMatchOfNFATestConf.TestFilePath,test.NFATest)
-	testObj2 := test.NewTestDir(conf.GetConf().SyntaxAnalyzerTestConf.TestFilePath,test.SyntaxTest)
+	conf.Init(testConfigureFilePath)
+	testObj1 := test.NewTestableDirectory(conf.GetConf().IsMatchOfNFATestConf.TestFilePath,test.NFATest)
+	//testObj2 := test.NewTestableDirectory(conf.GetConf().SyntaxAnalyzerTestConf.TestFilePath,test.SyntaxTest)
 	manager := test.NewManager()
-	manager.Register(testObj1,testObj2)
+	manager.Register(testObj1)
 	manager.BeginTest()
 }
 

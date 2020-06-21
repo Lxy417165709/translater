@@ -1,14 +1,14 @@
-package syntex
+package table
 
 // TODO : 应该还有些情况没考虑
 func (stf *StateTable)formSelect() {
 	stf.formFollow()
-	stf._select = make(map[*sentence][]string)
+	stf._select = make(map[*Sentence][]string)
 	for _,production := range stf.productions{
 		for _,sentence := range production.sentences{
 			switch  {
 			case sentence.IsBlank():
-				stf._select[sentence] = stf.follow[production.leftNonTerminator]
+				stf._select[sentence] = stf.follow[production.nonTerminator]
 			case sentence.FirstSymbolIsTerminator(stf.terminators):
 				stf._select[sentence] = []string{sentence.symbols[0]}
 			case sentence.FirstSymbolIsNotTerminator(stf.terminators):

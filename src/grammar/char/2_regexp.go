@@ -11,10 +11,10 @@ type Regexp struct{
 }
 func NewRegexp(RegexpLine string) *Regexp{
 	r := &Regexp{}
-	r.Parse(RegexpLine)
+	r.initWords(RegexpLine)
 	return r
 }
-func(r *Regexp) Parse(content string) {
+func(r *Regexp) initWords(content string) {
 	content = strings.TrimSpace(content)
 	words := strings.Split(content,conf.GetConf().GrammarConf.DelimiterOfWords)
 	for _,word := range words{

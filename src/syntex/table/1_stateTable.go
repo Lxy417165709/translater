@@ -1,17 +1,17 @@
-package syntex
+package table
 
 type StateTable struct {
 	productions []*production // 消除了左递归的产生式
 	terminators []string
 
-	first      map[string][]string
-	follow     map[string][]string
-	_select    map[*sentence][]string
-	table map[string]map[string]*sentence
+	first   map[string][]string
+	follow  map[string][]string
+	_select map[*Sentence][]string
+	table   map[string]map[string]*Sentence
 
-	positionOfHandlingProduction         int
-	positionOfHandlingProductionSentence int
-	bufferOfSet                          map[string][]string // first,follow集 求取过程的缓存
+	indexOfHandlingProduction         int
+	indexOfHandlingProductionSentence int
+	bufferOfSet                       map[string][]string // first,follow集 求取过程的缓存
 }
 
 // 这里的参数可以进行配置
@@ -23,7 +23,7 @@ func NewStateTable(terminators []string) *StateTable {
 	return stf
 }
 
-func (stf *StateTable) GetSentence(nonTerminator, terminator string) *sentence {
+func (stf *StateTable) GetSentence(nonTerminator, terminator string) *Sentence {
 	return stf.table[nonTerminator][terminator]
 }
 func (stf *StateTable) HasSentence(nonTerminator, terminator string) bool {

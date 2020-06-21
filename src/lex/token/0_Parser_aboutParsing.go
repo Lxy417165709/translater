@@ -1,6 +1,6 @@
 package token
 
-func (tp *TokenParser) GetTokens(text []byte) []*Token{
+func (tp *Parser) GetTokens(text []byte) []*Token{
 	wordPairs := tp.finalNFA.GetWordPairs(text)
 	tokens := make([]*Token,0)
 	for _,wordPair := range wordPairs{

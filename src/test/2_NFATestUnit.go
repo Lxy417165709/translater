@@ -17,7 +17,7 @@ type NFATestItem struct {
 	nfaBuilder *machine.NFABuilder
 }
 
-func NewNFATestItem(content string) *NFATestItem{
+func NewNFATestItem(content string) Testable{
 	item := &NFATestItem{
 		nfaBuilder:machine.NewNFABuilder(),
 	}
@@ -25,7 +25,6 @@ func NewNFATestItem(content string) *NFATestItem{
 	return item
 }
 
-// 返回是否测试成功
 func (imn *NFATestItem) Test() bool{
 	regexp := char.NewRegexp(imn.regexpContent)
 	nfa := imn.nfaBuilder.BuildNFAByRegexp(regexp).EliminateBlankStates()

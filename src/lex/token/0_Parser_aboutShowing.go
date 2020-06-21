@@ -7,7 +7,7 @@ import (
 	"sort"
 )
 
-func (tp *TokenParser) FormTheMarkdownFileOfTokens(text []byte,filePath string)error {
+func (tp *Parser) FormTheMarkdownFileOfTokens(text []byte,filePath string)error {
 	var file *os.File
 	var err error
 	if file, err = os.Create(filePath); err != nil{
@@ -22,21 +22,21 @@ func (tp *TokenParser) FormTheMarkdownFileOfTokens(text []byte,filePath string)e
 	}
 	return nil
 }
-func (tp *TokenParser) ShowTheMarkdownFileOfTokens(text []byte) {
+func (tp *Parser) ShowTheMarkdownFileOfTokens(text []byte) {
 	lines := tp.changeTokensToFileLines(text)
 	for i:=0;i<len(lines);i++{
 		fmt.Print(lines[i])
 	}
 
 }
-func (tp *TokenParser) ShowTheMarkdownFileOfAllTokens() {
+func (tp *Parser) ShowTheMarkdownFileOfAllTokens() {
 	lines := tp.getKindCodeLines()
 	for i:=0;i<len(lines);i++{
 		fmt.Print(lines[i])
 	}
 }
 
-func (tp *TokenParser) changeTokensToFileLines(text []byte) []string{
+func (tp *Parser) changeTokensToFileLines(text []byte) []string{
 	lines := make([]string,0)
 	lines = append(lines,"索引|值|类型|种别码\n")
 	lines = append(lines,"--|--|--|--\n")
@@ -45,7 +45,7 @@ func (tp *TokenParser) changeTokensToFileLines(text []byte) []string{
 	}
 	return lines
 }
-func (tp *TokenParser) getKindCodeLines() []string{
+func (tp *Parser) getKindCodeLines() []string{
 	wordPairs := tp.finalNFA.GetAllWordPairs()
 	wordPairs = tp.removeDuplicateWordPairs(wordPairs)
 	tp.sortWordPairs(wordPairs)
@@ -59,7 +59,7 @@ func (tp *TokenParser) getKindCodeLines() []string{
 	}
 	return lines
 }
-func (tp *TokenParser) removeDuplicateWordPairs(wordPairs []*machine.WordPair) []*machine.WordPair{
+func (tp *Parser) removeDuplicateWordPairs(wordPairs []*machine.WordPair) []*machine.WordPair{
 	result := make([]*machine.WordPair,0)
 	variableCharHasRecord := make(map[byte]bool)
 	for _,wordPair := range wordPairs{
@@ -75,7 +75,7 @@ func (tp *TokenParser) removeDuplicateWordPairs(wordPairs []*machine.WordPair) [
 	return result
 
 }
-func (tp *TokenParser) sortWordPairs(wordPairs []*machine.WordPair) {
+func (tp *Parser) sortWordPairs(wordPairs []*machine.WordPair) {
 	sort.Slice(wordPairs, func(i, j int) bool {
 		iCode := tp.specialCharTable.GetCode(wordPairs[i].GetSpecialChar(),wordPairs[i].GetWord())
 		jCode := tp.specialCharTable.GetCode(wordPairs[j].GetSpecialChar(),wordPairs[j].GetWord())

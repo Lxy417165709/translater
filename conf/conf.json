@@ -1,31 +1,33 @@
 {
   "IsMatchOfNFATestConf": {
-    "TestFilePath": "C:\\Users\\hasee\\Desktop\\Go_Practice\\编译器\\doc\\test\\isMatchOfNFA",
+    "TestFilePath": "C:\\Users\\hasee\\Desktop\\Go_Practice\\translater\\doc\\test\\isMatchOfNFA",
     "DelimiterOfPieces": "||"
   },
   "SyntaxAnalyzerTestConf": {
-    "TestFilePath": "C:\\Users\\hasee\\Desktop\\Go_Practice\\编译器\\doc\\test\\syntaxAnalyzerTestFile",
+    "TestFilePath": "C:\\Users\\hasee\\Desktop\\Go_Practice\\translater\\doc\\test\\syntaxAnalyzerTestFile",
     "DelimiterOfPieces": "||"
   },
   "GrammarConf": {
-    "SpecialCharTableFilePath": "C:\\Users\\hasee\\Desktop\\Go_Practice\\编译器\\conf\\1_grammar_a.md",
+    "SpecialCharTableFilePath": "C:\\Users\\hasee\\Desktop\\Go_Practice\\translater\\conf\\1_grammar_a.md",
     "DelimiterOfPieces":"|",
     "DelimiterOfWords":",",
     "MatchMoreThanOnceSymbol": "@",
     "MatchMoreThanZeroTimesSymbol": "$"
   },
+  "LexicalConf": {
+    "SourceFilePath": "C:\\Users\\hasee\\Desktop\\Go_Practice\\translater\\conf\\2_source.md",
+    "SpecialCharsOfNFAs": "WIZXJO",
+    "KindCodeToTerminatorFilePath": "C:\\Users\\hasee\\Desktop\\Go_Practice\\translater\\conf\\KindCodeToTerminator.md",
+    "DelimiterOfKindCodeToTerminator": "||"
+  },
   "SyntaxConf": {
-    "SyntaxFilePath": "C:\\Users\\hasee\\Desktop\\Go_Practice\\编译器\\conf\\LL1",
+    "SyntaxFilePath": "C:\\Users\\hasee\\Desktop\\Go_Practice\\translater\\conf\\LL1",
     "EndSymbol": "END",
     "BlankSymbol": "BLA",
     "StartSymbol": "EXP",
-    "AdditionCharBeginChar": "a",
+    "AdditionCharBeginChar": "'",
     "DelimiterOfSyntaxPieces": "->",
     "DelimiterOfSentences": "|",
     "DelimiterOfSymbols": " "
-  },
-  "LexicalConf": {
-    "SourceFilePath": "C:\\Users\\hasee\\Desktop\\Go_Practice\\编译器\\conf\\2_source.md",
-    "SpecialCharsOfNFAs": "WIZXJO"
   }
 }

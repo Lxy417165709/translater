@@ -1,20 +1,20 @@
-package syntex
+package table
 
 import (
 	"conf"
 	"strings"
 )
 
-type sentence struct{
+type Sentence struct{
 	symbols []string
 }
 
-func NewSentence(symbols []string) *sentence{
-	return &sentence{
+func NewSentence(symbols []string) *Sentence{
+	return &Sentence{
 		symbols:symbols,
 	}
 }
-func (s *sentence)Parse(line string) {
+func (s *Sentence)Parse(line string) {
 	line = strings.TrimSpace(line)
 	symbols := strings.Split(line,conf.GetConf().SyntaxConf.DelimiterOfSymbols)
 	for _,symbol := range symbols{
@@ -22,11 +22,12 @@ func (s *sentence)Parse(line string) {
 	}
 }
 
-func  (s *sentence)IsBlank() bool{
+// TODO: 这个也依赖了全局
+func  (s *Sentence)IsBlank() bool{
 	return len(s.symbols)==1 && s.symbols[0]==conf.GetConf().SyntaxConf.BlankSymbol
 }
 
-func (s *sentence)FirstSymbolIsTerminator(terminators []string) bool{
+func (s *Sentence)FirstSymbolIsTerminator(terminators []string) bool{
 	if len(s.symbols)==0{
 		return false
 	}
@@ -37,11 +38,13 @@ func (s *sentence)FirstSymbolIsTerminator(terminators []string) bool{
 	}
 	return false
 }
-func (s *sentence)FirstSymbolIsNotTerminator(terminators []string) bool{
+func (s *Sentence)FirstSymbolIsNotTerminator(terminators []string) bool{
 	return !s.FirstSymbolIsTerminator(terminators)
 }
 
 
 
-
+func (s *Sentence)GetSymbols() []string{
+	return s.symbols
+}
 

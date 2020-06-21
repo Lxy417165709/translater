@@ -1,4 +1,4 @@
-package syntex
+package table
 
 import (
 	"conf"
@@ -23,23 +23,23 @@ func (stf *StateTable) flushBufferOfSet() {
 	stf.bufferOfSet = map[string][]string{}
 }
 func (stf *StateTable) initHandlingProductionPosition() {
-	stf.positionOfHandlingProduction = 0
+	stf.indexOfHandlingProduction = 0
 }
 func (stf *StateTable) initHandleProductionSentencePosition() {
-	stf.positionOfHandlingProductionSentence = 0
+	stf.indexOfHandlingProductionSentence = 0
 }
 func (stf *StateTable) goToHandleNextProduction() {
-	stf.positionOfHandlingProduction++
+	stf.indexOfHandlingProduction++
 }
 func (stf *StateTable) goToHandleNextProductionSentence() {
-	stf.positionOfHandlingProductionSentence++
+	stf.indexOfHandlingProductionSentence++
 }
 func (stf *StateTable) handlingProductionsIsNotOver() bool {
-	return stf.positionOfHandlingProduction < len(stf.productions)
+	return stf.indexOfHandlingProduction < len(stf.productions)
 }
 func (stf *StateTable) handlingProductionSentenceIsNotOver() bool {
-	handlingProduction := stf.productions[stf.positionOfHandlingProduction]
-	return stf.positionOfHandlingProductionSentence < len(handlingProduction.sentences)
+	handlingProduction := stf.productions[stf.indexOfHandlingProduction]
+	return stf.indexOfHandlingProductionSentence < len(handlingProduction.sentences)
 }
 func (stf *StateTable) appendToBufferOfSet(key string, symbols ...string) {
 	stf.bufferOfSet[key] = append(stf.bufferOfSet[key], symbols...)
@@ -48,7 +48,7 @@ func (stf *StateTable) getNonTerminators() []string {
 	result := make([]string, 0)
 	hasAdded := make(map[string]bool)
 	for _, production := range stf.productions {
-		nonTerminator := production.leftNonTerminator
+		nonTerminator := production.nonTerminator
 		if hasAdded[nonTerminator] {
 			continue
 		}
@@ -58,6 +58,9 @@ func (stf *StateTable) getNonTerminators() []string {
 	return result
 }
 
+
+
+// TODO: 这些函数或许可以提取出来
 func arrayHasTerminator(array []string, terminator string) bool {
 	for _, element := range array {
 		if element == terminator {
@@ -76,6 +79,8 @@ func getProductions(filePath string) []*production {
 	}
 	return originProductions
 }
+
+
 func removeBlankSymbol(symbols []string) []string {
 	result := make([]string, 0)
 	for _, symbol := range symbols {

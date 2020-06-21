@@ -6,21 +6,21 @@ import (
 	"os"
 )
 
-// TODO: 命名有误
-type TestDir struct {
-	dirPath string
+type TestableDirectory struct {
+	path string
 	tables []Testable
-	testType TestName
+	testType TypeOfTest
 }
 
-func NewTestDir(dirPath string,testType TestName) *TestDir {
-	return &TestDir{dirPath:dirPath,testType:testType}
+func NewTestableDirectory(path string,testType TypeOfTest) *TestableDirectory {
+	return &TestableDirectory{path:path,testType:testType}
 }
 
-func (td *TestDir)GetTestType() TestName{
+func (td *TestableDirectory)GetTypeOfTest() TypeOfTest{
 	return td.testType
 }
-func (td *TestDir) Test() bool {
+
+func (td *TestableDirectory) Test() bool {
 	td.testInit()
 	for _,table := range td.tables{
 		if !table.Test(){
@@ -29,7 +29,8 @@ func (td *TestDir) Test() bool {
 	}
 	return true
 }
-func (td *TestDir) GetErrMsg() string{
+
+func (td *TestableDirectory) GetErrMsg() string{
 	for index, table := range td.tables {
 		if table.Test() == false {
 			return fmt.Sprintf(
@@ -42,18 +43,19 @@ func (td *TestDir) GetErrMsg() string{
 	panic("测试无错误，这的代码不应该执行")
 }
 
-func (td *TestDir) testInit() {
-	infos,err := ioutil.ReadDir(td.dirPath)
+func (td *TestableDirectory) testInit() {
+	infos,err := ioutil.ReadDir(td.path)
 	if err!=nil{
 		panic(err)
 	}
 	td.parse(infos)
 }
-func (td *TestDir) parse(infos []os.FileInfo) {
+
+func (td *TestableDirectory) parse(infos []os.FileInfo) {
 	for _,info := range infos{
 		td.tables = append(td.tables,
-			NewTestTable(
-				fmt.Sprintf(`%s\%s`,td.dirPath,info.Name()),
+			NewTestableTable(
+				fmt.Sprintf(`%s\%s`,td.path,info.Name()),
 				td.testType,
 			),
 		)

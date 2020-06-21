@@ -1,36 +1,33 @@
 package lex
 
 import (
+	"lex/terminator"
 	"lex/token"
 )
 
 type LexicalAnalyzer struct {
-	tokenParser *token.TokenParser
-	symbolPairParser *TerminatorPairParser
+	tokenParser *token.Parser
+	terminatorPairParser *terminator.Parser
 }
 
 func NewLexicalAnalyzer()*LexicalAnalyzer {
 	return &LexicalAnalyzer{
-		tokenParser:token.NewTokenParser(),
-		symbolPairParser:NewSymbolPairParser(),
+		tokenParser:          token.NewParser(),
+		terminatorPairParser: terminator.NewParser(),
 	}
 }
 
-func (la *LexicalAnalyzer)GetTerminatorPairs(text []byte) []*TerminatorPair{
+func (la *LexicalAnalyzer)GetPairs(text []byte) []*terminator.Pair{
 	tokens := la.tokenParser.GetTokens(text)
-	result := make([]*TerminatorPair,0)
+	result := make([]*terminator.Pair,0)
 	for _,tk := range tokens{
-		terminatorPair := la.symbolPairParser.changeTokenToTerminatorPair(tk)
+		terminatorPair := la.terminatorPairParser.ChangeTokenToTerminatorPair(tk)
 		result = append(result,terminatorPair)
 	}
 	return result
 }
 
 func (la *LexicalAnalyzer)GetAllTerminators() []string{
-	terminators := make([]string,0)
-	for _,terminator := range la.symbolPairParser.kindCodeToTerminators{
-		terminators = append(terminators,terminator)
-	}
-	return terminators
+	return la.terminatorPairParser.GetAllTerminators()
 }
 

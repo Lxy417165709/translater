@@ -71,21 +71,6 @@ specialCharItem{
 
 
 
-特殊符号|类型|种别码编码规则|匹配
---|--|--|--
-D|数字|-1|0 ,1,2,3,4,5,6,7,8,9
-L|字母|-1|a,b,c,d,e,f,g,h,i,j,k,l,m,n,o,p,q,r,s,t,u,v,w,x,y,z
-T|字母或数字|-1|D,L
-W|关键字|0|if,while,for,int,else,end,begin
-O|操作符|0|*,/,+,-
-Y|LEFT_PAR|0|(
-U|RIGHT_PAR|0|)
-J|界符|0|;,(,), [ , ] ,{,}
-I|IDE|100|LT$
-Z|ZS|101|D@
-X|小数|102|Z.Z
-S|字符串|103|"T$"
-
 
 给出特殊字符表。
 
@@ -105,28 +90,52 @@ NFABuilder 构建W I Z 的自动机，最后进行并联
 
 给出产生式表，得出该表的状态转换图。通过状态转换图对 newStructs 进行语法分析，构建语法树。
 
-
-
-
-
-
 配置层 conf  (统领全局)
 
 测试层 test
     -> 对 NFA 的测试
-    -> 对 xxx 的测试
+    -> 对 Syntax 的测试
+
+
 语法层 syntax
     -> 语法分析器
-    -> 状态表
+        -> 状态表 1
 词法层 lex
-    -> token解析器        LU: token Token(实现将 wordPair->token)   (所以这一层可以不要...)
     -> 词法分析器 LU: terminatorPair
-    -> terminatorPair解析器 LU: terminatorPair (实现将token->terminatorPair)
+        -> terminatorPair解析器 LU: terminatorPair (实现将token->terminatorPair)
+        -> token解析器        LU: token Token(实现将 wordPair->token)
 正则层 grammar
     -> 自动机             LU: wordPair WordPair
-    -> 特殊字符表         LU: specialChar byte
+        -> 特殊字符表         LU: specialChar byte
 
 
+
+布尔型规定：
+    用 is、can、have... 开头
+    函数返回布尔型形时，只能返回bool形，不要返回err，内部的err使用panic
+
+变量名规定：
+    reading --> 只会读取，不会修改
+    handling --> 会读取，且会修改其内部
+
+类函数名规定：
+    Show()          --> 进行标准输出
+    Store()         --> 将信息存储到文件
+    Form()          --> 用于形成类的成员
+    Get()           --> 返回相应的值
+    Init()          --> 用于 New 内 形成类成员，或者用在 包的初始化函数 内
+    Remove()        --> 用于删除XXX，不会影响本体
+    Delete()        --> 用于删除XXX，并会影响本体
+
+
+测试规定:
+
+
+包规定命名:
+    不要用驼峰，如 helloWorld
+    要一个单词说明问题，且全是小写字母
+
+文件名规定:
 
 
 

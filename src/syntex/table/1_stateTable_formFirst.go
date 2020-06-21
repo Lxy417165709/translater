@@ -1,4 +1,4 @@
-package syntex
+package table
 
 import (
 	"conf"
@@ -12,14 +12,12 @@ func (stf *StateTable) formFirst() {
 	)
 }
 
-
-
-
 func (stf *StateTable) initGetFirst() {
 	stf.first = make(map[string][]string)
 	stf.bufferOfSet = make(map[string][]string)
 	stf.initProductions()
 }
+
 func (stf *StateTable) initProductions()  {
 	for _, originProduction := range getProductions(conf.GetConf().SyntaxConf.SyntaxFilePath) {
 		stf.productions = append(stf.productions, originProduction.ChangeToNonLeftRecursionProductions()...)
@@ -29,8 +27,8 @@ func (stf *StateTable) initProductions()  {
 
 
 func (stf *StateTable) handleGettingFirst() {
-	handlingProduction := stf.productions[stf.positionOfHandlingProduction]
-	handlingSentence := handlingProduction.sentences[stf.positionOfHandlingProductionSentence]
+	handlingProduction := stf.productions[stf.indexOfHandlingProduction]
+	handlingSentence := handlingProduction.sentences[stf.indexOfHandlingProductionSentence]
 	if handlingSentence.IsBlank() {
 		stf.handleGettingFirstOfSentenceIsBlank()
 	} else {
@@ -39,10 +37,10 @@ func (stf *StateTable) handleGettingFirst() {
 }
 func (stf *StateTable) syncBufferOfFirst() bool {
 	firstSetHasBeenUpdated := false
-	for leftNonTerminator,sentence:= range stf.bufferOfSet{
+	for nonTerminator,sentence:= range stf.bufferOfSet{
 		for _,symbol := range sentence{
-			if !stf.terminatorIsLivingInfirst(leftNonTerminator, symbol) {
-				stf.first[leftNonTerminator] = append(stf.first[leftNonTerminator], symbol)
+			if !stf.terminatorIsLivingInFirst(nonTerminator, symbol) {
+				stf.first[nonTerminator] = append(stf.first[nonTerminator], symbol)
 				firstSetHasBeenUpdated= true
 			}
 		}
@@ -52,27 +50,30 @@ func (stf *StateTable) syncBufferOfFirst() bool {
 }
 
 func (stf *StateTable) handleGettingFirstOfSentenceIsBlank() {
-	handlingProduction := stf.productions[stf.positionOfHandlingProduction]
-	stf.appendToBufferOfSet(handlingProduction.leftNonTerminator,conf.GetConf().SyntaxConf.BlankSymbol)
+	handlingProduction := stf.productions[stf.indexOfHandlingProduction]
+	blankSymbol := conf.GetConf().SyntaxConf.BlankSymbol
+	nonTerminator := handlingProduction.nonTerminator
+	stf.appendToBufferOfSet(nonTerminator,blankSymbol)
 }
 func (stf *StateTable) handleGettingFirstOfSentenceIsNotBlank() {
-	handlingProduction := stf.productions[stf.positionOfHandlingProduction]
+	handlingProduction := stf.productions[stf.indexOfHandlingProduction]
 	handlingSymbols := stf.getHandlingSymbols()
 	for index, symbol := range handlingSymbols {
+		nonTerminator := handlingProduction.nonTerminator
 		switch {
 		case stf.isTerminator(symbol):
-			stf.appendToBufferOfSet(handlingProduction.leftNonTerminator,symbol)
+			stf.appendToBufferOfSet(nonTerminator,symbol)
 			return
 		case !hasBlankSymbol(stf.first[symbol]):
-			stf.appendToBufferOfSet(handlingProduction.leftNonTerminator,removeBlankSymbol(stf.first[symbol])...)
+			stf.appendToBufferOfSet(nonTerminator,removeBlankSymbol(stf.first[symbol])...)
 			return
 		case hasBlankSymbol(stf.first[symbol]):
 			isHandlingLastSymbol := index == len(handlingSymbols)-1
 			if isHandlingLastSymbol {
-				stf.appendToBufferOfSet(handlingProduction.leftNonTerminator,stf.first[symbol]...)
+				stf.appendToBufferOfSet(nonTerminator,stf.first[symbol]...)
 				continue
 			}
-			stf.appendToBufferOfSet(handlingProduction.leftNonTerminator,removeBlankSymbol(stf.first[symbol])...)
+			stf.appendToBufferOfSet(nonTerminator,removeBlankSymbol(stf.first[symbol])...)
 		default:
 			stf.error()
 		}
@@ -82,14 +83,15 @@ func (stf *StateTable) handleGettingFirstOfSentenceIsNotBlank() {
 func (stf *StateTable)getHandlingSymbols() []string{
 	return stf.getHandlingSentence().symbols
 }
-func (stf *StateTable)getHandlingSentence() *sentence{
-	handlingProduction := stf.productions[stf.positionOfHandlingProduction]
-	handlingSentence := handlingProduction.sentences[stf.positionOfHandlingProductionSentence]
+func (stf *StateTable)getHandlingSentence() *Sentence{
+	handlingProduction := stf.productions[stf.indexOfHandlingProduction]
+	handlingSentence := handlingProduction.sentences[stf.indexOfHandlingProductionSentence]
 	return handlingSentence
 }
 
-func (stf *StateTable) terminatorIsLivingInfirst(leftNonTerminator string, terminator string) bool {
-	return arrayHasTerminator(stf.first[leftNonTerminator],terminator)
+// TODO: 这个命名不太准确
+func (stf *StateTable) terminatorIsLivingInFirst(nonTerminator string, terminator string) bool {
+	return arrayHasTerminator(stf.first[nonTerminator],terminator)
 }
 
 

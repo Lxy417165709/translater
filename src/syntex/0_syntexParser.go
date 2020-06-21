@@ -2,23 +2,26 @@ package syntex
 
 import (
 	"lex"
+	"lex/terminator"
+	"syntex/table"
 )
 
 
 type SyntaxParser struct {
 	lexicalAnalyzer *lex.LexicalAnalyzer
-	stateTable *StateTable
+	stateTable *table.StateTable
 
-	symbolsStack []string
-	terminatorPairs []*lex.TerminatorPair
-	readingPosition int
+	syntaxTreeRoot *TreeNode
+	treeNodeStack []*TreeNode
+	terminatorPairs []*terminator.Pair
+	readingPosition int			// TODO: 命名不好
 }
 
 func NewSyntaxParser() *SyntaxParser{
 	lexicalAnalyzer := lex.NewLexicalAnalyzer()
 	sp := &SyntaxParser{
 		lexicalAnalyzer:lexicalAnalyzer,
-		stateTable:NewStateTable(lexicalAnalyzer.GetAllTerminators()),
+		stateTable:table.NewStateTable(lexicalAnalyzer.GetAllTerminators()),
 	}
 	return sp
 }

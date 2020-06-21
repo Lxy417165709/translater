@@ -1,4 +1,4 @@
-package syntex
+package table
 
 import (
 	"conf"
@@ -24,8 +24,8 @@ func (stf *StateTable) initGetFollow() {
 
 }
 func (stf *StateTable) handleGettingFollow() {
-	handlingProduction := stf.productions[stf.positionOfHandlingProduction]
-	handlingProductionSentence := handlingProduction.sentences[stf.positionOfHandlingProductionSentence]
+	handlingProduction := stf.productions[stf.indexOfHandlingProduction]
+	handlingProductionSentence := handlingProduction.sentences[stf.indexOfHandlingProductionSentence]
 
 	for i := 0; i < len(handlingProductionSentence.symbols); i++ {
 		nowSymbol := handlingProductionSentence.symbols[i]
@@ -34,14 +34,14 @@ func (stf *StateTable) handleGettingFollow() {
 		}
 		isHandlingLastSymbol := i == len(handlingProductionSentence.symbols)-1
 		isHandlingLastTwoSymbol := i == len(handlingProductionSentence.symbols)-2
-
+		nonTerminator := handlingProduction.nonTerminator
 		switch {
 		case isHandlingLastSymbol :
-			stf.appendToBufferOfSet(nowSymbol, stf.follow[handlingProduction.leftNonTerminator]...)
+			stf.appendToBufferOfSet(nowSymbol, stf.follow[nonTerminator]...)
 		case isHandlingLastTwoSymbol:
 			nextSymbol := handlingProductionSentence.symbols[i+1]
 			if hasBlankSymbol(stf.first[nextSymbol]) {
-				stf.appendToBufferOfSet(nowSymbol, stf.follow[handlingProduction.leftNonTerminator]...)
+				stf.appendToBufferOfSet(nowSymbol, stf.follow[nonTerminator]...)
 			}
 			fallthrough
 		default:
@@ -56,10 +56,10 @@ func (stf *StateTable) handleGettingFollow() {
 }
 func (stf *StateTable) syncBufferOfFollow() bool {
 	followSetHasBeenUpdated := false
-	for leftNonTerminator, sentence := range stf.bufferOfSet {
+	for nonTerminator, sentence := range stf.bufferOfSet {
 		for _, symbol := range sentence {
-			if !stf.terminatorIsLivingInFollow(leftNonTerminator, symbol) {
-				stf.follow[leftNonTerminator] = append(stf.follow[leftNonTerminator], symbol)
+			if !stf.terminatorIsLivingInFollow(nonTerminator, symbol) {
+				stf.follow[nonTerminator] = append(stf.follow[nonTerminator], symbol)
 				followSetHasBeenUpdated = true
 			}
 		}
@@ -68,7 +68,7 @@ func (stf *StateTable) syncBufferOfFollow() bool {
 	return followSetHasBeenUpdated
 }
 
-func (stf *StateTable) terminatorIsLivingInFollow(leftNonTerminator string, terminator string) bool {
-	return arrayHasTerminator(stf.follow[leftNonTerminator], terminator)
+func (stf *StateTable) terminatorIsLivingInFollow(nonTerminator string, terminator string) bool {
+	return arrayHasTerminator(stf.follow[nonTerminator], terminator)
 }
 
