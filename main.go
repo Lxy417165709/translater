@@ -1,8 +1,10 @@
 package main
 
 import (
+	"bufio"
 	"conf"
 	"fmt"
+	"os"
 	"syntex"
 	"test"
 )
@@ -14,9 +16,35 @@ const sourceFilePath = `C:\Users\hasee\Desktop\Go_Practice\translater\conf\2_sou
 func main() {
 	conf.Init(configureFilePath)
 	p :=syntex.NewSyntaxParser()
-	p.GetSyntaxTree([]byte("8*1-5+10/5*5"))
-	p.ShowSyntaxTree()
-	fmt.Println(p.GetSyntaxTreeResult())
+
+	defer func () {
+		if err := recover();err!=nil{
+			fmt.Println(err)
+		}
+	}()
+
+	var code string
+	for {
+		fmt.Print("> ")
+		var codePart string
+		Scanf(&codePart)
+		if len(codePart)!=0{
+			code = code+codePart
+			continue
+		}
+
+
+		p.GetSyntaxTree([]byte(code))
+		p.ParseSyntaxTree()
+		code=""
+	}
+}
+
+
+func Scanf(a *string) {
+	reader := bufio.NewReader(os.Stdin)
+	data, _, _ := reader.ReadLine()
+	*a = string(data)
 }
 
 

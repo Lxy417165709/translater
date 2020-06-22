@@ -2,7 +2,6 @@ package token
 
 import (
 	"fmt"
-	"strconv"
 )
 
 type Token struct {
@@ -22,14 +21,14 @@ func (t *Token)ToLine(lineIndex int) string{
 	)
 }
 func (t *Token) GetRealValue() interface{} {
-	switch t._type {
-	case "整数":
-		realValue,err :=strconv.Atoi(t.value)
-		if err!=nil{
-			panic(err)
-		}
-		return realValue
-	}
+	//switch t._type {
+	//case "整数":
+	//	realValue,err :=strconv.Atoi(t.value)
+	//	if err!=nil{
+	//		panic(err)
+	//	}
+	//	return realValue
+	//}
 	return t.value
 }
 func (t *Token) GetKindCode() int{

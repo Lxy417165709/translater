@@ -16,15 +16,15 @@
   },
   "LexicalConf": {
     "SourceFilePath": "C:\\Users\\hasee\\Desktop\\Go_Practice\\translater\\conf\\2_source.md",
-    "SpecialCharsOfNFAs": "WIZXJO",
+    "SpecialCharsOfNFAs": "WIZXJOB",
     "KindCodeToTerminatorFilePath": "C:\\Users\\hasee\\Desktop\\Go_Practice\\translater\\conf\\KindCodeToTerminator.md",
     "DelimiterOfKindCodeToTerminator": "||"
   },
   "SyntaxConf": {
-    "SyntaxFilePath": "C:\\Users\\hasee\\Desktop\\Go_Practice\\translater\\conf\\LL1",
+    "SyntaxFilePath": "C:\\Users\\hasee\\Desktop\\Go_Practice\\translater\\conf\\LL1_nonLeftRecursion",
     "EndSymbol": "END",
     "BlankSymbol": "BLA",
-    "StartSymbol": "EXP",
+    "StartSymbol": "BEGIN",
     "AdditionCharBeginChar": "'",
     "DelimiterOfSyntaxPieces": "->",
     "DelimiterOfSentences": "|",

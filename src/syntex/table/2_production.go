@@ -32,6 +32,8 @@ func (u *production) Parse(line string) {
 		u.sentences = append(u.sentences,sentence)
 	}
 }
+
+// 消除左递归的函数，但只是消除了直接左递归
 func (u *production) ChangeToNonLeftRecursionProductions() []*production {
 	result := make([]*production, 0)
 	if !u.hasLeftRecursionSentence() {

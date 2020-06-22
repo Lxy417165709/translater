@@ -1,0 +1,12 @@
+EXPt' -> * EXPf EXPt' | / EXPf EXPt'| BLA
+EXP'  -> + EXPt EXP'| - EXPt EXP'| BLA
+EXPf  -> IDE | ( EXP ) | ZS | XS
+EXPt  -> EXPf EXPt'
+EXP   -> EXPt EXP'
+FZ    -> IDE = EXP
+TJEXP -> EXP BJOPT EXP
+BJOPT -> ==| <= | > | >= | > | <
+PD -> if TJEXP { BEGIN } PD'
+PD' -> else { BEGIN } |BLA
+FUNC -> print EXP|cube EXP|PD
+BEGIN -> FUNC|FZ|BLA

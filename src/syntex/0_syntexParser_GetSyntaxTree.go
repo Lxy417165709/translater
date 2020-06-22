@@ -35,7 +35,7 @@ func (sp *SyntaxParser) readingIsNotOver() bool {
 	return sp.readingPosition != len(sp.terminatorPairs)
 }
 func (sp *SyntaxParser) execGetSyntaxTree() {
-	sp.showParsingMiddleWares()
+	//sp.showParsingMiddleWares()
 	switch {
 	case sp.symbolOfStackTopIsBlank():
 		sp.symbolStackPop()

@@ -1,5 +1,6 @@
 package table
 
+// 不符合SRP
 type StateTable struct {
 	productions []*production // 消除了左递归的产生式
 	terminators []string
@@ -20,6 +21,7 @@ func NewStateTable(terminators []string) *StateTable {
 		terminators: terminators,
 	}
 	stf.formTable()
+	//stf.Show()
 	return stf
 }
 

@@ -22,6 +22,14 @@ func (stf *StateTable) initProductions()  {
 	for _, originProduction := range getProductions(conf.GetConf().SyntaxConf.SyntaxFilePath) {
 		stf.productions = append(stf.productions, originProduction.ChangeToNonLeftRecursionProductions()...)
 	}
+	// 输出无左递归的产生式
+	//for i:=0;i<len(stf.productions);i++{
+	//	fmt.Println(stf.productions[i].nonTerminator,"->")
+	//	for t:=0;t<len(stf.productions[i].sentences);t++{
+	//		fmt.Printf("\t")
+	//		fmt.Println(stf.productions[i].sentences[t].symbols)
+	//	}
+	//}
 
 }
 
