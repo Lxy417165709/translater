@@ -1,0 +1,12 @@
+T' -> * F T' | / F T'| BLA
+E'  -> + T E'| - T E'| BLA
+F  -> ide | ( E ) | sz
+T  -> F T'
+E   -> T E'
+FZ    -> ide = E
+TJE -> E C E
+C -> ==| <= | > | >= | > | <
+PD -> if TJE { BEGIN } PD'
+PD' -> else { BEGIN } |BLA
+FUNC -> print E
+BEGIN -> FUNC|FZ|PD|BLA

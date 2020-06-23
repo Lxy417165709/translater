@@ -1,0 +1,33 @@
+{
+
+  "CompilerConf": {
+    "SynAnalyzerConf": {
+      "StateTableConf": {
+        "LLOneTableConf": {
+          "FilePath": "C:\\Users\\hasee\\Desktop\\Go_Practice\\compiler\\doc\\LL1_Grammar",
+          "DelimiterOfPieces":"->",
+          "DelimiterOfSentences": "|",
+          "DelimiterOfSymbols":" ",
+          "BlankSymbol": "BLA",
+          "StartSymbol": "BEGIN",
+          "EndSymbol": "END"
+        }
+      }
+    },
+    "LexAnalyzerConf": {
+      "SymbolTableConf": {
+        "FilePath": "C:\\Users\\hasee\\Desktop\\Go_Practice\\compiler\\doc\\SymbolTableConf",
+        "DelimiterOfPieces":"|"
+      },
+      "NFABuilderConf": {
+        "SpecialCharTableConf": {
+          "FilePath": "C:\\Users\\hasee\\Desktop\\Go_Practice\\compiler\\doc\\Table_SpecialChar",
+          "DelimiterOfPieces":"|",
+          "DelimiterOfWords":",",
+          "SpecialCharOfMarchMoreThanOnce": "@",
+          "SpecialCharOfMarchMoreThanZeroTimes": "$"
+        }
+      }
+    }
+  }
+}
